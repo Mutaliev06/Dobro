@@ -23,6 +23,10 @@ const noteSchema = new mongoose.Schema(
       type: String,
       required: true,
       ref: "Category"
+    },
+    completed: {
+      type: Boolean,
+      required: true
     }
   },
   { timestamps: true }
