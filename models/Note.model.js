@@ -4,30 +4,35 @@ const noteSchema = new mongoose.Schema(
   {
     text: {
       type: String,
-      required: true
+      required: true,
     },
     pathToImage: {
       type: String,
-      required: true
+      required: false,
     },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'User',
-      required: true
+      ref: "User",
+      required: true,
     },
     comments: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Comment'
+      ref: "Comment",
+      required: false
     },
     category: {
       type: String,
-      required: true,
-      ref: "Category"
-    }
+      required: false,
+      ref: "Category",
+    },
+    completed: {
+      type: Boolean,
+      required: false,
+    },
   },
   { timestamps: true }
 );
 
-const Note = mongoose.model('Note', noteSchema)
+const Note = mongoose.model("Note", noteSchema);
 
 module.exports = Note;
