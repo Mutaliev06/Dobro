@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-g
-=======
 const { Router } = require('express')
 const { categoryControllers } = require('../controllers/categories.controller')
 
@@ -10,5 +7,3 @@ router.get('/category', categoryControllers.getAllCategory)
 router.post('/category', categoryControllers.createCategory)
 
 module.exports = router
-
->>>>>>> main

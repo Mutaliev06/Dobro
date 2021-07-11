@@ -9,4 +9,6 @@ router.use(require("./categories.route"));
 
 router.use(require("./notes.route"));
 
+router.use(require('./upload.route'));
+
 module.exports = router;
