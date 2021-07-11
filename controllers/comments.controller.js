@@ -1,9 +1,7 @@
 const Comment = require("../models/Comment.model");
-const jwt = require('jsonwebtoken')
-
 
 module.exports.commentControllers = {
-  getCommentNote: async (req, res) => {
+  getNoteComments: async (req, res) => {
     const { id } = req.params
     try {
       const comment = await Comment.find({ note: id });
@@ -16,19 +14,11 @@ module.exports.commentControllers = {
 
   createComment: async (req, res) => {
     const { text } = req.body;
-    const { authorization } = req.headers;
-    const [type, token] = authorization.split(' ');
-
-    if (type !== "bearer") {
-      return res.status(400).json('неверный тип токена')
-    }
     try {
-
-      const payload = await jwt.verify(token, process.env.SECRET_KEY)
-
       const comment = await Comment.create({
-        user: payload.id,
+        user:req.user.id,
         text,
+        note: req.params.id
       });
       res.json(comment);
     }
@@ -36,22 +26,12 @@ module.exports.commentControllers = {
       res.json(e);
     }
   },
+
   deleteComment: async (req, res) => {
     const { id } = req.params;
-    const { authorization } = req.headers;
-    const [type, token] = authorization.split(' ');
-    if (!authorization) {
-      //
-    }
-    if (type !== "Bearer") {
-      return res.status(400).json('неверный тип токена')
-    }
     try {
-
-      const payload = await jwt.verify(token, process.env.SECRET_KEY)
-
       const comment = await Comment.findById(id);
-      if(comment.user.toString() === payload.id){
+      if(comment.user.toString() === req.user.id){
         await comment.remove()
         res.json('Удалено');
       }
@@ -62,18 +42,3 @@ module.exports.commentControllers = {
     }
   },
 }
-//   patchReport: async (req, res) => {
-//     try {
-//       const { id } = req.params;
-//       const { text,  } = req.body;
-//       const patchReport = await Comment.findByIdAndUpdate(id, {
-//         report,
-//         status,
-//       }, { new: true });
-//       console.log(patchReport)
-//       res.json(patchReport);
-//     } catch (e) {
-//       res.json(e);
-//     }
-//   },
-// };
