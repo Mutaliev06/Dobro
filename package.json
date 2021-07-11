@@ -29,6 +29,7 @@
     "prettier": "2.3.2"
   },
   "dependencies": {
+    "express-fileupload": "^1.2.1",
     "chalk": "^4.1.1",
     "cors": "^2.8.5",
     "mongoose": "^5.13.0",

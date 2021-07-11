@@ -7,4 +7,3 @@ router.get('/', categoryControllers.getAllCategory)
 router.post('/', categoryControllers.createCategory)
 
 module.exports = router
-

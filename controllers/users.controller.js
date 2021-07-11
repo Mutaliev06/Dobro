@@ -2,6 +2,8 @@ const User = require("../models/User.model");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
+
+
 module.exports.usersController = {
   getUsers: async (req, res) => {
     try {
@@ -57,5 +59,6 @@ module.exports.usersController = {
     }  catch (e) {
       res.json(e.message);
     }
-  }
+  },
+
 };
