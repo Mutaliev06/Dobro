@@ -6,14 +6,14 @@ module.exports.categoryControllers = {
     return res.json(category);
   },
 
-  postCategory: async (req, res) => {
+  createCategory: async (req, res) => {
     try {
-      const { name } = req.body;
-      const category = await Category.create({ name });
+      const { title } = req.body;
+      const category = await Category.create({ title });
 
       res.status(200).json(category);
     } catch (e) {
-      res.status(400).json("не  удалось добавить пользователя");
+      res.status(400).json("не  удалось добавить категорию");
     }
   },
 };
