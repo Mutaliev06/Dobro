@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const router = Router();
 
-router.use(require("./users.route"));
+router.use('/users', require("./users.route"));
 
-router.use(require("./comments.route"));
+router.use('/comments', require("./comments.route"));
 
-router.use(require("./categories.route"));
+router.use('/categories',require("./categories.route"));
 
-router.use(require("./notes.route"));
+router.use('/notes', require("./notes.route"));
 
 module.exports = router;
