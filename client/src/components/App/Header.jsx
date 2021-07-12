@@ -9,7 +9,11 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
+// import logo from './logo-blue.svg'
+
 import logo from './logo-white.svg'
+
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCategories } from '../../redux/features/categories';
 
@@ -62,7 +66,7 @@ function Header() {
       <AppBar color='transparent' position="sticky" className={classes.appbar}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-           <img src={logo}/>
+           {/*<img src={logo}/>*/}
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             <FormControl className={classes.formControl}>
