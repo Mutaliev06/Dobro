@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Button,
-  FormControl, FormHelperText,
+  FormControl,
+  FormHelperText,
   IconButton,
-  MenuItem, Select,
+  InputLabel,
+  MenuItem,
+  Select,
   Toolbar,
-  Typography
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-// import logo from './logo-blue.svg'
-
-import logo from './logo-white.svg'
-
-import { useDispatch, useSelector } from 'react-redux';
-import { loadCategories } from '../../redux/features/categories';
+  Typography,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import logo from "./logo-white.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { loadCategories } from "../../redux/features/categories";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,22 +26,26 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-
   },
   appbar: {
-    backgroundColor: '#000841',
+    backgroundColor: "#000841",
     borderRadius: 6,
     width: "96%",
-    margin: 'auto',
-    color: 'white'
+    margin: "auto",
+    color: "white",
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
   selectEmpty: {
-    color: 'white',
+    color: "white",
     marginTop: theme.spacing(2),
+  },
+  selectTitle: {
+    textDecoration: "none",
+    color: "white",
+    backgroundColor: "#000841",
   },
 }));
 
@@ -60,14 +64,20 @@ function Header() {
 
   const classes = useStyles();
 
-
   return (
     <div>
-      <AppBar color='transparent' position="sticky" className={classes.appbar}>
+      <AppBar color="transparent" position="sticky" className={classes.appbar}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-           {/*<img src={logo}/>*/}
-          </IconButton>
+          <NavLink color="inherit" to={`/`}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <img src={logo} />
+            </IconButton>
+          </NavLink>
           <Typography variant="h6" className={classes.title}>
             <FormControl className={classes.formControl}>
               <Select
@@ -75,13 +85,22 @@ function Header() {
                 className={classes.selectEmpty}
                 value={category}
                 onChange={handleChangeCategory}
-                inputProps={{ 'aria-label': 'Without label' }}
+                inputProps={{ "aria-label": "Without label" }}
               >
-                {categories.map(item => (
+                <MenuItem value="" disabled>
+                  Мероприятия
+                </MenuItem>
+                {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id}>
-                    {item.title}
+                    <NavLink
+                      className={classes.selectTitle}
+                      to={`/notes/${item._id}`}
+                    >
+                      {item.title}
+                    </NavLink>
                   </MenuItem>
-                  ))}}
+                ))}
+                }
               </Select>
               <FormHelperText></FormHelperText>
             </FormControl>
