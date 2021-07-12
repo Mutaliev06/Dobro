@@ -9,7 +9,11 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 // import logo from './logo-blue.svg'
+
+import logo from './logo-white.svg'
+
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCategories } from '../../redux/features/categories';
 
