@@ -1,40 +1,57 @@
-import React, { Component } from "react";
-import Slider from "react-slick";
+import React, { useEffect } from 'react';
+import {  useSelector } from "react-redux";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography
+} from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { loadNotes } from '../../redux/features/notes';
 
-export default class Notes extends Component {
-  render() {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
+function Notes(props) {
+  const dispatch = useDispatch();
+  const notes = useSelector((state) => state.notes.items);
 
-    return (
-      <div>
-        <h2> Single Item</h2>
-        <Slider {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-        </Slider>
-      </div>
-    );
-  }
+  useEffect(() => {
+    dispatch(loadNotes());
+  }, [dispatch]);
+
+
+  return (
+    <div>
+      {notes.map(item => (
+        <Card>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Contemplative Reptile"
+              height="140"
+              image={item.pathToImage}
+
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {item.user}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {item.text}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Подробнее
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
+    </div>
+  );
 }
+
+export default Notes;
+
