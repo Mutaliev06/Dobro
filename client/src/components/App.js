@@ -1,10 +1,21 @@
 import Header from './App/Header';
 import Main from './App/Main';
 import Footer from './App/Footer';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) =>({
+    app: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column"
+    }
+
+}))
 
 function App() {
+  const classes = useStyles()
   return (
-    <div className="App">
+    <div className={classes.app}>
       <Header/>
       <Main/>
       <Footer/>

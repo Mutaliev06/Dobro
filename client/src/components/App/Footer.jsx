@@ -1,12 +1,12 @@
-import React from "react";
-import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Container, Grid, makeStyles,} from "@material-ui/core";
 import {
   AiFillYoutube,
-  GiLetterBomb,
   GrInstagram,
-  RiInstagramFill,
-  SiOdnoklassniki
 } from 'react-icons/all';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadCategories } from '../../redux/features/categories';
+import { NavLink } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: "#000841",
@@ -15,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     textAlign: "center",
     borderRadius: 10,
-
-
+    marginTop: 'auto',
+    position: 'sticky',
+    minWidth: '96%',
   },
   gridLeft: {
     width: 300,
@@ -32,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
     display: 'flex',
     justifyContent: 'space-around'
+  },
+  gm: {
+    fontSize: 40,
+    textDecoration: 'none'
   }
 
 }));
@@ -39,15 +44,24 @@ const useStyles = makeStyles((theme) => ({
 function Footer(props) {
   const classes = useStyles();
 
+  const dispatch = useDispatch()
+  const category = useSelector((state) => state.categories.items)
+
+
+  useEffect(() => {
+    dispatch(loadCategories())
+  },[dispatch])
+
+
   return (
-    <Container fixed className={classes.paper}>
+    <Container sticky className={classes.paper}>
       <Grid>
         <Grid item xs={6} className={classes.gridLeft}>
-          <a href='' className={classes.a}>Мероприятия</a>
-          <a href='' className={classes.a}>Помощь животным</a>
-          <a href='' className={classes.a}>Помошь людям</a>
-          <a href='' className={classes.a}>Проекты</a>
-          <a href='' className={classes.a}>О нас</a>
+          {category?.map(item => {
+            console.log(item)
+            return (
+              <NavLink to={`/notes/${item._id}`} classname={classes.gm}> {item.title} </NavLink>)
+          })}
         </Grid>
       </Grid>
       <Grid>
