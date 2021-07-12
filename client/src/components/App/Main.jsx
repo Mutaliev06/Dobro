@@ -1,6 +1,6 @@
 import React from 'react';
-import Notes from '../Notes/Notes';
-import SlideComponent from '../Notes/SlideComponent';
+import Notes from '../Main/Notes';
+import SlideComponent from '../Main/SlideComponent';
 
 function Main(props) {
   return (

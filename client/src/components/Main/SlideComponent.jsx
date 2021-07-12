@@ -18,7 +18,6 @@ export default function SlideComponent(props) {
 
   const loading = useSelector((state) => state.notes.loading);
 
-
   if (loading) {
     return <Preloader />;
   }

@@ -17,7 +17,7 @@ router.post('/upload/:id', (req, res) => {
     } else {
       const user = await User.findById(req.params.id);
 
-      user.pathToAvatar = fileName;
+      user.pathToImage = fileName;
       await user.save();
       res.json('Файл загружен');
     }
