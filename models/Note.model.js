@@ -15,10 +15,10 @@ const noteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    comments: {
+    volunteers: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "Comment",
-      required: false
+      ref: "User",
+      required: true
     },
     category: {
       type: String,
@@ -29,6 +29,14 @@ const noteSchema = new mongoose.Schema(
       type: Boolean,
       required: false,
     },
+    lastImage: {
+      type: String,
+      required: true
+    },
+    lastComment: {
+      type: String,
+      required: true
+    }
   },
   { timestamps: true }
 );

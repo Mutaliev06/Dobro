@@ -44,7 +44,7 @@ function Footer(props) {
       <Grid>
         <Grid item xs={6} className={classes.gridLeft}>
           <a href='' className={classes.a}>Мероприятия</a>
-          <a href='' className={classes.a} >Помощь животным</a>
+          <a href='' className={classes.a}>Помощь животным</a>
           <a href='' className={classes.a}>Помошь людям</a>
           <a href='' className={classes.a}>Проекты</a>
           <a href='' className={classes.a}>О нас</a>
@@ -62,7 +62,6 @@ function Footer(props) {
           </div>
         </Grid>
       </Grid>
-
     </Container>
   );
 }
