@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, Grid, makeStyles,} from "@material-ui/core";
+
 import {
   AiFillYoutube,
   GrInstagram,
@@ -15,9 +16,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     textAlign: "center",
     borderRadius: 10,
-    marginTop: 'auto',
-    position: 'sticky',
-    minWidth: '96%',
+    marginTop: "auto",
+    minWidth: "96%"
   },
   gridLeft: {
     width: 300,
@@ -54,7 +54,7 @@ function Footer(props) {
 
 
   return (
-    <Container sticky className={classes.paper}>
+    <Container className={classes.paper}>
       <Grid>
         <Grid item xs={6} className={classes.gridLeft}>
           {category?.map(item => {
