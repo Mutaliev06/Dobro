@@ -7,14 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"nodemon index\" \"cd client && npm start\""
   },
+  "eslintConfig": {
+    "extends": [
+      "airbnb/base",
+      "prettier"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^6.2.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.13.0",
     "nodemon": "^2.0.9",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^8.3.0",
@@ -26,6 +29,11 @@
     "prettier": "2.3.2"
   },
   "dependencies": {
+    "express-fileupload": "^1.2.1",
+    "chalk": "^4.1.1",
+    "cors": "^2.8.5",
+    "mongoose": "^5.13.0",
+    "express": "^4.17.1",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
