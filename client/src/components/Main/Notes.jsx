@@ -10,6 +10,7 @@ export default class Notes extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
     };
+
     return (
       <div>
         <h2> Single Item</h2>
