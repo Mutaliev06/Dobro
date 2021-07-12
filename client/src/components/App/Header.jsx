@@ -43,10 +43,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   selectTitle: {
+<<<<<<< HEAD
     textDecoration: 'none',
     color: 'white',
     backgroundColor: "#000841"
   }
+=======
+    textDecoration: "none",
+    color: "white",
+    backgroundColor: "#000841",
+  },
+>>>>>>> main
 }));
 
 function Header() {
@@ -66,6 +73,7 @@ function Header() {
 
   return (
     <div>
+<<<<<<< HEAD
 
       <AppBar color="transparent" position="sticky" className={classes.appbar}>
         <Toolbar>
@@ -78,6 +86,19 @@ function Header() {
           >
             <img src={logo} />
           </IconButton>
+=======
+      <AppBar color="transparent" position="sticky" className={classes.appbar}>
+        <Toolbar>
+          <NavLink color="inherit" to={`/`}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <img src={logo} />
+            </IconButton>
+>>>>>>> main
           </NavLink>
           <Typography variant="h6" className={classes.title}>
             <FormControl className={classes.formControl}>
@@ -93,8 +114,18 @@ function Header() {
                   Мероприятия
                 </MenuItem>
                 {categories.map((item) => (
+<<<<<<< HEAD
                   <MenuItem key={item.value} value={item._id} >
                     <NavLink className={classes.selectTitle} to={`/notes/${item._id}`}>{item.title}</NavLink>
+=======
+                  <MenuItem key={item.value} value={item._id}>
+                    <NavLink
+                      className={classes.selectTitle}
+                      to={`/notes/${item._id}`}
+                    >
+                      {item.title}
+                    </NavLink>
+>>>>>>> main
                   </MenuItem>
                 ))}
                 }

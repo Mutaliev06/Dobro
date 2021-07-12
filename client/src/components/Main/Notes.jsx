@@ -49,7 +49,10 @@ function Notes(props) {
           </CardActions>
         </Card>
       ))}
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     </div>
   );
 }
