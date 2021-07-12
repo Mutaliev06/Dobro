@@ -18,11 +18,11 @@ const noteSchema = new mongoose.Schema(
     volunteers: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
-      required: true
+      required: false
     },
     category: {
       type: String,
-      required: false,
+      required: true,
       ref: "Category",
     },
     completed: {
@@ -31,11 +31,11 @@ const noteSchema = new mongoose.Schema(
     },
     lastImage: {
       type: String,
-      required: true
+      required: false
     },
     lastComment: {
       type: String,
-      required: true
+      required: false
     }
   },
   { timestamps: true }
