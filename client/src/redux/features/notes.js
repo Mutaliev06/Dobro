@@ -27,7 +27,7 @@ export const loadNotes = () => {
     dispatch({
       type: "notes/load/pending",
     });
-    const response = await fetch("http://localhost:5500/");
+    const response = await fetch("http://localhost:5500/notes");
     const json = await response.json();
     dispatch({
       type: "notes/load/fulfilled",

@@ -1,11 +1,8 @@
 import React from "react";
-import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
+import { Container, Grid, makeStyles } from "@material-ui/core";
 import {
   AiFillYoutube,
-  GiLetterBomb,
   GrInstagram,
-  RiInstagramFill,
-  SiOdnoklassniki
 } from 'react-icons/all';
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -15,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     textAlign: "center",
     borderRadius: 10,
-
-
+    marginTop: "auto",
+    minWidth: "96%"
   },
   gridLeft: {
     width: 300,
@@ -40,7 +37,7 @@ function Footer(props) {
   const classes = useStyles();
 
   return (
-    <Container fixed className={classes.paper}>
+    <Container className={classes.paper}>
       <Grid>
         <Grid item xs={6} className={classes.gridLeft}>
           <a href='' className={classes.a}>Мероприятия</a>
