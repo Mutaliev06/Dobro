@@ -3,20 +3,23 @@ const initialState = {
   loading: false,
 };
 export default function categoriesReducer(state = initialState, action) {
-  switch (action.type){
+  switch (action.type) {
     case "categories/load/pending":
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case "categories/load/fulfilled":
       return {
         ...state,
         items: action.payload,
-        loading: false
-      }
+        loading: false,
+      };
+    default:
+      return state;
   }
 }
+
 export const loadCategories = () => {
   return async (dispatch) => {
     dispatch({ type: "categories/load/pending" });
@@ -27,4 +30,3 @@ export const loadCategories = () => {
     dispatch({ type: "categories/load/fulfilled", payload: json });
   };
 };
-
