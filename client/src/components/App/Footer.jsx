@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
     marginTop: 10,
     textAlign: 'start',
-    display: 'flex',
-    flexDirection: 'column'
+    fontSize: 20,
+    textDecoration: 'none'
+
   },
   a: {
     color: 'white'
@@ -36,7 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
   gm: {
     fontSize: 40,
-    textDecoration: 'none'
+  },
+
+  linkCss: {
+    // textDecoration: 'none'
   }
 
 }));
@@ -58,9 +62,11 @@ function Footer(props) {
       <Grid>
         <Grid item xs={6} className={classes.gridLeft}>
           {category?.map(item => {
-            console.log(item)
             return (
-              <NavLink to={`/notes/${item._id}`} classname={classes.gm}> {item.title} </NavLink>)
+              <p classname={classes.gm} >
+               <NavLink to={`/notes/${item._id}`}  classname={classes.linkCss}> {item.title} </NavLink>
+             </p>
+            )
           })}
         </Grid>
       </Grid>
