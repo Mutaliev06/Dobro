@@ -3,9 +3,7 @@ import {
   AppBar,
   Button,
   FormControl,
-  FormHelperText,
   IconButton,
-  InputLabel,
   MenuItem,
   Select,
   Toolbar,
@@ -43,11 +41,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   selectTitle: {
+    textDecoration: 'none',
+    color: 'white',
+    backgroundColor: "#000841"
+  },
+
     textDecoration: "none",
     color: "white",
     backgroundColor: "#000841",
-  },
-}));
+  }
+))
+
 
 function Header() {
   const [category, setCategory] = useState("");
@@ -77,6 +81,7 @@ function Header() {
             >
               <img src={logo} />
             </IconButton>
+
           </NavLink>
           <Typography variant="h6" className={classes.title}>
             <FormControl className={classes.formControl}>
@@ -91,21 +96,22 @@ function Header() {
                   Мероприятия
                 </MenuItem>
                 {categories.map((item) => (
-                  <MenuItem key={item.value} value={item._id}>
-                    <NavLink
-                      className={classes.selectTitle}
-                      to={`/notes/${item._id}`}
-                    >
-                      {item.title}
+                  <MenuItem key={item.value} value={item._id} >
+                    <NavLink className={classes.selectTitle}
+                             to={`/notes/${item._id}`}>{item.title}
                     </NavLink>
                   </MenuItem>
                 ))}
                 }
               </Select>
-              <FormHelperText></FormHelperText>
+
             </FormControl>
           </Typography>
-          <Button color="inherit">Войти</Button>
+          <Button color="inherit">
+            <NavLink className={classes.selectTitle}
+                     to={`/login/`}>Войти
+          </NavLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    pathToAvatar: {
+    pathToImage: {
       type: String,
-      required: false
+      required: true
     }
   },
   { timestamps: true }
