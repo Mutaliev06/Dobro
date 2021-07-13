@@ -107,7 +107,11 @@ function Header() {
 
             </FormControl>
           </Typography>
-          <Button color="inherit">Войти</Button>
+          <Button color="inherit">
+            <NavLink className={classes.selectTitle}
+                     to={`/login/`}>Войти
+          </NavLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

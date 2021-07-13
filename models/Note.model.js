@@ -8,7 +8,7 @@ const noteSchema = new mongoose.Schema(
     },
     pathToImage: {
       type: String,
-      required: false,
+      required: true,
     },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
