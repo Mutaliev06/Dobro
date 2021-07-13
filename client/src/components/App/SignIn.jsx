@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { auth } from "../../redux/features/application";
+import Header from './Header';
+import { NavLink } from 'react-router-dom';
+
 
 function Copyright() {
   return (
@@ -47,10 +53,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const dispatch = useDispatch()
+  const [ login, setLogin ] = useState('')
+  const [ password, setPassword ] = useState('')
+
+  const signIn = useSelector(state => state.application.signingIn);
+  const error = useSelector(state => state.application.error)
+
+  const handleChangeLogin = (e) => {
+    setLogin(e.target.value)
+  };
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value)
+  };
+
+  const handleSubmit = () => {
+    dispatch(auth(login, password))
+  };
+
+
   const classes = useStyles();
 
   return (
+    <>
+    <Header/>
     <Container component="main" maxWidth="xs">
+
+      {error}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -63,6 +92,8 @@ export default function SignIn() {
           <TextField
             variant="outlined"
             margin="normal"
+            value={login}
+            onChange={handleChangeLogin}
             required
             fullWidth
             id="login"
@@ -74,6 +105,8 @@ export default function SignIn() {
           <TextField
             variant="outlined"
             margin="normal"
+            value={password}
+            onChange={handleChangePassword}
             required
             fullWidth
             name="password"
@@ -86,15 +119,19 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Запомнить меня"
           />
+          <NavLink to='/'>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
+            disabled={signIn}
           >
             Войти
           </Button>
+          </NavLink>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -113,5 +150,6 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
+      </>
   );
 }
