@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,19 +12,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { auth } from "../../redux/features/application";
+import { auth, createUser } from '../../redux/features/application';
 import Header from './Header';
 import { NavLink } from 'react-router-dom';
-
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="http://localhost:3000/">
-        На главную
+        Главная страница
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%',
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -53,33 +51,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignUp() {
   const dispatch = useDispatch()
-  const [ login, setLogin ] = useState('')
+  const [ login, setLoginUp ] = useState('')
   const [ password, setPassword ] = useState('')
 
-  const signIn = useSelector(state => state.application.signingIn);
+  const signUp = useSelector(state => state.application.signingUp);
   const error = useSelector(state => state.application.error)
 
   const handleChangeLogin = (e) => {
-    setLogin(e.target.value)
+    setLoginUp(e.target.value)
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value)
   };
 
   const handleSubmit = () => {
-    dispatch(auth(login, password))
+    dispatch(createUser(login, password))
   };
-
 
   const classes = useStyles();
 
   return (
     <>
-    <Header/>
+      <Header/>
     <Container component="main" maxWidth="xs">
-
       {error}
       <CssBaseline />
       <div className={classes.paper}>
@@ -87,39 +83,46 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Войти
+          Регистрация
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            value={login}
-            onChange={handleChangeLogin}
-            required
-            fullWidth
-            id="login"
-            label="Login"
-            name="login"
-            autoComplete="login"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            value={password}
-            onChange={handleChangePassword}
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Запомнить меня"
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="login"
+                name="login"
+                variant="outlined"
+                value={login}
+                onChange={handleChangeLogin}
+                required
+                fullWidth
+                id="login"
+                label="login"
+                autoFocus
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                value={password}
+                onChange={handleChangePassword}
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="Я хочу получать по почте информацию о новых волонтерских программах"
+              />
+            </Grid>
+          </Grid>
           <NavLink className={classes.submit} to='/'>
           <Button
             type="submit"
@@ -128,29 +131,25 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
             onClick={handleSubmit}
-            disabled={signIn}
+            disabled={signUp}
           >
-            Войти
+            Зарегестрироваться
           </Button>
           </NavLink>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Забыли пароль?
-              </Link>
-            </Grid>
+          <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/registration" variant="body2">
-                {"Зарегестрироваться"}
+              У вас уже есть аккаунт? {'  '}
+              <Link href="/login" variant="body2">
+                Войти
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={5}>
         <Copyright />
       </Box>
     </Container>
-      </>
-  );
+    </>
+      );
 }

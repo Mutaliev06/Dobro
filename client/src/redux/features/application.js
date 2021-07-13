@@ -42,7 +42,11 @@ export default function application(state = initialState, action) {
         signingIn: false,
         error: action.error,
       };
-
+    case "logout":
+      return {
+        ...state,
+        token: null,
+      };
     default:
       return state;
   }
@@ -88,3 +92,11 @@ export const auth = (login, password) => {
     }
   };
 };
+
+export const logout = () => {
+  localStorage.removeItem('token')
+
+  return {
+    type: 'logout'
+  }
+}

@@ -7,7 +7,7 @@ module.exports.notesController = {
     try {
       const note = await Note.create({
         user: req.user.id,
-        category: req.body.category,
+        category,
         text,
       });
       return res.json(note);
