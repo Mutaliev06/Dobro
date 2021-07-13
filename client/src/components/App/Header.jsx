@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Header() {
+  const token = useSelector(state => state.application.token)
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.items);
@@ -67,6 +68,57 @@ function Header() {
   }, [dispatch]);
 
   const classes = useStyles();
+
+  if(!token){
+    return (
+      <div>
+        <AppBar color="transparent" position="sticky" className={classes.appbar}>
+          <Toolbar>
+            <NavLink color="inherit" to={`/`}>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
+                <img src={logo} />
+              </IconButton>
+
+            </NavLink>
+            <Typography variant="h6" className={classes.title}>
+              <FormControl className={classes.formControl}>
+                <Select
+                  displayEmpty
+                  className={classes.selectEmpty}
+                  value={category}
+                  onChange={handleChangeCategory}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value="" disabled>
+                    Мероприятия
+                  </MenuItem>
+                  {categories.map((item) => (
+                    <MenuItem key={item.value} value={item._id} >
+                      <NavLink className={classes.selectTitle}
+                               to={`/notes/${item._id}`}>{item.title}
+                      </NavLink>
+                    </MenuItem>
+                  ))}
+                  }
+                </Select>
+
+              </FormControl>
+            </Typography>
+            <Button color="inherit">
+              <NavLink className={classes.selectTitle}
+                       to={`/login/`}>Войти
+              </NavLink>
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -107,11 +159,6 @@ function Header() {
 
             </FormControl>
           </Typography>
-          <Button color="inherit">
-            <NavLink className={classes.selectTitle}
-                     to={`/login/`}>Войти
-          </NavLink>
-          </Button>
         </Toolbar>
       </AppBar>
     </div>
