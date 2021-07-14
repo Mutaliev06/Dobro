@@ -17,6 +17,7 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    justifyContent: 'center'
   },
   paper: {
     height: 240,
@@ -25,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
+  paperCard: {
+    display: 'flex',
+    justifyContent: "space-between",
+    alignItems: 'center'
+  }
 }));
 
 function Notes(props) {
@@ -42,14 +48,17 @@ function Notes(props) {
 
   return (
     <div >
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justifyContent="center" spacing={spacing}>
+      <Grid container className={classes.root} spacing={1}>
+        <Grid  item xs={6}>
+          <Grid className={classes.paperCard} container justifyContent="center" spacing={spacing}>
             {notes.map((item) => (
-              <Grid >
+              <Grid className={classes.paperCard}>
                 <Paper className={classes.paper}>
                   {item.text}
+
                   <img src={item.pathToImage}/>
+
+                  <img alt='logo' src={item.pathToImage}/>
                 </Paper>
               </Grid>
             ))}

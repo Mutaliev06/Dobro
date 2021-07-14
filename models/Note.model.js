@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema(
   {
-    git: {
+    text: {
       type: String,
-      required: true,
+      required: false,
     },
     pathToImage: {
       type: String,

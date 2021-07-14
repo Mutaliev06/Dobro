@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const User = require("../models/User.model");
 const Note = require("../models/Note.model");
+const path = require("path");
 
 const router = Router();
 
-const path = require("path");
 
-router.post("/upload/:id", (req, res) => {
+router.post("/upload/avatar/:id", (req, res) => {
   const image = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(
     image.name
@@ -25,7 +25,7 @@ router.post("/upload/:id", (req, res) => {
   });
 });
 
-router.post("/notes/upload/:id", (req, res) => {
+router.post("/upload/notes/:id", (req, res) => {
   const image = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(
     image.name

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Route } from 'react-router-dom';
 import React from 'react';
 import SignIn from './App/SignIn';
+import SignUp from './App/SignUp';
 
 const useStyles = makeStyles((theme) =>({
     app: {
@@ -26,6 +27,9 @@ function App() {
       </Route>
       <Route path="/login" exact>
        <SignIn/>
+      </Route>
+      <Route path="/registration" exact>
+        <SignUp/>
       </Route>
     </div>
   );
