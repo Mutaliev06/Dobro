@@ -123,7 +123,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <NavLink className={classes.submit} to='/'>
+          <Link className={classes.submit} href='/login'>
           <Button
             type="submit"
             fullWidth
@@ -135,7 +135,7 @@ export default function SignUp() {
           >
             Зарегестрироваться
           </Button>
-          </NavLink>
+          </Link>
           <Grid container justifyContent="flex-end">
             <Grid item>
               У вас уже есть аккаунт? {'  '}

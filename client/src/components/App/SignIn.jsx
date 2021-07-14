@@ -120,7 +120,7 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Запомнить меня"
           />
-          <NavLink className={classes.submit} to='/'>
+          <Link className={classes.submit} href='/'>
           <Button
             type="submit"
             fullWidth
@@ -132,7 +132,7 @@ export default function SignIn() {
           >
             Войти
           </Button>
-          </NavLink>
+          </Link>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
