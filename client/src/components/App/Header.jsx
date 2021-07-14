@@ -88,7 +88,6 @@ function Header() {
 
   const classes = useStyles();
 
-
   if(!token){
     return (
       <div>
