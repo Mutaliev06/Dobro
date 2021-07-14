@@ -49,6 +49,7 @@ function Notes(props) {
               <Grid >
                 <Paper className={classes.paper}>
                   {item.text}
+                  <img src={item.pathToImage}/>
                 </Paper>
               </Grid>
             ))}
