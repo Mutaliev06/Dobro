@@ -14,6 +14,8 @@ import logo from "./logo-white.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
 import { NavLink } from "react-router-dom";
+import { logout } from '../../redux/features/application';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +42,17 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     marginTop: theme.spacing(2),
   },
-  selectTitle: {
+    btnLogIn: {
     textDecoration: 'none',
     color: 'white',
-    backgroundColor: "#000841"
+    marginLeft: 10,
+    backgroundColor: "#000841",
   },
+    btnLogUp: {
+      textDecoration: 'none',
+      color: 'white',
+      backgroundColor: "#000841"
+    },
 
     textDecoration: "none",
     color: "white",
@@ -54,7 +62,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Header() {
+  const token = useSelector(state => state.application.token)
   const [category, setCategory] = useState("");
+  const [isLoggedOut, setIsLoggedOut] = useState(true);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.items);
 
@@ -66,7 +76,72 @@ function Header() {
     dispatch(loadCategories());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(logout());
+  // }, [dispatch]);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setIsLoggedOut(false);
+    dispatch(logout())
+  }
+
   const classes = useStyles();
+
+  if(!token){
+    return (
+      <div>
+        <AppBar color="transparent" position="sticky" className={classes.appbar}>
+          <Toolbar>
+            <NavLink color="inherit" to={`/`}>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
+                <img src={logo} />
+              </IconButton>
+
+            </NavLink>
+            <Typography variant="h6" className={classes.title}>
+              <FormControl className={classes.formControl}>
+                <Select
+                  displayEmpty
+                  className={classes.selectEmpty}
+                  value={category}
+                  onChange={handleChangeCategory}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value="" disabled>
+                    Мероприятия
+                  </MenuItem>
+                  {categories.map((item) => (
+                    <MenuItem key={item.value} value={item._id} >
+                      <NavLink className={classes.selectTitle}
+                               to={`/notes/${item._id}`}>{item.title}
+                      </NavLink>
+                    </MenuItem>
+                  ))}
+                  }
+                </Select>
+
+              </FormControl>
+            </Typography>
+            <Button color="inherit">
+              <NavLink className={classes.btnLogUp}
+                       to={`/registration`}>Регистрация
+              </NavLink>
+
+              <NavLink className={classes.btnLogIn}
+                       to={`/login/`}>   Войти
+              </NavLink>
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -104,10 +179,12 @@ function Header() {
                 ))}
                 }
               </Select>
-
             </FormControl>
           </Typography>
-          <Button color="inherit">Войти</Button>
+          <Button value={isLoggedOut} onClick={handleLogout} color="inherit">
+            <NavLink className={classes.btnLogIn} to={`/login`}>Выйти
+            </NavLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

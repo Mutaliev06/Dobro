@@ -23,15 +23,34 @@ export default function notesReducer(state = initialState, action) {
 }
 
 export const loadNotes = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const state = getState();
     dispatch({
       type: "notes/load/pending",
     });
-    const response = await fetch("http://localhost:5500/notes");
+    const response = await fetch("http://localhost:5500/notes", {
+      headers: {
+        Authorization: `Bearer ${state.application.token}`
+      }
+    })
     const json = await response.json();
     dispatch({
       type: "notes/load/fulfilled",
       payload: json,
     });
-  };
-};
+}
+}
+
+// export const loadNotes = () => {
+//   return async (dispatch) => {
+//     dispatch({
+//       type: "notes/load/pending",
+//     });
+//     const response = await fetch("http://localhost:5500/notes");
+//     const json = await response.json();
+//     dispatch({
+//       type: "notes/load/fulfilled",
+//       payload: json,
+//     });
+//   };
+// };
