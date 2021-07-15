@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import React from 'react';
 import SignIn from './App/SignIn';
 import SignUp from './App/SignUp';
+import Admin from './Admin/Admin';
 
 const useStyles = makeStyles((theme) =>({
     app: {
@@ -30,6 +31,9 @@ function App() {
       </Route>
       <Route path="/registration" exact>
         <SignUp/>
+      </Route>
+      <Route path="/admin" exact>
+        <Admin/>
       </Route>
     </div>
   );

@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardMedia, Container, Paper,
@@ -43,16 +42,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Notes(props) {
+function Notes() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
   //const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
 
-  // const handleChange = (event) => {
-  //   setSpacing(Number(event.target.value));
-  // };
+
 
   useEffect(() => {
     dispatch(loadNotes());
@@ -75,6 +72,7 @@ function Notes(props) {
               <CardMedia
                 className={classes.cardMedia}
                 title="Image title"
+                image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -87,9 +85,6 @@ function Notes(props) {
               <CardActions>
                 <Button size="small" color="primary">
                   Открыть
-                </Button>
-                <Button size="small" color="primary">
-                  Изменить
                 </Button>
               </CardActions>
             </Card>

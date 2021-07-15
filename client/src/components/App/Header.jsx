@@ -181,8 +181,14 @@ function Header() {
               </Select>
             </FormControl>
           </Typography>
+          <Button  color="inherit" disableElevation>
+            <NavLink className={classes.btnLogIn} to={`/admin`}>
+              Личный кабинет
+            </NavLink>
+          </Button>
           <Button value={isLoggedOut} onClick={handleLogout} color="inherit">
-            <NavLink className={classes.btnLogIn} to={`/`}>Выйти
+            <NavLink className={classes.btnLogIn} to={`/`}>
+              Выйти
             </NavLink>
           </Button>
         </Toolbar>
