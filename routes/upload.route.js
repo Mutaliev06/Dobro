@@ -1,22 +1,22 @@
 const { Router } = require("express");
+const path = require("path");
 const User = require("../models/User.model");
 const Note = require("../models/Note.model");
-const path = require("path");
 
 const router = Router();
 
 
 router.post("/upload/avatar/:id", (req, res) => {
-  const image = req.files.image;
+  const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(
-    image.name
+    img.name
   )}`;
 
-  image.mv(fileName, async (err) => {
+  img.mv(fileName, async (err) => {
     if (err) {
       console.log(err);
     } else {
-      const user = await User.findById(req.params._id);
+      const user = await User.findById(req.params.id);
 
       user.pathToImage = fileName;
       await user.save();
@@ -26,12 +26,13 @@ router.post("/upload/avatar/:id", (req, res) => {
 });
 
 router.post("/upload/notes/:id", (req, res) => {
-  const image = req.files.image;
+  const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(
-    image.name
+    img.name
   )}`;
+
 try {
-  image.mv(fileName, async (err) => {
+  img.mv(fileName, async (err) => {
     if (err) {
       console.log(err);
     } else {
@@ -39,6 +40,7 @@ try {
 
       note.pathToImage = fileName;
       await note.save();
+      console.log(note)
       res.json("Файл загружен");
     }
   });

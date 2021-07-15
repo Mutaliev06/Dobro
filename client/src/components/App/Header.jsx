@@ -172,7 +172,7 @@ function Header() {
                 </MenuItem>
                 {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id} >
-                    <NavLink className={classes.selectTitle}
+                    <NavLink className={classes.btnLogIn}
                              to={`/notes/${item._id}`}>{item.title}
                     </NavLink>
                   </MenuItem>
@@ -182,7 +182,7 @@ function Header() {
             </FormControl>
           </Typography>
           <Button value={isLoggedOut} onClick={handleLogout} color="inherit">
-            <NavLink className={classes.btnLogIn} to={`/login`}>Выйти
+            <NavLink className={classes.btnLogIn} to={`/`}>Выйти
             </NavLink>
           </Button>
         </Toolbar>
