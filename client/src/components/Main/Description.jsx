@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
+import Header from '../App/Header';
+import Footer from '../App/Footer';
 
 function Description(props) {
 
@@ -20,22 +22,20 @@ function Description(props) {
 
   return (
     <div>
+      <Header />
        <div>
          <div>
+           <img src={`http://localhost:5500/${notes.pathToImage}`}/>
            <p>
              {notes.text}
-             {notes.category}
            </p>
-           <img src={`http://localhost:5500/${notes.pathToImage}`}/>
+
          </div>
          <div>
-           <h1>
-             Заголовок
-           </h1>
          </div>
        </div>
 
-
+      <Footer />
     </div>
   );
 }

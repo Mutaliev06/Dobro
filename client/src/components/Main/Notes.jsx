@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
 import { loadUsers } from '../../redux/features/users';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -84,9 +84,12 @@ function Notes(props) {
                   </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
-                  Открыть
-                </Button>
+                <NavLink to={`/note/${item._id}`}>
+                  <Button size="small" color="primary">
+                    Подробнее
+                  </Button>
+                </NavLink>
+
                 <Button size="small" color="primary">
                   Изменить
                 </Button>
