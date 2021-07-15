@@ -16,7 +16,6 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from "../../redux/features/application";
 import Header from './Header';
-import { NavLink } from 'react-router-dom';
 
 
 function Copyright() {
@@ -98,7 +97,7 @@ export default function SignIn() {
             required
             fullWidth
             id="login"
-            label="Login"
+            label="Логин"
             name="login"
             autoComplete="login"
             autoFocus
@@ -111,7 +110,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Пароль"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -120,7 +119,7 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Запомнить меня"
           />
-          <NavLink className={classes.submit} to='/'>
+          <Link className={classes.submit} href='/'>
           <Button
             type="submit"
             fullWidth
@@ -132,7 +131,7 @@ export default function SignIn() {
           >
             Войти
           </Button>
-          </NavLink>
+          </Link>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
