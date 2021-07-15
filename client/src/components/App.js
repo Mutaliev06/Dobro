@@ -6,7 +6,11 @@ import { Route } from 'react-router-dom';
 import React from 'react';
 import SignIn from './App/SignIn';
 import SignUp from './App/SignUp';
+<<<<<<< HEAD
 import Description from './Main/Description';
+=======
+import Admin from './Admin/Admin';
+>>>>>>> main
 
 const useStyles = makeStyles((theme) =>({
     app: {
@@ -32,8 +36,13 @@ function App() {
       <Route  path="/registration" exact>
         <SignUp/>
       </Route>
+<<<<<<< HEAD
       <Route path='/note/:id' exact>
         <Description/>
+=======
+      <Route path="/admin" exact>
+        <Admin/>
+>>>>>>> main
       </Route>
     </div>
   );
