@@ -47,12 +47,9 @@ function Notes(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
-  //const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
 
-  // const handleChange = (event) => {
-  //   setSpacing(Number(event.target.value));
-  // };
+
 
   useEffect(() => {
     dispatch(loadNotes());
@@ -79,6 +76,8 @@ function Notes(props) {
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
                   {item.text}
+                  <img src={item.pathToImage}/>
+                  <img alt='logo' src={item.pathToImage}/>
                 </Typography>
                 <Typography gutterBottom variant="h8" component="h6">
                   {item.user.name}
