@@ -68,7 +68,6 @@ function Notes() {
         {notes.map((item) => (
           <Grid item key={item} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-
               <CardMedia
                 className={classes.cardMedia}
                 title="Image title"
