@@ -11,7 +11,7 @@ module.exports.notesController = {
         text,
       });
       return res.json(note);
-
+      console.log(note)
     } catch (e) {
       console.log(e.message);
       return res.status(401).json("неверный токен");
@@ -36,7 +36,7 @@ module.exports.notesController = {
   },
 
   getAllNotes: async (req, res) => {
-    const notes = await Note.find();
+    const notes = await Note.find().populate("user")
     res.json(notes);
   },
 
