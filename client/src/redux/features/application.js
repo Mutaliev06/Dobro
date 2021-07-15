@@ -52,13 +52,13 @@ export default function application(state = initialState, action) {
   }
 }
 
-export const createUser = (login, password) => {
+export const createUser = (login, password, name, email) => {
   return async dispatch => {
     dispatch({ type: "application/signup/pending" });
 
     const res = await fetch("http://localhost:5500/users", {
       method: "POST",
-      body: JSON.stringify({ login, password }),
+      body: JSON.stringify({ login, password, name, email }),
       headers: {
         "Content-type": "application/json"
       }

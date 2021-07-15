@@ -55,6 +55,8 @@ export default function SignUp() {
   const dispatch = useDispatch()
   const [ login, setLoginUp ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ email, setEmailUp ] = useState('')
+  const [ name, setNameUp ] = useState('')
 
   const signUp = useSelector(state => state.application.signingUp);
   const error = useSelector(state => state.application.error)
@@ -62,12 +64,18 @@ export default function SignUp() {
   const handleChangeLogin = (e) => {
     setLoginUp(e.target.value)
   };
+  const handleChangeEmail = (e) => {
+    setEmailUp(e.target.value)
+  };
+  const handleChangeName = (e) => {
+    setNameUp(e.target.value)
+  };
   const handleChangePassword = (e) => {
     setPassword(e.target.value)
   };
 
   const handleSubmit = () => {
-    dispatch(createUser(login, password))
+    dispatch(createUser(login, password, name, email))
   };
 
   const classes = useStyles();
@@ -87,7 +95,34 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                value={name}
+                onChange={handleChangeName}
+                id="firstName"
+                label="Имя"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} >
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                value={email}
+                onChange={handleChangeEmail}
+                id="email"
+                label="Адрес электронной почты"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="login"
                 name="login"
@@ -97,12 +132,12 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="login"
-                label="login"
+                label="Логин"
                 autoFocus
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 required
@@ -110,7 +145,7 @@ export default function SignUp() {
                 value={password}
                 onChange={handleChangePassword}
                 name="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 id="password"
                 autoComplete="current-password"

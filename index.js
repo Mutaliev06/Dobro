@@ -1,10 +1,13 @@
 require('dotenv').config()
+const morgan = require("morgan");
 const upload = require('express-fileupload');
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require('path');
 const router = require("./routes/index");
-const morgan = require("morgan");
+
+
 
 const app = express();
 
@@ -13,8 +16,9 @@ app.use(upload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use("/image", express.static(path.resolve(__dirname, "image")))
 app.use(router);
-app.use(express.static('public'));
+
 
 async function start() {
   try {
