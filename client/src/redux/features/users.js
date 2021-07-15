@@ -31,3 +31,14 @@ export const loadUsers = () => {
     dispatch({ type: "users/load/fulfilled", payload: json });
   };
 };
+
+export const loadUsersById = () => {
+  return async (dispatch) => {
+    dispatch({ type: "users/load/pending" });
+
+    const res = await fetch("http://localhost:5500/users");
+    const json = await res.json();
+
+    dispatch({ type: "users/load/fulfilled", payload: json });
+  };
+};

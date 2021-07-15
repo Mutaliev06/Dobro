@@ -68,7 +68,7 @@ function Notes() {
         {notes.map((item) => (
           <Grid item key={item} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-              <img src={`http://localhost:5500/${item.pathToImage}`}/>
+
               <CardMedia
                 className={classes.cardMedia}
                 title="Image title"
@@ -84,7 +84,7 @@ function Notes() {
               </CardContent>
               <CardActions>
                 <Button size="small" color="primary">
-                  Открыть
+                  Подробнее
                 </Button>
               </CardActions>
             </Card>
