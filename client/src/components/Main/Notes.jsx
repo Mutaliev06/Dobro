@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardMedia, Container, Paper,
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Notes(props) {
+function Notes() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
@@ -68,10 +67,11 @@ function Notes(props) {
         {notes.map((item) => (
           <Grid item key={item} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-              <img src={`http://localhost:5500/${item.pathToImage}`}/>
+
               <CardMedia
                 className={classes.cardMedia}
                 title="Image title"
+                image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -85,10 +85,7 @@ function Notes(props) {
               </CardContent>
               <CardActions>
                 <Button size="small" color="primary">
-                  Открыть
-                </Button>
-                <Button size="small" color="primary">
-                  Изменить
+                  Подробнее
                 </Button>
               </CardActions>
             </Card>
