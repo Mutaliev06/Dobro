@@ -13,9 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "./logo-white.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { logout } from '../../redux/features/application';
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const token = useSelector(state => state.application.token)
+  const { id } = useParams()
   const [category, setCategory] = useState("");
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const dispatch = useDispatch();
@@ -182,7 +182,7 @@ function Header() {
             </FormControl>
           </Typography>
           <Button  color="inherit" disableElevation>
-            <NavLink className={classes.btnLogIn} to={`/admin`}>
+            <NavLink className={classes.btnLogIn} to={`/admin/`}>
               Личный кабинет
             </NavLink>
           </Button>

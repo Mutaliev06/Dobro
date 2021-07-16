@@ -13,6 +13,14 @@ module.exports.usersController = {
       res.json(e.message);
     }
   },
+  getUsersById: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      res.json(user);
+    } catch (e) {
+      res.json(e.message);
+    }
+  },
 
   registerUser: async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,12 +13,18 @@ import Link from '@material-ui/core/Link';
 import Header from '../App/Header';
 import {
   FormControl,
-  FormHelperText,
+  FormHelperText, MenuItem,
 
-  NativeSelect,
+  NativeSelect, Select,
   TextField
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { NavLink, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { loadUserById, loadUsers } from '../../redux/features/users';
+import { loadCategories } from '../../redux/features/categories';
+import { Avatar } from '@material-ui/core';
 
 function Copyright() {
   return (
@@ -32,8 +38,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,20 +82,42 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(4),
   },
+  imgMargin: {
+    margin: 'auto',
+    width: 200,
+    height: 200
+  }
 }));
 
 export default function Dashboard() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const [category, setCategory] = useState("");
+  const categories = useSelector((state) => state.categories.items);
 
+  useEffect(() => {
+    dispatch(loadUserById());
+  }, [dispatch]);
+
+  const handleChangeCategory = (e) => {
+    setCategory(e.target.value);
+  };
+
+  useEffect(() => {
+    dispatch(loadCategories());
+  }, [dispatch]);
+
+  const user = useSelector((state) => {
+    return state.users.currentUser
+  });
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  console.log(user.name)
 
   return ( <> <Header/>
     <div className={classes.root}>
-
       <CssBaseline />
-
-
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -99,19 +125,26 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
-              <Paper className={fixedHeightPaper}>
-                Фото юзера
-              </Paper>
-            </Grid>
-            <Grid item xs={8} md={8} lg={7}>
-              <Paper className={fixedHeightPaper}>
-                Фио
+              <Paper align='center' className={fixedHeightPaper}>
+                <Avatar className={classes.imgMargin} size='400' src={`http://localhost:5500/${user.pathToImage}`}/>
+                {/*<img className={classes.imgMargin} width='200' src={`http://localhost:5500/${user.pathToImage}`}/>*/}
               </Paper>
             </Grid>
             {/* ФИО юзера */}
+            {/*{Активность юзера}*/}
+            <Grid  item xs={8} md={8} lg={7}>
+              <Paper className={fixedHeightPaper}>
+               <Typography variant="h6" > Фамилия имя: {'  '} {user.name}  </Typography>
+               <Typography variant="h6" > Количество постов:  {'  '}       </Typography>
+               <Typography variant="h6" > Информация о вас:  {'  '}        </Typography>
+               <Typography variant="h6" >  Ваш эмайл: {'  '} {user.email}   </Typography>
+               <Typography variant="h6" > Ваш Телефон:  {'  '}  {user.tel} </Typography>
+               <Typography variant="h6" > Ваш Логин:   {'  '} {user.login} </Typography>
+              </Paper>
+            </Grid>
           </Grid>
           <Grid container spacing={3}>
-            {/* Фото юзера */}
+
             <Grid item xs={8} md={8} lg={8}>
               <Paper className={fixedHeightPaper}>
                 <Typography align='center'  variant="h5" component="h4"> Заполните все поля </Typography>
@@ -129,22 +162,28 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={8} md={8} lg={4}>
               <Paper className={fixedHeightPaper}>
-                <Typography align='center'>Выберите категорию </Typography>
+
                 <Paper>
+                  <Typography align='center'>Выберите категорию </Typography>
                   {/*{'Добавление постов'}*/}
                   <FormControl className={classes.formControl}>
-                    <NativeSelect
+                    <Select
+                      displayEmpty
                       className={classes.selectEmpty}
-                      // value={state.age}
-                      // onChange={handleChange}
+                      value={category}
+                      onChange={handleChangeCategory}
+                      inputProps={{ "aria-label": "Without label" }}
                     >
-                      <option value="" disabled>
+                      <MenuItem value="" disabled>
                         Мероприятия
-                      </option>
-                      <option value={10}>Ten</option>
-
-                    </NativeSelect>
-                    <FormHelperText>Выберите категорию</FormHelperText>
+                      </MenuItem>
+                      {categories.map((item) => (
+                        <MenuItem key={item.value} value={item._id} >
+                            {item.title}
+                        </MenuItem>
+                      ))}
+                      }
+                    </Select>
                   </FormControl>
                 </Paper>
                 <input
