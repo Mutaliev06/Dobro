@@ -36,7 +36,20 @@ const noteSchema = new mongoose.Schema(
     lastComment: {
       type: String,
       required: false
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    timeOfTheEvent: {
+      type: String,
+      required: true
+    },
+    placeOfEvent: {
+      type: String,
+      required: true
     }
+
   },
   { timestamps: true }
 );
