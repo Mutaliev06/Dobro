@@ -29,8 +29,6 @@ function Description(props) {
 
   return (
     <div>
-      <Header />
-      <div>
         <div className={classes.divFoto}>
           <div>
             <img src={`http://localhost:5500/${notes.pathToImage}`} />
@@ -48,9 +46,6 @@ function Description(props) {
             {notes.text}
           </p>
         </div>
-      </div>
-
-      <Footer />
     </div>
   );
 }

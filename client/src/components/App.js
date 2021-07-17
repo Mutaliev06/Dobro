@@ -25,24 +25,9 @@ function App() {
   const classes = useStyles()
   return (
     <div className={classes.app}>
-      <Route path="/" exact>
-        <Header/>
-        <Main/>
-        <Footer/>
-      </Route>
-      <Route path="/login" exact>
-       <SignIn/>
-      </Route>
-      <Route  path="/registration" exact>
-        <SignUp/>
-      </Route>
-      <Route path="/admin" exact>
-        <Admin/>
-      </Route>
-      <Route path='/notes/:id' exact>
-        <Description/>
-      </Route>
-
+      <Header/>
+      <Main/>
+      <Footer/>
     </div>
   );
 }
