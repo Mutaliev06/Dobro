@@ -2,13 +2,16 @@ const Note = require("../models/Note.model");
 
 module.exports.notesController = {
   createNote: async (req, res) => {
-    const { text, category } = req.body;
+    const { text, category, timeOfTheEvent,placeOfEvent, title } = req.body;
 
     try {
       const note = await Note.create({
         user: req.user.id,
+        title,
         category,
         text,
+        timeOfTheEvent,
+        placeOfEvent
       });
       return res.json(note);
       console.log(note)

@@ -74,7 +74,7 @@ function Notes() {
               />
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h8" component="h6">
-                  <div>{item.text}</div>
+                  <div>{item.title}</div>
                   <div>{item.user.name}</div>
                   </Typography>
               </CardContent>
