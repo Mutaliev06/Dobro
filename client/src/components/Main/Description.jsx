@@ -36,7 +36,7 @@ function Description(props) {
             <img src={`http://localhost:5500/${notes.pathToImage}`} />
           </div>
           <div>
-            <h1>{notes.text}</h1>
+            <h1>{notes.title}</h1>
 
             <h3> Автор поста: {notes.user.name}</h3>
             <Button variant="outlined">Принять участие</Button>
