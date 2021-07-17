@@ -84,7 +84,6 @@ function Notes() {
                     Подробнее
                   </Button>
                 </NavLink>
-
               </CardActions>
             </Card>
           </Grid>

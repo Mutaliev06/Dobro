@@ -29,8 +29,6 @@ function Description(props) {
 
   return (
     <div>
-      <Header />
-      <div>
         <div className={classes.divFoto}>
           <div>
             <img src={`http://localhost:5500/${notes.pathToImage}`} />
@@ -58,9 +56,6 @@ function Description(props) {
             исследовательскую работу и др.
           </p>
         </div>
-      </div>
-
-      <Footer />
     </div>
   );
 }
