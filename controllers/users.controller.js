@@ -1,6 +1,6 @@
-const User = require("../models/User.model");
-const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const User = require("../models/User.model");
 
 
 
@@ -13,16 +13,26 @@ module.exports.usersController = {
       res.json(e.message);
     }
   },
+  getUsersById: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      res.json(user);
+    } catch (e) {
+      res.json(e.message);
+    }
+  },
 
   registerUser: async (req, res) => {
     try {
-      const { login, password } = req.body;
+      const { login, password, name, email } = req.body;
 
       const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
 
       const user = await User.create({
         login: login,
         password: hash,
+        name:  name,
+        email:  email
       });
       res.json(user);
     } catch (e) {
