@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadNotes } from "../../redux/features/notes";
-import Header from "../App/Header";
-import Footer from "../App/Footer";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
@@ -35,7 +33,6 @@ function Description(props) {
           </div>
           <div>
             <h1>{notes.title}</h1>
-
             <h3> Автор поста: {notes.user.name}</h3>
             <Button variant="outlined">Принять участие</Button>
           </div>
