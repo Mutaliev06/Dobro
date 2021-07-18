@@ -15,7 +15,6 @@ import Container from '@material-ui/core/Container';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from "../../redux/features/application";
-import Header from './Header';
 
 
 function Copyright() {
@@ -76,9 +75,7 @@ export default function SignIn() {
 
   return (
     <>
-    <Header/>
     <Container component="main" maxWidth="xs">
-
       {error}
       <CssBaseline />
       <div className={classes.paper}>
@@ -140,7 +137,7 @@ export default function SignIn() {
             </Grid>
             <Grid item>
               <Link href="/registration" variant="body2">
-                {"Зарегестрироваться"}
+                {"Зарегистрироваться"}
               </Link>
             </Grid>
           </Grid>

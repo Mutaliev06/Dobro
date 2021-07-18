@@ -11,7 +11,7 @@ import { Container } from '@material-ui/core';
 function Main(props) {
   return (
     <div>
-      <Container>
+      <Container maxWidth="xl">
         <Switch>
           <Route exact path="/">
             <Home />
