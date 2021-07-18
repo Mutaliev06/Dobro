@@ -6,7 +6,7 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia, Container, Paper,
+  CardMedia, Container,
   Typography
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';

@@ -2,12 +2,11 @@ const Comment = require("../models/Comment.model");
 
 module.exports.commentControllers = {
   getNoteComments: async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
-      const comment = await Comment.find({ note: id });
+      const comment = await Comment.find({ note: id }).populate('user');
       res.json(comment);
-    }
-    catch (e) {
+    } catch (e) {
       res.json(e);
     }
   },
@@ -16,13 +15,12 @@ module.exports.commentControllers = {
     const { text } = req.body;
     try {
       const comment = await Comment.create({
-        user:req.user.id,
+        user: req.user.id,
         text,
-        note: req.params.id
+        note: req.params.id,
       });
       res.json(comment);
-    }
-    catch (e) {
+    } catch (e) {
       res.json(e);
     }
   },
@@ -31,14 +29,13 @@ module.exports.commentControllers = {
     const { id } = req.params;
     try {
       const comment = await Comment.findById(id);
-      if(comment.user.toString() === req.user.id){
-        await comment.remove()
-        res.json('Удалено');
+      if (comment.user.toString() === req.user.id) {
+        await comment.remove();
+        res.json("Удалено");
       }
-      return res.status(401).json('ошибка нет доступа')
-    }
-    catch (e) {
+      return res.status(401).json("ошибка нет доступа");
+    } catch (e) {
       res.json(e);
     }
   },
-}
+};
