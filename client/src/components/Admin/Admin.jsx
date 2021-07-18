@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
-
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -13,18 +12,18 @@ import Link from '@material-ui/core/Link';
 import Header from '../App/Header';
 import {
   FormControl,
-  FormHelperText, MenuItem,
-
-  NativeSelect, Select,
+  MenuItem,
+  Select,
   TextField
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { loadUserById, loadUsers } from '../../redux/features/users';
+import { loadUserById } from '../../redux/features/users';
 import { loadCategories } from '../../redux/features/categories';
 import { Avatar } from '@material-ui/core';
+import { addImage, addNote } from '../../redux/features/notes';
 
 function Copyright() {
   return (
@@ -42,8 +41,8 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    marginBottom: 45
   },
-
 
   menuButton: {
     marginRight: 36,
@@ -58,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    marginTop: 20
   },
   container: {
-    paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
   paper: {
@@ -69,8 +68,19 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
+  paperMarginTop: {
+    padding: theme.spacing(),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+    marginTop: 20,
+    marginBottom: 20
+  },
   fixedHeight: {
     height: 240,
+  },
+  fixedHeightPaperMargin: {
+    marginBottom: 20
   },
   input: {
     display: 'none',
@@ -94,7 +104,15 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [category, setCategory] = useState("");
+  const [note, setNote] = useState("");
+  const [image, setImage] = useState("");
+
   const categories = useSelector((state) => state.categories.items);
+  const notes = useSelector((state) => state.notes.items);
+  const user = useSelector((state) => {
+    return state.users.currentUser
+  });
+
 
   useEffect(() => {
     dispatch(loadUserById());
@@ -108,33 +126,47 @@ export default function Dashboard() {
     dispatch(loadCategories());
   }, [dispatch]);
 
-  const user = useSelector((state) => {
-    return state.users.currentUser
-  });
+
+  const handleChangeNote = (even) => {
+    setNote(even.target.value);
+  };
+
+
+
+  const handleAddNote = async (id) => {
+    await dispatch(addNote(id, { note, category }));
+  };
+  const handleAddImage = async (id) => {
+    await dispatch(addImage(id, { pathToImage }));
+  };
+
+    const handleUploadImage = (e) => {
+    setImage(e.target.value);
+  };
+
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  console.log(user.name)
+
 
   return ( <> <Header/>
     <div className={classes.root}>
-      <CssBaseline />
+
 
       <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
+
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
               <Paper align='center' className={fixedHeightPaper}>
                 <Avatar className={classes.imgMargin} size='400' src={`http://localhost:5500/${user.pathToImage}`}/>
-                {/*<img className={classes.imgMargin} width='200' src={`http://localhost:5500/${user.pathToImage}`}/>*/}
-              </Paper>
+                 </Paper>
             </Grid>
             {/* ФИО юзера */}
             {/*{Активность юзера}*/}
             <Grid  item xs={8} md={8} lg={7}>
               <Paper className={fixedHeightPaper}>
-               <Typography variant="h6" > Фамилия имя: {'  '} {user.name}  </Typography>
+               <Typography variant="h6" > ФИО: {'  '} {user.name}  </Typography>
                <Typography variant="h6" > Количество постов:  {'  '}       </Typography>
                <Typography variant="h6" > Информация о вас:  {'  '}        </Typography>
                <Typography variant="h6" >  Ваш эмайл: {'  '} {user.email}   </Typography>
@@ -143,16 +175,25 @@ export default function Dashboard() {
               </Paper>
             </Grid>
           </Grid>
-          <Grid container spacing={3}>
+          <Grid item xs={8} md={8} lg={12}>
+            <Paper className={classes.paperMarginTop}>
+              <Typography align='center'  variant="h5" component="h4">
+                Создать заявку на помощь
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid className={classes.fixedHeightPaperMargin} container spacing={3}>
 
             <Grid item xs={8} md={8} lg={8}>
               <Paper className={fixedHeightPaper}>
-                <Typography align='center'  variant="h5" component="h4"> Заполните все поля </Typography>
+                <Typography align='center'  variant="h6" component="h6"> Заполните все обязательные поля* </Typography>
                 <TextField
                   id="outlined-multiline-static"
-                  label="Введите текст"
+                  label="Введите текст*"
                   multiline
                   rows={3}
+                  value={note}
+                  onChange={handleChangeNote}
                   variant="outlined"
                 />
                 <Grid  lg={4}>
@@ -164,7 +205,7 @@ export default function Dashboard() {
               <Paper className={fixedHeightPaper}>
 
                 <Paper>
-                  <Typography align='center'>Выберите категорию </Typography>
+                  <Typography align='center'>Выберите категорию* </Typography>
                   {/*{'Добавление постов'}*/}
                   <FormControl className={classes.formControl}>
                     <Select
@@ -191,10 +232,13 @@ export default function Dashboard() {
                   className={classes.input}
                   id="contained-button-file"
                   multiple
+                  value={image}
+                  onChange={handleUploadImage}
                   type="file"
                 />
                 <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
+                  <Button onClick={handleAddImage}
+                            variant="contained" color="primary" component="span">
                     Upload
                   </Button>
                 </label>
