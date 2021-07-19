@@ -3,6 +3,7 @@ import Main from './App/Main';
 import Footer from './App/Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) =>({
     app: {
@@ -20,6 +21,7 @@ function App() {
       <Header/>
       <Main/>
       <Footer/>
+      <Copyright/>
     </div>
   );
 }

@@ -25,7 +25,6 @@ router.post("/upload/avatar/:id", (req, res) => {
 router.post("/upload/notes/:id", (req, res) => {
   const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(img.name)}`;
-
   try {
     img.mv(fileName, async (err) => {
       if (err) {
