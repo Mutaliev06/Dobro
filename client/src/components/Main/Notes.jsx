@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
 import { loadUsers } from '../../redux/features/users';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -73,19 +73,17 @@ function Notes() {
                 image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {item.text}
-                  <img src={item.pathToImage}/>
-                  <img alt='logo' src={item.pathToImage}/>
-                </Typography>
                 <Typography gutterBottom variant="h8" component="h6">
-                  {item.user.name}
+                  <div>{item.title}</div>
+                  <div>{item.user.name}</div>
                   </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
-                  Подробнее
-                </Button>
+                <NavLink to={`/notes/${item._id}`}>
+                  <Button size="small" color="primary">
+                    Подробнее
+                  </Button>
+                </NavLink>
               </CardActions>
             </Card>
           </Grid>

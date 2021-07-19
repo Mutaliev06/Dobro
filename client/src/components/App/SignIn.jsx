@@ -15,21 +15,9 @@ import Container from '@material-ui/core/Container';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from "../../redux/features/application";
-import Header from './Header';
 
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3000/">
-        На главную
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -76,9 +64,7 @@ export default function SignIn() {
 
   return (
     <>
-    <Header/>
     <Container component="main" maxWidth="xs">
-
       {error}
       <CssBaseline />
       <div className={classes.paper}>
@@ -140,15 +126,13 @@ export default function SignIn() {
             </Grid>
             <Grid item>
               <Link href="/registration" variant="body2">
-                {"Зарегестрироваться"}
+                {"Зарегистрироваться"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+
     </Container>
       </>
   );

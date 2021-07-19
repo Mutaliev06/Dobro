@@ -10,7 +10,6 @@ export default function notesReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
-
     case "notes/load/fulfilled":
       return {
         ...state,
@@ -52,16 +51,19 @@ export const loadNotes = () => {
 }
 };
 
-export const addNote = (note, category) => {
+export const addNote = (data) => {
   return async (dispatch) => {
     dispatch({ type: "note/post/pending" });
+    console.log(data);
     const response = await fetch('http://localhost:5500/notes/', {
       method: "POST",
       headers: {
-        Accept: "application/json",
         "Content-type": "application/json",
       },
-      body: JSON.stringify(note, category),
+      body: JSON.stringify({
+        text: data.note,
+        category: data.category,
+      }),
     });
     const json = await response.json();
     dispatch({
@@ -71,16 +73,15 @@ export const addNote = (note, category) => {
   };
 };
 
-export const addImage = (id, pathToImage) => {
+export const addImage = (id, data) => {
   return async (dispatch) => {
     dispatch({ type: "note/post/pending" });
     const response = await fetch(`http://localhost:5500/upload/notes/${id}`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
         "Content-type": "application/json",
       },
-      body: JSON.stringify( pathToImage),
+      body: JSON.stringify({ pathToImage: data.pathToImage }),
     });
     const json = await response.json();
     dispatch({
@@ -90,16 +91,3 @@ export const addImage = (id, pathToImage) => {
   };
 };
 
-// export const loadNotes = () => {
-//   return async (dispatch) => {
-//     dispatch({
-//       type: "notes/load/pending",
-//     });
-//     const response = await fetch("http://localhost:5500/notes");
-//     const json = await response.json();
-//     dispatch({
-//       type: "notes/load/fulfilled",
-//       payload: json,
-//     });
-//   };
-// };

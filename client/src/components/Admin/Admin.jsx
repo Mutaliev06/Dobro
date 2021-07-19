@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-
-import Header from '../App/Header';
 import {
   FormControl,
   MenuItem,
@@ -23,20 +18,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUserById } from '../../redux/features/users';
 import { loadCategories } from '../../redux/features/categories';
 import { Avatar } from '@material-ui/core';
-import { addImage, addNote } from '../../redux/features/notes';
+import { addImage, addNote, loadNotes } from '../../redux/features/notes';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        На главную
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,80 +88,86 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [category, setCategory] = useState("");
-  const [note, setNote] = useState("");
-  const [image, setImage] = useState("");
-
+  const [text, setText] = useState("");
+  const [pathToImage, setPathToImage] = useState("");
   const categories = useSelector((state) => state.categories.items);
-  const notes = useSelector((state) => state.notes.items);
-  const user = useSelector((state) => {
+
+
+    const user = useSelector((state) => {
     return state.users.currentUser
   });
 
-
   useEffect(() => {
-    dispatch(loadUserById());
+    dispatch(loadNotes(id));
   }, [dispatch]);
+
+  const note = useSelector((state) => {
+    return state.notes.items.find((item) => item._id === id);
+  });
+
 
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
   };
+
+  const handleChangeNote = (e) => {
+    setText(e.target.value);
+  };
+
+  const handleUploadImage = (e) => {
+    setPathToImage(e.target.value);
+  };
+
+  useEffect(() => {
+    dispatch(loadUserById());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
 
 
-  const handleChangeNote = (even) => {
-    setNote(even.target.value);
-  };
 
-
-
-  const handleAddNote = async (id) => {
-    await dispatch(addNote(id, { note, category }));
-  };
   const handleAddImage = async (id) => {
     await dispatch(addImage(id, { pathToImage }));
   };
 
-    const handleUploadImage = (e) => {
-    setImage(e.target.value);
+  const handleAddNote = async () => {
+    await dispatch(addNote({ text, category }));
   };
-
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 
-  return ( <> <Header/>
+  return (
     <div className={classes.root}>
-
-
       <main className={classes.content}>
-
+        {/*{note.length}*/}
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
               <Paper align='center' className={fixedHeightPaper}>
-                <Avatar className={classes.imgMargin} size='400' src={`http://localhost:5500/${user.pathToImage}`}/>
-                 </Paper>
+                <Avatar className={classes.imgMargin} size='400'
+                        src={`http://localhost:5500/${user.pathToImage}`}/>
+              </Paper>
             </Grid>
             {/* ФИО юзера */}
             {/*{Активность юзера}*/}
-            <Grid  item xs={8} md={8} lg={7}>
+            <Grid item xs={8} md={8} lg={7}>
               <Paper className={fixedHeightPaper}>
-               <Typography variant="h6" > ФИО: {'  '} {user.name}  </Typography>
-               <Typography variant="h6" > Количество постов:  {'  '}       </Typography>
-               <Typography variant="h6" > Информация о вас:  {'  '}        </Typography>
-               <Typography variant="h6" >  Ваш эмайл: {'  '} {user.email}   </Typography>
-               <Typography variant="h6" > Ваш Телефон:  {'  '}  {user.tel} </Typography>
-               <Typography variant="h6" > Ваш Логин:   {'  '} {user.login} </Typography>
+                <Typography variant="h6"> ФИО: {'  '} {user.name}  </Typography>
+                <Typography variant="h6"> Количество постов: {'  '}       </Typography>
+                <Typography variant="h6"> Информация о вас: {'  '}        </Typography>
+                <Typography variant="h6"> Ваш эмайл: {'  '} {user.email}   </Typography>
+                <Typography variant="h6"> Ваш Телефон: {'  '} {user.tel} </Typography>
+                <Typography variant="h6"> Ваш Логин: {'  '} {user.login} </Typography>
               </Paper>
             </Grid>
           </Grid>
           <Grid item xs={8} md={8} lg={12}>
             <Paper className={classes.paperMarginTop}>
-              <Typography align='center'  variant="h5" component="h4">
+              <Typography align='center' variant="h5" component="h4">
                 Создать заявку на помощь
               </Typography>
             </Paper>
@@ -186,17 +176,18 @@ export default function Dashboard() {
 
             <Grid item xs={8} md={8} lg={8}>
               <Paper className={fixedHeightPaper}>
-                <Typography align='center'  variant="h6" component="h6"> Заполните все обязательные поля* </Typography>
+                <Typography align='center' variant="h6" component="h6"> Заполните все обязательные
+                  поля* </Typography>
                 <TextField
                   id="outlined-multiline-static"
                   label="Введите текст*"
                   multiline
                   rows={3}
-                  value={note}
+                  value={text}
                   onChange={handleChangeNote}
                   variant="outlined"
                 />
-                <Grid  lg={4}>
+                <Grid lg={4}>
 
                 </Grid>
               </Paper>
@@ -219,8 +210,8 @@ export default function Dashboard() {
                         Мероприятия
                       </MenuItem>
                       {categories.map((item) => (
-                        <MenuItem key={item.value} value={item._id} >
-                            {item.title}
+                        <MenuItem key={item.value} value={item._id}>
+                          {item.title}
                         </MenuItem>
                       ))}
                       }
@@ -228,38 +219,38 @@ export default function Dashboard() {
                   </FormControl>
                 </Paper>
                 <input
-                  accept="image/*"
+
                   className={classes.input}
                   id="contained-button-file"
                   multiple
-                  value={image}
+                  value={pathToImage}
                   onChange={handleUploadImage}
                   type="file"
                 />
                 <label htmlFor="contained-button-file">
                   <Button onClick={handleAddImage}
-                            variant="contained" color="primary" component="span">
+                          variant="contained" color="primary" component="span">
                     Upload
                   </Button>
+                  <input type='file' onChange={handleAddImage}/>
                 </label>
-                <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-
+                <input accept="image/*" className={classes.input} id="icon-button-file"
+                       type="file"/>
+                <Button
+                 onClick={handleAddNote} variant="contained" color="primary">
+                  Добавить
+                </Button>
               </Paper>
             </Grid>
-
             {/* Посты */}
-
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                Order
-              </Paper>
+                <Paper className={classes.paper}>
+
+                </Paper>
             </Grid>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
         </Container>
       </main>
     </div>
-  </>);
+ );
 }
