@@ -13,9 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
-import { auth, createUser } from '../../redux/features/application';
-import Header from './Header';
-import { NavLink } from 'react-router-dom';
+import { createUser } from '../../redux/features/application';
 
 function Copyright() {
   return (
@@ -82,7 +80,6 @@ export default function SignUp() {
 
   return (
     <>
-      <Header/>
     <Container component="main" maxWidth="xs">
       {error}
       <CssBaseline />
