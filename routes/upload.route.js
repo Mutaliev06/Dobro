@@ -13,7 +13,7 @@ router.post("/upload/avatar/:id", (req, res) => {
   img.mv(fileName, async (err) => {
     if (err) {
     } else {
-      const user = await User.findById(req.params.id);
+      const user = await User.find(req.params.id);
 
       user.pathToImage = fileName;
       await user.save();
