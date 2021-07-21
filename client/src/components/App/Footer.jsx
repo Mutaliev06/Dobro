@@ -114,7 +114,7 @@ function Footer(props) {
 
                   <div className={classes.divNavlink}>
                     <NavLink
-                      to={`/notes/${item._id}`}
+                      to={`/category/${item._id}`}
                       className={classes.linkCss}
                     >
                       {" "}

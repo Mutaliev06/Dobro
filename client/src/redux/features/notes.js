@@ -41,16 +41,18 @@ export const loadNotes = () => {
 }
 }
 
-// export const loadNotes = () => {
-//   return async (dispatch) => {
-//     dispatch({
-//       type: "notes/load/pending",
-//     });
-//     const response = await fetch("http://localhost:5500/notes");
-//     const json = await response.json();
-//     dispatch({
-//       type: "notes/load/fulfilled",
-//       payload: json,
-//     });
-//   };
-// };
+export const loadCategoryNotes = (id) =>{
+  return async (dispatch) =>{
+    dispatch({
+      type: 'notes/load/pending'
+    })
+
+    const response = await fetch(`http://localhost:5500/notes/category/${id}`)
+    const json = await response.json()
+
+    dispatch({
+      type: 'notes/load/fulfilled',
+      payload: json
+    })
+  }
+}

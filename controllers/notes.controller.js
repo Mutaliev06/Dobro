@@ -14,9 +14,7 @@ module.exports.notesController = {
         placeOfEvent
       });
       return res.json(note);
-      console.log(note)
     } catch (e) {
-      console.log(e.message);
       return res.status(401).json("неверный токен");
     }
   },

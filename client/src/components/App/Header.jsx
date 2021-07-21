@@ -14,7 +14,7 @@ import logo from "./logo-white.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
 import { NavLink, useParams } from "react-router-dom";
-import { logout } from '../../redux/features/application';
+import { logout } from "../../redux/features/application";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,28 +41,26 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     marginTop: theme.spacing(2),
   },
-    btnLogIn: {
-    textDecoration: 'none',
-    color: 'white',
+  btnLogIn: {
+    textDecoration: "none",
+    color: "white",
     marginLeft: 10,
     backgroundColor: "#000841",
   },
-    btnLogUp: {
-      textDecoration: 'none',
-      color: 'white',
-      backgroundColor: "#000841"
-    },
-
+  btnLogUp: {
     textDecoration: "none",
     color: "white",
     backgroundColor: "#000841",
-  }
-))
+  },
 
+  textDecoration: "none",
+  color: "white",
+  backgroundColor: "#000841",
+}));
 
 function Header() {
-  const token = useSelector(state => state.application.token)
-  const { id } = useParams()
+  const token = useSelector((state) => state.application.token);
+  const { id } = useParams();
   const [category, setCategory] = useState("");
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const dispatch = useDispatch();
@@ -83,15 +81,19 @@ function Header() {
   const handleLogout = (e) => {
     e.preventDefault();
     setIsLoggedOut(false);
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   const classes = useStyles();
 
-  if(!token){
+  if (!token) {
     return (
       <div>
-        <AppBar color="transparent" position="sticky" className={classes.appbar}>
+        <AppBar
+          color="transparent"
+          position="sticky"
+          className={classes.appbar}
+        >
           <Toolbar>
             <NavLink color="inherit" to={`/`}>
               <IconButton
@@ -102,7 +104,6 @@ function Header() {
               >
                 <img src={logo} />
               </IconButton>
-
             </NavLink>
             <Typography variant="h6" className={classes.title}>
               <FormControl className={classes.formControl}>
@@ -117,30 +118,33 @@ function Header() {
                     Мероприятия
                   </MenuItem>
                   {categories.map((item) => (
-                    <MenuItem key={item.value} value={item._id} >
-                      <NavLink className={classes.selectTitle}
-                               to={`/notes/${item._id}`}>{item.title}
+                    <MenuItem key={item.value} value={item._id}>
+                      <NavLink
+                        className={classes.selectTitle}
+                        to={`/notes/category/${item._id}`}
+                      >
+                        {item.title}
                       </NavLink>
                     </MenuItem>
                   ))}
                   }
                 </Select>
-
               </FormControl>
             </Typography>
             <Button color="inherit">
-              <NavLink className={classes.btnLogUp}
-                       to={`/registration`}>Регистрация
+              <NavLink className={classes.btnLogUp} to={`/registration`}>
+                Регистрация
               </NavLink>
 
-              <NavLink className={classes.btnLogIn}
-                       to={`/login/`}>   Войти
+              <NavLink className={classes.btnLogIn} to={`/login/`}>
+                {" "}
+                Войти
               </NavLink>
             </Button>
           </Toolbar>
         </AppBar>
       </div>
-    )
+    );
   }
 
   return (
@@ -156,7 +160,6 @@ function Header() {
             >
               <img src={logo} />
             </IconButton>
-
           </NavLink>
           <Typography variant="h6" className={classes.title}>
             <FormControl className={classes.formControl}>
@@ -171,9 +174,12 @@ function Header() {
                   Мероприятия
                 </MenuItem>
                 {categories.map((item) => (
-                  <MenuItem key={item.value} value={item._id} >
-                    <NavLink className={classes.btnLogIn}
-                             to={`/notes/${item._id}`}>{item.title}
+                  <MenuItem key={item.value} value={item._id}>
+                    <NavLink
+                      className={classes.btnLogIn}
+                      to={`/notes/${item._id}`}
+                    >
+                      {item.title}
                     </NavLink>
                   </MenuItem>
                 ))}
@@ -181,7 +187,7 @@ function Header() {
               </Select>
             </FormControl>
           </Typography>
-          <Button  color="inherit" disableElevation>
+          <Button color="inherit" disableElevation>
             <NavLink className={classes.btnLogIn} to={`/admin/`}>
               Личный кабинет
             </NavLink>
