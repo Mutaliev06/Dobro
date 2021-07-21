@@ -62,6 +62,22 @@ export const loadNotes = () => {
   };
 };
 
+export const loadCategoryNotes = (id) =>{
+  return async (dispatch) =>{
+    dispatch({
+      type: 'notes/load/pending'
+    })
+
+    const response = await fetch(`http://localhost:5500/notes/category/${id}`)
+    const json = await response.json()
+
+    dispatch({
+      type: 'notes/load/fulfilled',
+      payload: json
+    })
+  }
+}
+
 export const addNote = (data) => {
   return async (dispatch, getState) => {
     dispatch({ type: "note/post/pending" });

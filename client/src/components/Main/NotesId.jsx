@@ -10,9 +10,8 @@ import {
   Typography
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { loadNotes } from '../../redux/features/notes';
+import { loadCategoryNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
-import { loadUsers } from '../../redux/features/users';
 import { NavLink, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,22 +34,24 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%',
+    paddingTop: '56.25%', // 16:9
   },
   cardContent: {
     flexGrow: 1,
   },
 }));
 
-function Notes() {
+function NotesId() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
 
+  console.log(notes);
+
   useEffect(() => {
-    dispatch(loadNotes());
-  }, [dispatch]);
+    dispatch(loadCategoryNotes(id));
+  }, [dispatch, id]);
 
   return (
     <Container className={classes.cardGrid} maxWidth="md">
@@ -65,10 +66,10 @@ function Notes() {
                 image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h7" component="h5">
+                <Typography gutterBottom variant="h8" component="h6">
                   <div>{item.title}</div>
                   <div>{item.user.name}</div>
-                  </Typography>
+                </Typography>
               </CardContent>
               <CardActions>
                 <NavLink to={`/notes/${item._id}`}>
@@ -85,5 +86,5 @@ function Notes() {
   );
 }
 
-export default Notes;
+export default NotesId;
 
