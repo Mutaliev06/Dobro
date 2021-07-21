@@ -11,9 +11,9 @@ const router = require("./routes/index");
 
 const app = express();
 
-app.use(cors());
-app.use(upload());
+app.use(upload({ debug: true }));
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use("/image", express.static(path.resolve(__dirname, "image")))

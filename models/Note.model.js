@@ -8,7 +8,6 @@ const noteSchema = new mongoose.Schema(
     },
     pathToImage: {
       type: String,
-      required: false,
     },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
@@ -43,13 +42,12 @@ const noteSchema = new mongoose.Schema(
     },
     timeOfTheEvent: {
       type: String,
-      required: true
+      required: false
     },
     placeOfEvent: {
       type: String,
-      required: true
+      required: false
     }
-
   },
   { timestamps: true }
 );

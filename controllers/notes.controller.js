@@ -2,22 +2,18 @@ const Note = require("../models/Note.model");
 
 module.exports.notesController = {
   createNote: async (req, res) => {
-    const { text, category, timeOfTheEvent,placeOfEvent, title } = req.body;
-
+    const { text, category, timeOfTheEvent,placeOfEvent, title, image } = req.body;
     try {
       const note = await Note.create({
         user: req.user.id,
         title,
         category,
         text,
-        timeOfTheEvent,
-        placeOfEvent
+        pathToImage: image
       });
       return res.json(note);
-      console.log(note)
     } catch (e) {
-      console.log(e.message);
-      return res.status(401).json("неверный токен");
+      return res.status(401).json("неверный токен: " + e.toString());
     }
   },
 
