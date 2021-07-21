@@ -187,8 +187,8 @@ function Header() {
               </Select>
             </FormControl>
           </Typography>
-          <Button color="inherit" disableElevation>
-            <NavLink className={classes.btnLogIn} to={`/admin/`}>
+          <Button  color="inherit" disableElevation>
+            <NavLink className={classes.btnLogIn} to={`/admin`}>
               Личный кабинет
             </NavLink>
           </Button>

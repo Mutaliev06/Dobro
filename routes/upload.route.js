@@ -13,7 +13,7 @@ router.post("/upload/avatar/:id", (req, res) => {
   img.mv(fileName, async (err) => {
     if (err) {
     } else {
-      const user = await User.findById(req.params.id);
+      const user = await User.find(req.params.id);
 
       user.pathToImage = fileName;
       await user.save();
@@ -22,21 +22,19 @@ router.post("/upload/avatar/:id", (req, res) => {
   });
 });
 
-router.post("/upload/notes/:id", (req, res) => {
+router.post("/upload/notes", (req, res) => {
+  console.log(req.files)
   const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(img.name)}`;
-
   try {
     img.mv(fileName, async (err) => {
       if (err) {
         console.log(err);
       } else {
-        const note = await Note.findById(req.params.id);
-
-        note.pathToImage = fileName;
-        await note.save();
-        console.log(note);
-        res.json("Файл загружен");
+        res.json({
+          success: 'file uploaded',
+          image: fileName
+        });
       }
     });
   } catch (e) {

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%',
   },
   cardContent: {
     flexGrow: 1,
@@ -65,7 +65,7 @@ function Notes() {
                 image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h8" component="h6">
+                <Typography gutterBottom variant="h7" component="h5">
                   <div>{item.title}</div>
                   <div>{item.user.name}</div>
                   </Typography>
