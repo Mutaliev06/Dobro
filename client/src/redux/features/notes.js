@@ -27,6 +27,17 @@ export default function notesReducer(state = initialState, action) {
         loading: false,
         items: [...state.items, action.payload],
       };
+    case "note/upload/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "note/upload/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        image: action.payload.image,
+      };
     default:
       return state;
   }
@@ -40,29 +51,33 @@ export const loadNotes = () => {
     });
     const response = await fetch("http://localhost:5500/notes", {
       headers: {
-        Authorization: `Bearer ${state.application.token}`
-      }
-    })
+        Authorization: `Bearer ${state.application.token}`,
+      },
+    });
     const json = await response.json();
     dispatch({
       type: "notes/load/fulfilled",
       payload: json,
     });
-}
+  };
 };
 
 export const addNote = (data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch({ type: "note/post/pending" });
-    console.log(data);
-    const response = await fetch('http://localhost:5500/notes/', {
+
+    const state = getState();
+    const response = await fetch("http://localhost:5500/notes/", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${state.application.token}`,
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        text: data.note,
+        text: data.text,
         category: data.category,
+        title: data.title,
+        image: state.notes.image,
       }),
     });
     const json = await response.json();
@@ -73,21 +88,25 @@ export const addNote = (data) => {
   };
 };
 
-export const addImage = (id, data) => {
+export const addImage = (e) => {
   return async (dispatch) => {
-    dispatch({ type: "note/post/pending" });
-    const response = await fetch(`http://localhost:5500/upload/notes/${id}`, {
+    dispatch({ type: "note/upload/pending" });
+
+    const { files } = e.target;
+    const data = new FormData();
+    data.append("image", files[0]);
+
+    const response = await fetch(`http://localhost:5500/upload/notes`, {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ pathToImage: data.pathToImage }),
+      body: data,
     });
+
     const json = await response.json();
+
+    console.log(json);
     dispatch({
-      type: "note/post/fulfilled",
+      type: "note/upload/fulfilled",
       payload: json,
     });
   };
 };
-

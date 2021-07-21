@@ -4,6 +4,7 @@ const initialState = {
   error: null,
   token: localStorage.getItem('token'),
 };
+
 export default function application(state = initialState, action) {
   switch (action.type) {
     case "application/signup/pending":
@@ -50,12 +51,11 @@ export default function application(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export const createUser = (login, password, name, email) => {
   return async dispatch => {
     dispatch({ type: "application/signup/pending" });
-
     const res = await fetch("http://localhost:5500/users", {
       method: "POST",
       body: JSON.stringify({ login, password, name, email }),
@@ -75,7 +75,6 @@ export const createUser = (login, password, name, email) => {
 export const auth = (login, password) => {
   return async (dispatch) => {
     dispatch({ type: "application/signin/pending" });
-
     const res = await fetch("http://localhost:5500/users/login", {
       method: "POST",
       body: JSON.stringify({ login, password }),
