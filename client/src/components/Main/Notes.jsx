@@ -69,8 +69,13 @@ function Notes() {
                 image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h7" component="h5">
+                <Typography gutterBottom variant="h6" component="h5" >
                   <div>{item.title}</div>
+                </Typography>
+
+                <Typography gutterBottom variant="h7" component="h5">
+
+              
                   <div>Автор поста: {item.user.name}</div>
                   </Typography>
               </CardContent>

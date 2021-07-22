@@ -1,6 +1,7 @@
 const initialState = {
   items: [],
   loading: false,
+  userNotes: []
 };
 
 export default function notesReducer(state = initialState, action) {
@@ -37,6 +38,19 @@ export default function notesReducer(state = initialState, action) {
         ...state,
         loading: false,
         image: action.payload.image,
+      };
+
+    case "noteByUser/load/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case "noteByUser/load/fulfilled":
+      return {
+        ...state,
+        userNotes: action.payload,
+        loading: false,
       };
     default:
       return state;
@@ -77,6 +91,27 @@ export const loadCategoryNotes = (id) =>{
     })
   }
 }
+
+export const loadUserNotes = () =>{
+  return async (dispatch, getState) =>{
+    dispatch({
+      type: 'noteByUser/load/pending'
+    })
+    const state = getState()
+    const response = await fetch('http://localhost:5500/notes/admin/', {
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+      },
+    })
+    const json = await response.json()
+
+    dispatch({
+      type: 'noteByUser/load/fulfilled',
+      payload: json
+    })
+  }
+}
+
 
 export const addNote = (data) => {
   return async (dispatch, getState) => {
