@@ -140,6 +140,8 @@ export default function Admin() {
   useEffect(() => {
     dispatch(loadUserNotes());
   }, [dispatch]);
+
+  useEffect(() => {
     document.title = "Личный кабинет";
   });
 
