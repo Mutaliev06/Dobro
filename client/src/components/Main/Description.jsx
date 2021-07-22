@@ -44,6 +44,20 @@ const useStyles = makeStyles((theme) => ({
   },
   divTape: {
     boxShadow: "10px 12px 12px 0px rgb(122 122 123)"
+  },
+  text: {
+    fontSize: 20,
+    fontFamily: 'cursive',
+
+  },
+  data: {
+    fontSize: 17,
+    fontFamily: 'roboto'
+  },
+  userComment: {
+    fontSize: 18,
+    fontFamily: 'roboto',
+    marginLeft: 10,
   }
 
 }));
@@ -104,17 +118,17 @@ function Description(props) {
           </div>
         </Paper>
       </Paper>
+      <h1>Лента записей</h1>
       <div className={classes.divTape}>
-        <h1>Лента записей</h1>
         <Paper>
           {comments.map((item) => {
             return (
               <Paper>
-                <div>{item.user.name}</div>
-                <div>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
+                <div className={classes.text}>{item.user.name}</div>
+                <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
                 <div>
                   {" "}
-                  <h3>{item.text}</h3>
+                  <p className={classes.userComment}>{item.text}</p>
                 </div>
               </Paper>
             );
