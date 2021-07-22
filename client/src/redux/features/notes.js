@@ -154,7 +154,6 @@ export const addImage = (e) => {
 
     const json = await response.json();
 
-    console.log(json);
     dispatch({
       type: "note/upload/fulfilled",
       payload: json,
