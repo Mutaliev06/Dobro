@@ -6,6 +6,7 @@ import categoriesReducer from "./features/categories";
 import usersReducer from "./features/users";
 import commentsReducer from "./features/comments";
 import application from './features/application';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const logger = createLogger({
   diff: true,
@@ -19,6 +20,7 @@ export const store = createStore(
     notes: notesReducer,
     users: usersReducer,
     application: application,
-  }),
+  }), composeWithDevTools(
   applyMiddleware(thunk, logger)
+)
 );

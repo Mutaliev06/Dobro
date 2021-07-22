@@ -5,14 +5,21 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { FormControl, MenuItem, Select, TextField } from "@material-ui/core";
+import 'date-fns';
+import {
+  Card, CardActions, CardContent, CardMedia,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserById } from "../../redux/features/users";
 import { loadCategories } from "../../redux/features/categories";
 import { Avatar } from "@material-ui/core";
-import { addImage, addNote, loadNotes } from "../../redux/features/notes";
+import { addImage, addNote,  loadUserNotes } from "../../redux/features/notes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,16 +70,34 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 335,
+    minWidth: 300,
+    textAlign: "center",
+    marginTop: 10,
   },
   selectEmpty: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
+    marginBottom: 5,
   },
   imgMargin: {
     margin: "auto",
     width: 200,
     height: 200,
   },
+  uploadMargin: {
+    marginTop: 20,
+  },
+  btnUpload: {
+    margin: "auto",
+    marginLeft: 100,
+    marginBottom: 5
+  },
+  btnAdd: {
+    marginTop: 15,
+    marginLeft: 615
+  },
+  inputStyle: {
+    marginBottom: 7
+  }
 }));
 
 export default function Admin() {
@@ -89,13 +114,10 @@ export default function Admin() {
     return state.users.currentUser;
   });
 
-  useEffect(() => {
-    dispatch(loadNotes(id));
-  }, [dispatch]);
-
-  const note = useSelector((state) => {
-    return state.notes.items.find((item) => item._id === id);
+  const notes = useSelector((state) => {
+    return state.notes.userNotes
   });
+
 
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
@@ -107,10 +129,6 @@ export default function Admin() {
     setTitle(e.target.value);
   };
 
-  // const handleChangeTimeOfTheEvent = (e) => {
-  //   setTimeOfTheEvent(e.target.value);
-  // };
-
   useEffect(() => {
     dispatch(loadUserById());
   }, [dispatch]);
@@ -119,14 +137,23 @@ export default function Admin() {
     dispatch(loadCategories());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(loadUserNotes());
+  }, [dispatch]);
+
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
 
-
   const handleAddNote = async () => {
     await dispatch(addNote({ text, category, title }));
   };
+
+  // const [selectedDate, setSelectedDate] = useState("");
+  //
+  // const handleDateChange = (date) => {
+  //   setSelectedDate(date);
+  // };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -191,8 +218,10 @@ export default function Admin() {
                   {" "}
                   Заполните все обязательные поля*{" "}
                 </Typography>
+
                 <TextField
                   id="outlined-multiline-static"
+                  className={classes.inputStyle}
                   label="Введите заголовок*"
                   multiline
                   rows={1}
@@ -209,71 +238,129 @@ export default function Admin() {
                   onChange={handleChangeNote}
                   variant="outlined"
                 />
-                <Grid lg={4}></Grid>
+                <Grid lg={4}>
+                      <Button
+                        className={classes.btnAdd}
+                        onClick={handleAddNote}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Добавить
+                      </Button>
+               </Grid>
               </Paper>
             </Grid>
             <Grid item xs={8} md={8} lg={4}>
               <Paper className={fixedHeightPaper}>
-                {/*<KeyboardDatePicker*/}
+
+                {/*<KeyboardTimePicker*/}
                 {/*  margin="normal"*/}
-                {/*  id="date-picker-dialog"*/}
-                {/*  label="Date picker dialog"*/}
-                {/*  format="MM/dd/yyyy"*/}
-                {/*  value={setTimeOfTheEvent}*/}
-                {/*  onChange={handleChangeTimeOfTheEvent}*/}
+                {/*  id="time-picker"*/}
+                {/*  label="Time picker"*/}
+                {/*  value={selectedDate}*/}
+                {/*  onChange={handleDateChange}*/}
                 {/*  KeyboardButtonProps={{*/}
-                {/*    'aria-label': 'change date',*/}
+                {/*    'aria-label': 'change time',*/}
                 {/*  }}*/}
                 {/*/>*/}
+                {/*  */}
                 <Paper>
-                  <Typography align="center">Выберите категорию* </Typography>
-                  {/*{'Добавление постов'}*/}
-                  <FormControl className={classes.formControl}>
-                    <Select
-                      displayEmpty
-                      className={classes.selectEmpty}
-                      value={category}
-                      onChange={handleChangeCategory}
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      <MenuItem value="" disabled>
-                        Мероприятия
-                      </MenuItem>
-                      {categories.map((item) => (
-                        <MenuItem key={item.value} value={item._id}>
-                          {item.title}
-                        </MenuItem>
-                      ))}
-                      }
-                    </Select>
-                  </FormControl>
+                  <Grid item xs={8} md={8} lg={12}>
+                    <Paper>
+                      <Typography align="center">
+                        Выберите категорию*{" "}
+                      </Typography>
+                      {/*{'Добавление постов'}*/}
+                      <FormControl className={classes.formControl}>
+                        <Select
+                          displayEmpty
+                          className={classes.selectEmpty}
+                          value={category}
+                          onChange={handleChangeCategory}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem value="" disabled>
+                            Мероприятия
+                          </MenuItem>
+                          {categories.map((item) => (
+                            <MenuItem key={item.value} value={item._id}>
+                              {item.title}
+                            </MenuItem>
+                          ))}
+                          }
+                        </Select>
+                      </FormControl>
+                    </Paper>
+                  </Grid>
                 </Paper>
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                  >
-                    Upload
-                  </Button>
-                  <input type="file" onChange={handleAddImage} />
-                </label>
-                <Button
-                  onClick={handleAddNote}
-                  variant="contained"
-                  color="primary"
+                <Grid
+                  item
+                  xs={8}
+                  md={8}
+                  className={classes.uploadMargin}
+                  lg={12}
                 >
-                  Добавить
-                </Button>
+                  <Paper>
+                    <Typography align="center" component="h4">
+                      Загрузить изображение{" "}
+                    </Typography>
+
+                    <div className={classes.root}>
+
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={classes.btnUpload}
+                          onChange={handleAddImage}
+                        >
+                          <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="contained-button-file"
+                            multiple
+                            type="file"
+                            onChange={handleAddImage}
+                          />
+                          <label htmlFor="contained-button-file">
+                          Выбрать
+                          </label>
+                        </Button>
+
+                    </div>
+                  </Paper>
+                </Grid>
               </Paper>
             </Grid>
             {/* Посты */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Typography align="center">
-                  Здесь должны быть все записи пользователя
-                </Typography>
-              </Paper>
+            <Grid container spacing={4}>
+              {notes.map((item) => (
+                <Grid item key={item} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      title="Image title"
+                      image = {`http://localhost:5500/${item.pathToImage}`}
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h6" component="h5" >
+                        <div>{item.title}</div>
+                      </Typography>
+
+                      <Typography gutterBottom variant="h7" component="h5">
+
+                        <div>{item.user.name}</div>
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <NavLink to={`/notes/${item._id}`}>
+                        <Button size="small" color="primary">
+                          Подробнее
+                        </Button>
+                      </NavLink>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
         </Container>
