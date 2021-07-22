@@ -47,11 +47,13 @@ function NotesId() {
   const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
 
-  console.log(notes);
-
   useEffect(() => {
     dispatch(loadCategoryNotes(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    document.title = "ВЦ 'Добро'";
+  });
 
   return (
     <Container className={classes.cardGrid} maxWidth="md">

@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function NotFound(props) {
+
+  useEffect(() => {
+    document.title = "Ошибка";
+  });
+
   return (
     <div>
       <h1>

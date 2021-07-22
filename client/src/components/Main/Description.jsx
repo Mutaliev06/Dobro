@@ -68,6 +68,10 @@ function Description(props) {
     dispatch(loadComments(id));
   }, [dispatch]);
 
+  useEffect(() => {
+    document.title = "ВЦ 'Добро'";
+  });
+
   return (
     <Container className={classes.container}>
       <Paper className={classes.divFoto}>
