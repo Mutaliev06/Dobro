@@ -140,6 +140,8 @@ export default function Admin() {
   useEffect(() => {
     dispatch(loadUserNotes());
   }, [dispatch]);
+    document.title = "Личный кабинет";
+  });
 
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
