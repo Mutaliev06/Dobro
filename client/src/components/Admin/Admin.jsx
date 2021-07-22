@@ -119,10 +119,13 @@ export default function Admin() {
     dispatch(loadCategories());
   }, [dispatch]);
 
+  useEffect(() => {
+    document.title = "Личный кабинет";
+  });
+
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
-
 
   const handleAddNote = async () => {
     await dispatch(addNote({ text, category, title }));
