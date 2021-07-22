@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  btnDetailed: {
+    textDecoration: "none",
+
+  }
 }));
 
 function Notes() {
@@ -63,14 +67,19 @@ function Notes() {
                 image = {`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h7" component="h5">
+                <Typography gutterBottom variant="h6" component="h5" >
                   <div>{item.title}</div>
-                  <div>{item.user.name}</div>
+                </Typography>
+
+                <Typography gutterBottom variant="h7" component="h5">
+
+              
+                  <div>Автор поста: {item.user.name}</div>
                   </Typography>
               </CardContent>
               <CardActions>
-                <NavLink to={`/notes/${item._id}`}>
-                  <Button size="small" color="primary">
+                <NavLink to={`/notes/${item._id}`} className={classes.btnDetailed}>
+                  <Button size="small" color="outlined">
                     Подробнее
                   </Button>
                 </NavLink>

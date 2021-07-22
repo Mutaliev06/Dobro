@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadNotes } from "../../redux/features/notes";
 import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
-import moment from "moment"
+import moment from "moment";
 import Button from "@material-ui/core/Button";
 import PlaceIcon from "@material-ui/icons/Place";
 import { loadComments } from "../../redux/features/comments";
 import Container from "@material-ui/core/Container";
-import { Paper } from '@material-ui/core';
+import { Paper } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -19,12 +19,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     padding: 10,
-    boxShadow: '10px 12px 12px 0px rgb(122 122 123)'
+    boxShadow: "10px 12px 12px 0px rgb(122 122 123)",
   },
   divDescription: {
     display: "flex",
     marginTop: 20,
-    boxShadow: '10px 12px 12px 0px rgb(122 122 123)'
+    boxShadow: "10px 12px 12px 0px rgb(122 122 123)",
   },
   divPlaceTime: {
     width: 300,
@@ -35,17 +35,31 @@ const useStyles = makeStyles((theme) => ({
     height: 300,
     borderRadius: 5,
   },
-  divComments: {
-    // border: ('3px' , 'solid', 'yellow')
-    borderWidth: 3,
-    borderColor: "rgb(190,190,190)",
-    borderStyle: "inset",
-    borderRadius: 4,
-    marginBottom: 10,
-  },
   divNotesText: {
     padding: 20,
+  },
+  btnParticipate: {
+    textDecoration: "none",
+    color: "grey",
+  },
+  divTape: {
+    boxShadow: "10px 12px 12px 0px rgb(122 122 123)"
+  },
+  text: {
+    fontSize: 20,
+    fontFamily: 'cursive',
+
+  },
+  data: {
+    fontSize: 17,
+    fontFamily: 'roboto'
+  },
+  userComment: {
+    fontSize: 18,
+    fontFamily: 'roboto',
+    marginLeft: 10,
   }
+
 }));
 
 function Description(props) {
@@ -85,7 +99,10 @@ function Description(props) {
           <h1>{notes?.title}</h1>
 
           <h3> Автор поста: {notes?.user.name}</h3>
-          <Button variant="outlined">Принять участие</Button>
+          <Button variant="outlined">
+            {" "}
+            <NavLink className={classes.btnParticipate} to='/login'>Принять участие</NavLink>
+          </Button>
         </div>
       </Paper>
       <Paper className={classes.divDescription}>
@@ -105,15 +122,18 @@ function Description(props) {
           </div>
         </Paper>
       </Paper>
-      <div>
-        <h1>Лента записей</h1>
+      <h1>Лента записей</h1>
+      <div className={classes.divTape}>
         <Paper>
           {comments.map((item) => {
             return (
               <Paper>
-                <Paper><h3>{item.user.name}</h3></Paper>
-                <Paper> <h3>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</h3></Paper>
-                <Paper> <h3>{item.text}</h3></Paper>
+                <div className={classes.text}>{item.user.name}</div>
+                <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
+                <div>
+                  {" "}
+                  <p className={classes.userComment}>{item.text}</p>
+                </div>
               </Paper>
             );
           })}
