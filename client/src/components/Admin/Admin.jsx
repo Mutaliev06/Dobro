@@ -5,10 +5,14 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import 'date-fns';
+import "date-fns";
 import {
-  Card, CardActions, CardContent, CardMedia,
-  FormControl, IconButton,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  FormControl,
+  IconButton,
   MenuItem,
   Select,
   TextField,
@@ -16,18 +20,22 @@ import {
 import Button from "@material-ui/core/Button";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addAvatar, loadUserById, loadUserNotes } from "../../redux/features/users";
+import {
+  addAvatar,
+  loadUserById,
+  loadUserNotes,
+} from "../../redux/features/users";
 import { loadCategories } from "../../redux/features/categories";
 import { Avatar } from "@material-ui/core";
 import { addImage, addNote } from "../../redux/features/notes";
-import { PhotoCamera } from '@material-ui/icons';
-import { IoCloudDoneSharp, MdDone } from 'react-icons/all';
+import { PhotoCamera } from "@material-ui/icons";
+import { IoCloudDoneSharp, MdDone } from "react-icons/all";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    width: '100%',
-    marginTop: 20
+    width: "100%",
+    marginTop: 20,
   },
   menuButton: {
     marginRight: 36,
@@ -91,60 +99,57 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 100,
 
     marginBottom: 5,
-    backgroundColor: '#000841'
+    backgroundColor: "#000841",
   },
   btnAdd: {
     marginTop: 10,
-    backgroundColor: '#000841',
-    textDecoration: 'none',
+    backgroundColor: "#000841",
+    textDecoration: "none",
   },
   inputStyle: {
-    marginBottom: 7
+    marginBottom: 7,
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 320,
-    marginTop: 10
+    marginTop: 10,
   },
   containerData: {
     width: 727,
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
     marginTop: 4,
   },
   paperCard: {
-    display: 'flex',
+    display: "flex",
     justifyContent: "space-between",
-    alignItems: 'center',
-
+    alignItems: "center",
   },
   cardGrid: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
-
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
     marginLeft: 10,
-    width: '95%'
+    width: "95%",
   },
   cardMedia: {
-    paddingTop: '56.25%',
-
+    paddingTop: "56.25%",
   },
   cardContent: {
     flexGrow: 1,
   },
   AddressInput: {
-  width: 600,
-    height: 15
+    width: 600,
+    height: 15,
   },
   btnAvatar: {
     marginLeft: 300,
-  }
+  },
 }));
 
 export default function Admin() {
@@ -155,8 +160,8 @@ export default function Admin() {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [timeOfTheEvent, setTimeOfTheEvent] = React.useState('');
-  const [placeOfEvent, setPlaceOfEvent] = React.useState('');
+  const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
+  const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
 
   const user = useSelector((state) => {
@@ -164,7 +169,7 @@ export default function Admin() {
   });
 
   const notes = useSelector((state) => {
-    return state.users.userNotes
+    return state.users.userNotes;
   });
 
   const handleChangeCategory = (e) => {
@@ -177,11 +182,11 @@ export default function Admin() {
     setTitle(e.target.value);
   };
   const handleDateChange = (e) => {
-    return setTimeOfTheEvent(e.target.value)
+    return setTimeOfTheEvent(e.target.value);
   };
   const handlePlaceChange = (e) => {
-    return setPlaceOfEvent(e.target.value)
-  }
+    return setPlaceOfEvent(e.target.value);
+  };
 
   useEffect(() => {
     dispatch(loadUserById());
@@ -204,9 +209,10 @@ export default function Admin() {
   };
 
   const handleAddNote = async () => {
-    await dispatch(addNote({ text, category, title, timeOfTheEvent,placeOfEvent }));
+    await dispatch(
+      addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
+    );
   };
-
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -216,25 +222,32 @@ export default function Admin() {
         {/*{note.length}*/}
         <Container maxWidth="lg" className={classes.c}>
           <Grid container spacing={3}>
-
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
               <Paper align="center" className={fixedHeightPaper}>
-
                 <Avatar
                   className={classes.imgMargin}
                   size="400"
                   src={`http://localhost:5500/${user.pathToImage}`}
                 />
-                <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="icon-button-file"
+                  type="file"
+                />
                 <label htmlFor="icon-button-file">
-                <IconButton color="primary" aria-label="upload picture" onChange={handleAddAvatar} className={classes.btnAvatar} component="span">
-                  <PhotoCamera />
-                </IconButton>
-              </label>
-
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    onChange={handleAddAvatar}
+                    className={classes.btnAvatar}
+                    component="span"
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
               </Paper>
-
             </Grid>
             {/* ФИО юзера */}
             {/*{Активность юзера}*/}
@@ -277,7 +290,6 @@ export default function Admin() {
           >
             <Grid item xs={8} md={8} lg={8}>
               <Paper className={fixedHeightPaper}>
-
                 <Typography align="center" variant="h6" component="h6">
                   {" "}
                   Заполните все обязательные поля*{" "}
@@ -311,51 +323,47 @@ export default function Admin() {
                       value={placeOfEvent}
                       onChange={handlePlaceChange}
                     />
-              <NavLink exact to={'/admin'}>
-                <Button
-                  onClick={handleAddNote}
-                  variant="contained"
-                  color="primary"
-                  className={classes.btnAdd}
-                >
-                  Добавить
-                </Button>
-              </NavLink>
+                    <NavLink exact to={"/admin"}>
+                      <Button
+                        onClick={handleAddNote}
+                        variant="contained"
+                        color="primary"
+                        className={classes.btnAdd}
+                      >
+                        Добавить
+                      </Button>
+                    </NavLink>
                   </form>
-               </Grid>
+                </Grid>
               </Paper>
             </Grid>
             <Grid item xs={8} md={8} lg={4}>
               <Paper className={fixedHeightPaper}>
-
-
-                  <Grid item xs={8} md={8} lg={12}>
-                    <Paper>
-                      <Typography align="center">
-                        Выберите категорию*{" "}
-                      </Typography>
-                      {/*{'Добавление постов'}*/}
-                      <FormControl className={classes.formControl}>
-                        <Select
-                          displayEmpty
-                          className={classes.selectEmpty}
-                          value={category}
-                          onChange={handleChangeCategory}
-                          inputProps={{ "aria-label": "Without label" }}
-                        >
-                          <MenuItem value="" disabled>
-                            Мероприятия
+                <Grid item xs={8} md={8} lg={12}>
+                  <Paper>
+                    <Typography align="center">Выберите категорию* </Typography>
+                    {/*{'Добавление постов'}*/}
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        displayEmpty
+                        className={classes.selectEmpty}
+                        value={category}
+                        onChange={handleChangeCategory}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value="" disabled>
+                          Мероприятия
+                        </MenuItem>
+                        {categories.map((item) => (
+                          <MenuItem key={item.value} value={item._id}>
+                            {item.title}
                           </MenuItem>
-                          {categories.map((item) => (
-                            <MenuItem key={item.value} value={item._id}>
-                              {item.title}
-                            </MenuItem>
-                          ))}
-                          }
-                        </Select>
-                      </FormControl>
-                    </Paper>
-                  </Grid>
+                        ))}
+                        }
+                      </Select>
+                    </FormControl>
+                  </Paper>
+                </Grid>
 
                 <Grid
                   item
@@ -369,24 +377,22 @@ export default function Admin() {
                       Загрузить изображение{" "}
                     </Typography>
                     <div className={classes.root}>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={classes.btnUpload}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.btnUpload}
+                        onChange={handleAddImage}
+                      >
+                        <input
+                          accept="image/*"
+                          className={classes.input}
+                          id="contained-button-file"
+                          multiple
+                          type="file"
                           onChange={handleAddImage}
-                        >
-                          <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                            onChange={handleAddImage}
-                          />
-                          <label htmlFor="contained-button-file">
-                          Выбрать
-                          </label>
-                        </Button>
+                        />
+                        <label htmlFor="contained-button-file">Выбрать</label>
+                      </Button>
                     </div>
                   </Paper>
 
@@ -396,20 +402,19 @@ export default function Admin() {
                     type="datetime-local"
                     value={timeOfTheEvent}
                     onChange={handleDateChange}
-
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                    </Grid>
+                </Grid>
               </Paper>
             </Grid>
             {/* Посты */}
             <Grid item xs={8} md={8} lg={12}>
               <Paper className={classes.paperMarginTop}>
                 <Typography align="center" variant="h5" component="h4">
-               Ваши записи
+                  Ваши записи
                 </Typography>
               </Paper>
             </Grid>
@@ -420,15 +425,14 @@ export default function Admin() {
                     <CardMedia
                       className={classes.cardMedia}
                       title="Image title"
-                      image = {`http://localhost:5500/${item.pathToImage}`}
+                      image={`http://localhost:5500/${item.pathToImage}`}
                     />
                     <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h6" component="h5" >
+                      <Typography gutterBottom variant="h6" component="h5">
                         <div>{item.title}</div>
                       </Typography>
 
                       <Typography gutterBottom variant="h7" component="h5">
-
                         <div>{item.user.name}</div>
                       </Typography>
                     </CardContent>
@@ -443,7 +447,6 @@ export default function Admin() {
                 </Grid>
               ))}
             </Grid>
-
           </Grid>
         </Container>
       </div>
