@@ -2,14 +2,17 @@ const Note = require("../models/Note.model");
 
 module.exports.notesController = {
   createNote: async (req, res) => {
-    const { text, category, timeOfTheEvent,placeOfEvent, title, image } = req.body;
+    const { text, category, timeOfTheEvent, placeOfEvent, title, image } =
+      req.body;
     try {
       const note = await Note.create({
         user: req.user.id,
         title,
         category,
         text,
-        pathToImage: image
+        pathToImage: image,
+        timeOfTheEvent,
+        placeOfEvent
       });
       return res.json(note);
     } catch (e) {
@@ -27,26 +30,34 @@ module.exports.notesController = {
         await note.remove();
         res.json("Удалено");
       }
-      return res.status(401).json('ошибка нет доступа')
-    }
-    catch (e) {
-      return res.status(401).json('ошибка:' + e.toString())
+      return res.status(401).json("ошибка нет доступа");
+    } catch (e) {
+      return res.status(401).json("ошибка:" + e.toString());
     }
   },
 
   getAllNotes: async (req, res) => {
-    const notes = await Note.find().populate("user")
+    const notes = await Note.find().populate("user");
     res.json(notes);
   },
 
   getCategoryNotes: async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
       const note = await Note.find({ category: id });
       res.json(note);
-    }
-    catch (e) {
+    } catch (e) {
       res.json(e);
     }
-  }
+  },
+
+  getUserNotes: async (req, res) => {
+    const { id } = req.user;
+    try {
+      const note = await Note.find({ user: id });
+      res.json(note);
+    } catch (e) {
+      res.json(e);
+    }
+  },
 };
