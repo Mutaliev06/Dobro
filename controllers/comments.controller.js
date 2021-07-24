@@ -25,6 +25,19 @@ module.exports.commentControllers = {
     }
   },
 
+  postComment: async (req, res) => {
+    const { text } = req.body;
+    try {
+      const comment = await Comment.create({
+        text,
+        note: req.params.id
+      });
+      res.json(comment);
+    } catch (e) {
+      res.json(e);
+    }
+  },
+
   deleteComment: async (req, res) => {
     const { id } = req.params;
     try {
