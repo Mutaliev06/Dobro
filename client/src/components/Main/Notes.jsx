@@ -13,36 +13,61 @@ import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
 import { NavLink, useParams } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
-
   control: {
     padding: theme.spacing(2),
   },
   paperCard: {
-    display: 'flex',
+    display: "flex",
     justifyContent: "space-between",
-    alignItems: 'center'
+    alignItems: "center",
+
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    padding: '5px',
+    width: '300px',
+    height: '350px',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    borderRadius: '5px',
   },
   cardMedia: {
-    paddingTop: '56.25%',
+    paddingTop: "56.25%",
+    borderRadius: '3px',
   },
   cardContent: {
-    flexGrow: 1,
+    padding: '5px'
   },
-  btnDetailed: {
-    textDecoration: "none",
+  BtnNoteId: {
+    textDecoration: 'none',
+    position: 'relative',
+    padding: '0',
+    background: '#000841',
+    color: '#fff',
+    borderRadius: '5px',
+    transition: 'all .3s',
+    '&:hover':{
+      background: 'transparent',
+      border: "2px solid #000841",
+      color: '#000841',
+      transform: 'scale(1.02)'
+    }
+  },
+  BtnNote: {
+    transition: 'all .3s',
+    color: '#fff',
+    '&:hover':{
+      color: '#000841'
+    }
+  },
 
-  }
 }));
 
 function Notes() {
@@ -56,7 +81,6 @@ function Notes() {
 
   return (
     <Container className={classes.cardGrid} maxWidth="md">
-      {/* End hero unit */}
       <Grid container spacing={4}>
         {notes.map((item) => (
           <Grid item key={item} xs={12} sm={6} md={4}>
@@ -64,22 +88,21 @@ function Notes() {
               <CardMedia
                 className={classes.cardMedia}
                 title="Image title"
-                image = {`http://localhost:5500/${item.pathToImage}`}
+                image={`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h6" component="h5" >
-                  <div>{item.title}</div>
-                </Typography>
-
-                <Typography gutterBottom variant="h7" component="h5">
-
-              
-                  <div>Автор поста: {item.user.name}</div>
+                <Box>
+                  <Typography gutterBottom variant="h6" component="h5">
+                    <div>{item.title}</div>
                   </Typography>
+                  <Typography gutterBottom variant="h7" component="h5">
+                    <div>Автор поста: {item.user.name}</div>
+                  </Typography>
+                </Box>
               </CardContent>
               <CardActions>
-                <NavLink to={`/notes/${item._id}`} className={classes.btnDetailed}>
-                  <Button size="small" color="outlined">
+                <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
+                  <Button className={classes.BtnNote}>
                     Подробнее
                   </Button>
                 </NavLink>
