@@ -42,7 +42,7 @@ const noteSchema = new mongoose.Schema(
     },
     timeOfTheEvent: {
       type: String,
-      required: false
+      required: true
     },
     placeOfEvent: {
       type: String,

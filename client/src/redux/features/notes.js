@@ -1,7 +1,6 @@
 const initialState = {
   items: [],
   loading: false,
-  userNotes: []
 };
 
 export default function notesReducer(state = initialState, action) {
@@ -39,19 +38,6 @@ export default function notesReducer(state = initialState, action) {
         loading: false,
         image: action.payload.image,
       };
-
-    case "noteByUser/load/pending":
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case "noteByUser/load/fulfilled":
-      return {
-        ...state,
-        userNotes: action.payload,
-        loading: false,
-      };
     default:
       return state;
   }
@@ -76,51 +62,30 @@ export const loadNotes = () => {
   };
 };
 
-export const loadCategoryNotes = (id) =>{
-  return async (dispatch) =>{
+export const loadCategoryNotes = (id) => {
+  return async (dispatch) => {
     dispatch({
-      type: 'notes/load/pending'
-    })
+      type: "notes/load/pending",
+    });
 
-    const response = await fetch(`http://localhost:5500/notes/category/${id}`)
-    const json = await response.json()
-
-    dispatch({
-      type: 'notes/load/fulfilled',
-      payload: json
-    })
-  }
-}
-
-export const loadUserNotes = () =>{
-  return async (dispatch, getState) =>{
-    dispatch({
-      type: 'noteByUser/load/pending'
-    })
-    const state = getState()
-    const response = await fetch('http://localhost:5500/notes/admin/', {
-      headers: {
-        Authorization: `Bearer ${state.application.token}`,
-      },
-    })
-    const json = await response.json()
+    const response = await fetch(`http://localhost:5500/notes/category/${id}`);
+    const json = await response.json();
 
     dispatch({
-      type: 'noteByUser/load/fulfilled',
-      payload: json
-    })
-  }
-}
-
+      type: "notes/load/fulfilled",
+      payload: json,
+    });
+  };
+};
 
 export const addNote = (data) => {
   return async (dispatch, getState) => {
     dispatch({ type: "note/post/pending" });
 
     const state = getState();
-    const response = await fetch("http://localhost:5500/notes/", {
+    const response = await fetch("http://localhost:5500/notes", {
       method: "POST",
-      headers: {
+      headers: {git
         Authorization: `Bearer ${state.application.token}`,
         "Content-type": "application/json",
       },
@@ -129,6 +94,8 @@ export const addNote = (data) => {
         category: data.category,
         title: data.title,
         image: state.notes.image,
+        timeOfTheEvent: data.timeOfTheEvent,
+        placeOfEvent: data.placeOfEvent,
       }),
     });
     const json = await response.json();
