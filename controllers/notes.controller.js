@@ -42,7 +42,7 @@ module.exports.notesController = {
   getCategoryNotes: async (req, res) => {
     const { id } = req.params
     try {
-      const note = await Note.find({ category: id });
+      const note = await Note.find({ category: id }).populate('user', 'title, name');
       res.json(note);
     }
     catch (e) {

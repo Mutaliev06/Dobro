@@ -13,8 +13,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "./logo-white.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useLocation } from "react-router-dom";
 import { logout } from "../../redux/features/application";
+import classnames from 'classnames'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     backgroundColor: "#000841",
-    borderRadius: 6,
-    width: "96%",
+    borderRadius: 4,
+    width: "97%",
     margin: "auto",
     color: "white",
   },
@@ -52,7 +53,18 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     backgroundColor: "#000841",
   },
-
+  selectTitle: {
+    textDecoration: "none",
+    color: "#000",
+  },
+  menuItemLink: {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: '22px'
+  },
+  linkActive: {
+    color: 'red'
+  },
   textDecoration: "none",
   color: "white",
   backgroundColor: "#000841",
@@ -61,11 +73,12 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
   const token = useSelector((state) => state.application.token);
   const { id } = useParams();
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.items);
-
+  const [selectTitle, setSelectTitle] = useState('Мероприятия');
+  const { pathname } = useLocation();
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -86,40 +99,53 @@ function Header() {
 
   const classes = useStyles();
 
+  const isActive = (pn) => {
+    if (pn === pathname) return 'linkActive';
+  };
+
+
+  const activeDpop = (title) => {
+    setSelectTitle(title);
+  };
+
+  const cls = classes.btnLogUp + ' ' + classes.linkActive
+
+
   if (!token) {
     return (
       <div>
         <AppBar
-          color="transparent"
-          position="sticky"
+          color='transparent'
+          position='sticky'
           className={classes.appbar}
         >
           <Toolbar>
-            <NavLink color="inherit" to={`/`}>
+            <NavLink color='inherit' to={`/`}>
               <IconButton
-                edge="start"
+                edge='start'
                 className={classes.menuButton}
-                color="inherit"
-                aria-label="menu"
+                color='inherit'
+                aria-label='menu'
               >
                 <img src={logo} />
               </IconButton>
             </NavLink>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant='h6' className={classes.title}>
               <FormControl className={classes.formControl}>
                 <Select
                   displayEmpty
                   className={classes.selectEmpty}
                   value={category}
                   onChange={handleChangeCategory}
-                  inputProps={{ "aria-label": "Without label" }}
+                  inputProps={{ 'aria-label': 'Without label' }}
                 >
-                  <MenuItem value="" disabled>
-                    Мероприятия
+                  <MenuItem className={classes.menuItemLink} value='' disabled>
+                    {selectTitle}
                   </MenuItem>
                   {categories.map((item) => (
                     <MenuItem key={item.value} value={item._id}>
                       <NavLink
+                        onClick={() => activeDpop(item.title)}
                         className={classes.selectTitle}
                         to={`/notes/category/${item._id}`}
                       >
@@ -131,13 +157,13 @@ function Header() {
                 </Select>
               </FormControl>
             </Typography>
-            <Button color="inherit">
-              <NavLink className={classes.btnLogUp} to={`/registration`}>
+            <Button color='inherit'>
+              <NavLink className={classnames(classes.btnLogUp, pathname ==='/registration' && classes.linkActive)} to={`/registration`}>
                 Регистрация
               </NavLink>
 
-              <NavLink className={classes.btnLogIn} to={`/login/`}>
-                {" "}
+              <NavLink className={ classnames(classes.btnLogIn, pathname === '/login' && classes.linkActive)} to={`/login`}>
+                {' '}
                 Войти
               </NavLink>
             </Button>
@@ -149,28 +175,28 @@ function Header() {
 
   return (
     <div>
-      <AppBar color="transparent" position="sticky" className={classes.appbar}>
+      <AppBar color='transparent' position='sticky' className={classes.appbar}>
         <Toolbar>
-          <NavLink color="inherit" to={`/`}>
+          <NavLink color='inherit' to={`/`}>
             <IconButton
-              edge="start"
+              edge='start'
               className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
+              color='inherit'
+              aria-label='menu'
             >
               <img src={logo} />
             </IconButton>
           </NavLink>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant='h6' className={classes.title}>
             <FormControl className={classes.formControl}>
               <Select
                 displayEmpty
                 className={classes.selectEmpty}
                 value={category}
                 onChange={handleChangeCategory}
-                inputProps={{ "aria-label": "Without label" }}
+                inputProps={{ 'aria-label': 'Without label' }}
               >
-                <MenuItem value="" disabled>
+                <MenuItem value='' disabled>
                   Мероприятия
                 </MenuItem>
                 {categories.map((item) => (
@@ -187,12 +213,12 @@ function Header() {
               </Select>
             </FormControl>
           </Typography>
-          <Button  color="inherit" disableElevation>
+          <Button color='inherit' disableElevation>
             <NavLink className={classes.btnLogIn} to={`/admin`}>
               Личный кабинет
             </NavLink>
           </Button>
-          <Button value={isLoggedOut} onClick={handleLogout} color="inherit">
+          <Button value={isLoggedOut} onClick={handleLogout} color='inherit'>
             <NavLink className={classes.btnLogIn} to={`/`}>
               Выйти
             </NavLink>
