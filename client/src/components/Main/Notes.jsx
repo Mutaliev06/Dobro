@@ -80,10 +80,10 @@ function Notes() {
   }, [dispatch]);
 
   return (
-    <Container className={classes.cardGrid} maxWidth="md">
+    <Container className={classes.cardGrid} maxWidth="1440px">
       <Grid container spacing={4}>
         {notes.map((item) => (
-          <Grid item key={item} xs={12} sm={6} md={4}>
+          <Grid item key={item} xs={3}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
