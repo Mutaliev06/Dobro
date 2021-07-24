@@ -10,10 +10,10 @@ const useStyles = makeStyles({
   },
   mainDiv: {
     display: "flex",
-    flexDirection: 'column',
-    justifyContent: "center"
-  }
-})
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
 
 function Home(props) {
   const classes = useStyles();
@@ -29,7 +29,6 @@ function Home(props) {
         <SlideComponent/>
         <Notes/>
       </div>
-
     </div>
   );
 }
