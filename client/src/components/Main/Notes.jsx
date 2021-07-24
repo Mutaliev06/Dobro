@@ -12,7 +12,6 @@ import {
 import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
-import { loadUsers } from '../../redux/features/users';
 import { NavLink, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({

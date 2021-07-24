@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import 'date-fns';
 import {
   Card, CardActions, CardContent, CardMedia,
-  FormControl,
+  FormControl, IconButton,
   MenuItem,
   Select,
   TextField,
@@ -16,25 +16,25 @@ import {
 import Button from "@material-ui/core/Button";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUserById } from "../../redux/features/users";
+import { addAvatar, loadUserById, loadUserNotes } from "../../redux/features/users";
 import { loadCategories } from "../../redux/features/categories";
 import { Avatar } from "@material-ui/core";
-import { addImage, addNote,  loadUserNotes } from "../../redux/features/notes";
+import { addImage, addNote } from "../../redux/features/notes";
+import { PhotoCamera } from '@material-ui/icons';
+import { IoCloudDoneSharp, MdDone } from 'react-icons/all';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    marginBottom: 45,
+    width: '100%',
+    marginTop: 20
   },
-
   menuButton: {
     marginRight: 36,
   },
-
   title: {
     flexGrow: 1,
   },
-
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
   },
   container: {
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(8),
   },
   paper: {
     padding: theme.spacing(2),
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
   },
   fixedHeight: {
-    height: 240,
+    height: 260,
   },
   fixedHeightPaperMargin: {
     marginBottom: 20,
@@ -80,8 +80,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imgMargin: {
     margin: "auto",
-    width: 200,
-    height: 200,
+    width: 180,
+    height: 180,
   },
   uploadMargin: {
     marginTop: 20,
@@ -89,14 +89,61 @@ const useStyles = makeStyles((theme) => ({
   btnUpload: {
     margin: "auto",
     marginLeft: 100,
-    marginBottom: 5
+
+    marginBottom: 5,
+    backgroundColor: '#000841'
   },
   btnAdd: {
-    marginTop: 15,
-    marginLeft: 615
+    marginTop: 10,
+    backgroundColor: '#000841',
+    textDecoration: 'none',
   },
   inputStyle: {
     marginBottom: 7
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 320,
+    marginTop: 10
+  },
+  containerData: {
+    width: 727,
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: 4,
+  },
+  paperCard: {
+    display: 'flex',
+    justifyContent: "space-between",
+    alignItems: 'center',
+
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: 10,
+    width: '95%'
+  },
+  cardMedia: {
+    paddingTop: '56.25%',
+
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+  AddressInput: {
+  width: 600,
+    height: 15
+  },
+  btnAvatar: {
+    marginLeft: 300,
   }
 }));
 
@@ -108,6 +155,8 @@ export default function Admin() {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [timeOfTheEvent, setTimeOfTheEvent] = React.useState('');
+  const [placeOfEvent, setPlaceOfEvent] = React.useState('');
   const categories = useSelector((state) => state.categories.items);
 
   const user = useSelector((state) => {
@@ -115,9 +164,8 @@ export default function Admin() {
   });
 
   const notes = useSelector((state) => {
-    return state.notes.userNotes
+    return state.users.userNotes
   });
-
 
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
@@ -128,6 +176,12 @@ export default function Admin() {
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
+  const handleDateChange = (e) => {
+    return setTimeOfTheEvent(e.target.value)
+  };
+  const handlePlaceChange = (e) => {
+    return setPlaceOfEvent(e.target.value)
+  }
 
   useEffect(() => {
     dispatch(loadUserById());
@@ -145,15 +199,14 @@ export default function Admin() {
     await dispatch(addImage(e));
   };
 
-  const handleAddNote = async () => {
-    await dispatch(addNote({ text, category, title }));
+  const handleAddAvatar = async (e) => {
+    await dispatch(addAvatar(e));
   };
 
-  // const [selectedDate, setSelectedDate] = useState("");
-  //
-  // const handleDateChange = (date) => {
-  //   setSelectedDate(date);
-  // };
+  const handleAddNote = async () => {
+    await dispatch(addNote({ text, category, title, timeOfTheEvent,placeOfEvent }));
+  };
+
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -161,17 +214,27 @@ export default function Admin() {
     return (
       <div className={classes.root}>
         {/*{note.length}*/}
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth="lg" className={classes.c}>
           <Grid container spacing={3}>
+
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
               <Paper align="center" className={fixedHeightPaper}>
+
                 <Avatar
                   className={classes.imgMargin}
                   size="400"
                   src={`http://localhost:5500/${user.pathToImage}`}
                 />
+                <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+                <label htmlFor="icon-button-file">
+                <IconButton color="primary" aria-label="upload picture" onChange={handleAddAvatar} className={classes.btnAvatar} component="span">
+                  <PhotoCamera />
+                </IconButton>
+              </label>
+
               </Paper>
+
             </Grid>
             {/* ФИО юзера */}
             {/*{Активность юзера}*/}
@@ -214,11 +277,11 @@ export default function Admin() {
           >
             <Grid item xs={8} md={8} lg={8}>
               <Paper className={fixedHeightPaper}>
+
                 <Typography align="center" variant="h6" component="h6">
                   {" "}
                   Заполните все обязательные поля*{" "}
                 </Typography>
-
                 <TextField
                   id="outlined-multiline-static"
                   className={classes.inputStyle}
@@ -239,32 +302,33 @@ export default function Admin() {
                   variant="outlined"
                 />
                 <Grid lg={4}>
-                      <Button
-                        className={classes.btnAdd}
-                        onClick={handleAddNote}
-                        variant="contained"
-                        color="primary"
-                      >
-                        Добавить
-                      </Button>
+                  <form className={classes.containerData} noValidate>
+                    <TextField
+                      className={classes.AddressInput}
+                      id="standard-basic"
+                      variant="outlined"
+                      label="Введите адрес*"
+                      value={placeOfEvent}
+                      onChange={handlePlaceChange}
+                    />
+              <NavLink exact to={'/admin'}>
+                <Button
+                  onClick={handleAddNote}
+                  variant="contained"
+                  color="primary"
+                  className={classes.btnAdd}
+                >
+                  Добавить
+                </Button>
+              </NavLink>
+                  </form>
                </Grid>
               </Paper>
             </Grid>
             <Grid item xs={8} md={8} lg={4}>
               <Paper className={fixedHeightPaper}>
 
-                {/*<KeyboardTimePicker*/}
-                {/*  margin="normal"*/}
-                {/*  id="time-picker"*/}
-                {/*  label="Time picker"*/}
-                {/*  value={selectedDate}*/}
-                {/*  onChange={handleDateChange}*/}
-                {/*  KeyboardButtonProps={{*/}
-                {/*    'aria-label': 'change time',*/}
-                {/*  }}*/}
-                {/*/>*/}
-                {/*  */}
-                <Paper>
+
                   <Grid item xs={8} md={8} lg={12}>
                     <Paper>
                       <Typography align="center">
@@ -292,7 +356,7 @@ export default function Admin() {
                       </FormControl>
                     </Paper>
                   </Grid>
-                </Paper>
+
                 <Grid
                   item
                   xs={8}
@@ -304,9 +368,7 @@ export default function Admin() {
                     <Typography align="center" component="h4">
                       Загрузить изображение{" "}
                     </Typography>
-
                     <div className={classes.root}>
-
                         <Button
                           variant="contained"
                           color="primary"
@@ -325,14 +387,33 @@ export default function Admin() {
                           Выбрать
                           </label>
                         </Button>
-
                     </div>
                   </Paper>
-                </Grid>
+
+                  <TextField
+                    id="datetime-local"
+                    label="Выбрать дату*"
+                    type="datetime-local"
+                    value={timeOfTheEvent}
+                    onChange={handleDateChange}
+
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                    </Grid>
               </Paper>
             </Grid>
             {/* Посты */}
-            <Grid container spacing={4}>
+            <Grid item xs={8} md={8} lg={12}>
+              <Paper className={classes.paperMarginTop}>
+                <Typography align="center" variant="h5" component="h4">
+               Ваши записи
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid container spacing={10}>
               {notes.map((item) => (
                 <Grid item key={item} xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
@@ -362,6 +443,7 @@ export default function Admin() {
                 </Grid>
               ))}
             </Grid>
+
           </Grid>
         </Container>
       </div>
