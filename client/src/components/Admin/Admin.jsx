@@ -29,7 +29,6 @@ import { loadCategories } from "../../redux/features/categories";
 import { Avatar } from "@material-ui/core";
 import { addImage, addNote } from "../../redux/features/notes";
 import { PhotoCamera } from "@material-ui/icons";
-import { IoCloudDoneSharp, MdDone } from "react-icons/all";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -148,9 +147,9 @@ const useStyles = makeStyles((theme) => ({
     height: 15,
   },
   btnAvatar: {
-    position:'absolute',
+    position: "absolute",
     top: 175,
-    left: 290
+    left: 290,
   },
 }));
 
@@ -164,6 +163,7 @@ export default function Admin() {
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
+
 
 
   const user = useSelector((state) => {
@@ -188,6 +188,20 @@ export default function Admin() {
     return setPlaceOfEvent(e.target.value);
   };
 
+  const handleAddImage = async (e) => {
+    await dispatch(addImage(e));
+  };
+
+  const handleAddAvatar = (e) => {
+    dispatch(addAvatar(e));
+  };
+
+  const handleAddNote = async () => {
+    await dispatch(
+      addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
+    );
+  };
+
   useEffect(() => {
     dispatch(loadUserById());
   }, [dispatch]);
@@ -204,33 +218,18 @@ export default function Admin() {
     document.title = "Личный кабинет";
   });
 
-  const handleAddImage = async (e) => {
-    await dispatch(addImage(e));
-  };
-
-  const handleAddAvatar =  (e) => {
-    dispatch(addAvatar(e));
-    //
-  };
-
-  const handleAddNote = async () => {
-    await dispatch(
-      addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
-    );
-  };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   if (token) {
     return (
       <div className={classes.root}>
-        {/*{note.length}*/}
+
         <Container maxWidth="lg" className={classes.c}>
           <Grid container spacing={3}>
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
               <Paper align="center" className={fixedHeightPaper}>
-
                 <input
                   accept="image/*"
                   className={classes.input}
@@ -239,7 +238,7 @@ export default function Admin() {
                   onChange={handleAddAvatar}
                 />
                 <label htmlFor="icon-button-file">
-                  <div style={{ position: 'relative'}}>
+                  <div style={{ position: "relative" }}>
                     <Avatar
                       className={classes.imgMargin}
                       src={`http://localhost:5500/${user.pathToImage}`}
@@ -295,6 +294,7 @@ export default function Admin() {
             container
             spacing={3}
           >
+            {/*{Добавление записей}*/}
             <Grid item xs={8} md={8} lg={8}>
               <Paper className={fixedHeightPaper}>
                 <Typography align="center" variant="h6" component="h6">
@@ -349,7 +349,7 @@ export default function Admin() {
                 <Grid item xs={8} md={8} lg={12}>
                   <Paper>
                     <Typography align="center">Выберите категорию* </Typography>
-                    {/*{'Добавление постов'}*/}
+
                     <FormControl className={classes.formControl}>
                       <Select
                         displayEmpty

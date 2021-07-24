@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import SlideComponent from './SlideComponent';
-import Notes from './Notes';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from "react";
+import SlideComponent from "./SlideComponent";
+import Notes from "./Notes";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   main: {
     display: "flex",
-    flexDirection: 'column',
-    justifyContent: "center"
-  }
-})
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
 
 function Home(props) {
   const classes = useStyles();
@@ -20,8 +20,8 @@ function Home(props) {
 
   return (
     <div className={classes.main}>
-      <SlideComponent/>
-      <Notes/>
+      <SlideComponent />
+      <Notes />
     </div>
   );
 }

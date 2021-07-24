@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -11,12 +11,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { loadCategoryNotes, loadNotes } from '../../redux/features/notes';
+import { loadCategoryNotes, loadNotes } from "../../redux/features/notes";
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useParams } from "react-router-dom";
-import { GoChevronRight, HiArrowNarrowRight } from 'react-icons/all';
-import Box from '@material-ui/core/Box';
-
+import { GoChevronRight, HiArrowNarrowRight } from "react-icons/all";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -26,51 +25,49 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
   card: {
-    padding: '5px',
-    width: '300px',
-    height: '350px',
+    padding: "5px",
+    width: "300px",
+    height: "350px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    borderRadius: '5px',
+    borderRadius: "5px",
   },
   cardMedia: {
     paddingTop: "56.25%",
-    borderRadius: '3px',
+    borderRadius: "3px",
   },
   cardContent: {
-    padding: '5px'
+    padding: "5px",
   },
   BtnNoteId: {
-    textDecoration: 'none',
-    position: 'relative',
-    padding: '0',
-    background: '#000841',
-    color: '#fff',
-    borderRadius: '5px',
-    transition: 'all .3s',
-    '&:hover':{
-      background: 'transparent',
+    textDecoration: "none",
+    position: "relative",
+    padding: "0",
+    background: "#000841",
+    color: "#fff",
+    borderRadius: "5px",
+    transition: "all .3s",
+    "&:hover": {
+      background: "transparent",
       border: "2px solid #000841",
-      color: '#000841',
-      transform: 'scale(1.02)'
-    }
+      color: "#000841",
+      transform: "scale(1.02)",
+    },
   },
   BtnNote: {
-    transition: 'all .3s',
-    color: '#fff',
-    '&:hover':{
-      color: '#000841'
-    }
+    transition: "all .3s",
+    color: "#fff",
+    "&:hover": {
+      color: "#000841",
+    },
   },
-
 }));
 
 function NotesId() {
@@ -109,10 +106,11 @@ function NotesId() {
                 </Box>
               </CardContent>
               <CardActions>
-                <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
-                  <Button className={classes.BtnNote}>
-                    Подробнее
-                  </Button>
+                <NavLink
+                  className={classes.BtnNoteId}
+                  to={`/notes/${item._id}`}
+                >
+                  <Button className={classes.BtnNote}>Подробнее</Button>
                 </NavLink>
               </CardActions>
             </Card>

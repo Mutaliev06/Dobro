@@ -12,7 +12,7 @@ module.exports.notesController = {
         text,
         pathToImage: image,
         timeOfTheEvent,
-        placeOfEvent
+        placeOfEvent,
       });
       return res.json(note);
     } catch (e) {
@@ -44,7 +44,10 @@ module.exports.notesController = {
   getCategoryNotes: async (req, res) => {
     const { id } = req.params;
     try {
-      const note = await Note.find({ category: id }).populate('user', 'title, name');
+      const note = await Note.find({ category: id }).populate(
+        "user",
+        "title, name"
+      );
       res.json(note);
     } catch (e) {
       res.json(e);
