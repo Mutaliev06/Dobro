@@ -161,7 +161,8 @@ function Header() {
               <NavLink className={classnames(classes.btnLogUp, pathname ==='/registration' && classes.linkActive)} to={`/registration`}>
                 Регистрация
               </NavLink>
-
+            </Button>
+            <Button color='inherit' >
               <NavLink className={ classnames(classes.btnLogIn, pathname === '/login' && classes.linkActive)} to={`/login`}>
                 {' '}
                 Войти
