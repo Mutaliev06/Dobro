@@ -15,6 +15,7 @@ import { loadCategoryNotes, loadNotes } from '../../redux/features/notes';
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useParams } from "react-router-dom";
 import { GoChevronRight, HiArrowNarrowRight } from 'react-icons/all';
+import Box from '@material-ui/core/Box';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +38,11 @@ const useStyles = makeStyles((theme) => ({
     height: '350px',
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
     borderRadius: '5px',
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
     borderRadius: '3px',
   },
   cardContent: {
@@ -76,7 +78,6 @@ function NotesId() {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
-  const [hover, setHover] = useState(false)
 
   useEffect(() => {
     dispatch(loadCategoryNotes(id));
@@ -86,11 +87,8 @@ function NotesId() {
     document.title = "ВЦ 'Добро'";
   });
 
-
-
   return (
     <Container className={classes.cardGrid} maxWidth="md">
-      {/* End hero unit */}
       <Grid container spacing={4}>
         {notes.map((item) => (
           <Grid item key={item} xs={12} sm={6} md={4}>
@@ -101,19 +99,19 @@ function NotesId() {
                 image={`http://localhost:5500/${item.pathToImage}`}
               />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h6" component="h5">
-                  <div>{item.title}</div>
-                </Typography>
-                <Typography gutterBottom variant="h7" component="h5">
-                  <div>Автор поста: {item.user.name}</div>
-                </Typography>
+                <Box>
+                  <Typography gutterBottom variant="h6" component="h5">
+                    <div>{item.title}</div>
+                  </Typography>
+                  <Typography gutterBottom variant="h7" component="h5">
+                    <div>Автор поста: {item.user.name}</div>
+                  </Typography>
+                </Box>
               </CardContent>
               <CardActions>
                 <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
                   <Button className={classes.BtnNote}>
                     Подробнее
-
-
                   </Button>
                 </NavLink>
               </CardActions>
