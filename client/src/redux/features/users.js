@@ -43,6 +43,17 @@ export default function usersReducer(state = initialState, action) {
         userNotes: action.payload,
         loading: false,
       };
+    case "avatar/upload/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "avatar/upload/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        image: action.payload.image,
+      };
     default:
       return state;
   }
@@ -95,7 +106,7 @@ export const loadUserNotes = () => {
 
 export const addAvatar = (e) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "note/upload/pending" });
+    dispatch({ type: "avatar/upload/pending" });
 
     const { files } = e.target;
     const data = new FormData();
@@ -112,8 +123,9 @@ export const addAvatar = (e) => {
 
     const json = await response.json();
     dispatch({
-      type: "note/upload/fulfilled",
+      type: "avatar/upload/fulfilled",
       payload: json,
     });
+    window.location.reload()
   };
 };

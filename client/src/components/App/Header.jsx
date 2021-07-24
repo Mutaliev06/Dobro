@@ -197,14 +197,15 @@ function Header() {
                 onChange={handleChangeCategory}
                 inputProps={{ 'aria-label': 'Without label' }}
               >
-                <MenuItem value='' disabled>
-                  Мероприятия
+                <MenuItem className={classes.menuItemLink} value='' disabled>
+                  {selectTitle}
                 </MenuItem>
                 {categories.map((item) => (
                   <MenuItem key={item.value} value={item._id}>
                     <NavLink
-                      className={classes.btnLogIn}
-                      to={`/notes/${item._id}`}
+                      onClick={() => activeDpop(item.title)}
+                      className={classes.selectTitle}
+                      to={`/notes/category/${item._id}`}
                     >
                       {item.title}
                     </NavLink>
@@ -214,13 +215,16 @@ function Header() {
               </Select>
             </FormControl>
           </Typography>
+
           <Button color='inherit' disableElevation>
-            <NavLink className={classes.btnLogIn} to={`/admin`}>
+            <NavLink className={classnames(classes.btnLogUp, pathname ==='/admin' && classes.linkActive)} to={`/admin`}>
               Личный кабинет
             </NavLink>
           </Button>
-          <Button value={isLoggedOut} onClick={handleLogout} color='inherit'>
-            <NavLink className={classes.btnLogIn} to={`/`}>
+
+          <Button color='inherit' value={isLoggedOut} onClick={handleLogout}>
+            <NavLink className={ classnames(classes.btnLogIn, pathname === '/login' && classes.linkActive)} to={`/`}>
+              {' '}
               Выйти
             </NavLink>
           </Button>

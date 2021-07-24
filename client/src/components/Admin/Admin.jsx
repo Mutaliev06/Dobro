@@ -88,8 +88,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imgMargin: {
     margin: "auto",
-    width: 180,
-    height: 180,
+    width: 260,
+    height: 260,
   },
   uploadMargin: {
     marginTop: 20,
@@ -148,13 +148,14 @@ const useStyles = makeStyles((theme) => ({
     height: 15,
   },
   btnAvatar: {
-    marginLeft: 300,
+    position:'absolute',
+    top: 210,
+    left: 290
   },
 }));
 
 export default function Admin() {
   const token = useSelector((state) => state.application.token);
-  const { id } = useParams();
   const dispatch = useDispatch();
   const classes = useStyles();
   const [category, setCategory] = useState("");
@@ -164,14 +165,13 @@ export default function Admin() {
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
 
+
   const user = useSelector((state) => {
     return state.users.currentUser;
   });
-
   const notes = useSelector((state) => {
     return state.users.userNotes;
   });
-
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -208,8 +208,9 @@ export default function Admin() {
     await dispatch(addImage(e));
   };
 
-  const handleAddAvatar = async (e) => {
-    await dispatch(addAvatar(e));
+  const handleAddAvatar =  (e) => {
+    dispatch(addAvatar(e));
+    //
   };
 
   const handleAddNote = async () => {
@@ -229,27 +230,31 @@ export default function Admin() {
             {/* Фото юзера */}
             <Grid item xs={8} md={8} lg={5}>
               <Paper align="center" className={fixedHeightPaper}>
-                <Avatar
-                  className={classes.imgMargin}
-                  size="400"
-                  src={`http://localhost:5500/${user.pathToImage}`}
-                />
+
                 <input
                   accept="image/*"
                   className={classes.input}
                   id="icon-button-file"
                   type="file"
+                  onChange={handleAddAvatar}
                 />
                 <label htmlFor="icon-button-file">
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    onChange={handleAddAvatar}
-                    className={classes.btnAvatar}
-                    component="span"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
+                  <div style={{ position: 'relative'}}>
+                    <Avatar
+
+                      className={classes.imgMargin}
+
+                      src={`http://localhost:5500/${user.pathToImage}`}
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      className={classes.btnAvatar}
+                      component="span"
+                    >
+                      <PhotoCamera />
+                    </IconButton>
+                  </div>
                 </label>
               </Paper>
             </Grid>

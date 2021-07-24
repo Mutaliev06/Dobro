@@ -103,6 +103,7 @@ export const addNote = (data) => {
       type: "note/post/fulfilled",
       payload: json,
     });
+    window.location.reload()
   };
 };
 
