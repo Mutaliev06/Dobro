@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadNotes } from "../../redux/features/notes";
@@ -7,9 +7,9 @@ import dayjs from "dayjs";
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 import PlaceIcon from "@material-ui/icons/Place";
-import { loadComments } from "../../redux/features/comments";
+import { loadComments, postComment } from "../../redux/features/comments";
 import Container from "@material-ui/core/Container";
-import { Paper } from "@material-ui/core";
+import { Paper, TextField } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'cover',
   },
   divNotesText: {
+    width: '70%',
     padding: 20,
   },
   btnParticipate: {
@@ -49,18 +50,29 @@ const useStyles = makeStyles((theme) => ({
   text: {
     fontSize: 20,
     fontFamily: 'cursive',
+    marginLeft: 10,
 
   },
   data: {
     fontSize: 17,
-    fontFamily: 'roboto'
+    fontFamily: 'roboto',
+    marginLeft: 10,
   },
   userComment: {
     fontSize: 18,
     fontFamily: 'roboto',
-    marginLeft: 10,
+    marginLeft: 20,
+  },
+  inputComment: {
+    width: '70%'
+  },
+  paperComment: {
+    marginBottom: 20,
+  },
+  buttonAdd: {
+    marginLeft: 20,
+    marginTop: 10,
   }
-
 }));
 
 function Description(props) {
@@ -74,6 +86,8 @@ function Description(props) {
     return state.notes.items.find((item) => item._id === id);
   });
   const comments = useSelector((state) => state.comments.items);
+  const [text, setText] = useState(' ')
+
 
   useEffect(() => {
     dispatch(loadNotes());
@@ -86,6 +100,16 @@ function Description(props) {
   useEffect(() => {
     document.title = "ВЦ 'Добро'";
   });
+
+  function handleComment(e) {
+    setText(e.target.value)
+  }
+
+
+  function handlePostComment(id) {
+
+    return dispatch(postComment(id,{text: text}));
+  }
 
   return (
     <Container className={classes.container}>
@@ -129,7 +153,8 @@ function Description(props) {
           {comments.map((item) => {
             return (
               <Paper>
-                <div className={classes.text}>{item.user.name}</div>
+                {/*<div className={classes.text}>{item.user.name}</div>*/}
+                <div className={classes.text}>Гость</div>
                 <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
                 <div>
                   {" "}
@@ -140,6 +165,26 @@ function Description(props) {
           })}
         </Paper>
       </div>
+      <Paper className={classes.paperComment}>
+        <TextField
+          className={classes.inputComment}
+          id="outlined-basic"
+          value={text}
+          label="Введите комментарий"
+          variant="outlined"
+          inputMode={"text"}
+          onChange={handleComment}
+        />
+        <Button
+          onClick={() => handlePostComment(notes._id)}
+          className={classes.buttonAdd}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          Добавить
+        </Button>
+      </Paper>
     </Container>
   );
 }

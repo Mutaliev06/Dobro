@@ -17,6 +17,19 @@ export default function commentsReducer(state = initialState, action) {
         items: action.payload,
         loading: false,
       };
+
+    case "comment/post/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "comment/post/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        items: [...state.items, action.payload],
+      };
+
     default:
       return state;
   }
@@ -37,3 +50,28 @@ export const loadComments = (id) => {
     });
   }
 }
+
+export const postComment = (id, data) => {
+  return async (dispatch) => {
+    dispatch({ type: "comment/post/pending" });
+    const response = await fetch(
+      `http://localhost:5500/comments/notice/${id}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          text: data.text,
+        }),
+      }
+    );
+    const json = await response.json();
+    dispatch({
+      type: "comment/post/fulfilled",
+      payload: json,
+    });
+    window.location.reload()
+  };
+};
