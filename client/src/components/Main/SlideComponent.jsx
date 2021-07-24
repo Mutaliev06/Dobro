@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Preloader from "../Preloader";
 import { makeStyles } from "@material-ui/core/styles";
-import Carousel from '@brainhubeu/react-carousel';
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
-import { CardMedia } from "material-ui";
-import ReactPlayer from "react-player";
+import Carousel from "react-bootstrap/Carousel";
 import video0 from "../../../src/pexels-mikhail-nilov-7469862.mp4";
 import video1 from "../../../src/pexels-kampus-production-7516757.mp4";
 import video2 from "../../../src/video.mp4";
-
+import img0 from "../../../src/animal.png";
+import img1 from "../../../src/people.png";
+import img2 from "../../../src/peace.png";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const useStyles = makeStyles({
   imgDiv: {
@@ -20,9 +20,11 @@ const useStyles = makeStyles({
   },
   slideImg: {
     width: "100%",
+    maxWidth: "1440px",
     height: "500px",
-    objectFit: "cover",
     userSelect: "none",
+    objectFit: 'cover',
+    borderRadius: "5px"
   },
   slider: {
     position: "relative",
@@ -30,6 +32,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     marginTop: "10px",
+    fontSize: "30px"
   },
   arrowLeft: {
     position: "absolute",
@@ -42,138 +45,64 @@ const useStyles = makeStyles({
     top: "50%",
     right: "50px",
     fontSize: "40px",
-  },
+  }
 });
 
-const imgArr = [
-  {
-    img: "https://cdn23.img.ria.ru/images/155724/99/1557249908_0:88:2560:1528_1920x0_80_0_0_c8054c76281283e0d8c5e6857fb8dc78.jpg",
-    id: 0,
-  },
-  {
-    img: "https://cdn.iz.ru/sites/default/files/styles/1920x1080/public/article-2020-03/KK300868_1.jpg?itok=_WnIjbJL",
-    id: 1,
-  },
-  {
-    img: "https://cdn22.img.ria.ru/images/07e4/05/08/1571165615_0:0:3072:1728_1920x0_80_0_0_3b8d795cc3d285852582c56e3084deb6.jpg",
-    id: 2,
-  },
-];
 
 const videos = [
   {
     id: 0,
-    video: video0
+    video: video0,
+    img: img0,
   },
   {
     id: 1,
-    video: video1
+    video: video1,
+    img: img1,
   },
   {
     id: 2,
-    video: video2
+    video: video2,
+    img: img2,
   },
-
 ];
 
 export default function SlideComponent(props) {
   const classes = useStyles();
   const [current, setCurrent] = useState(0);
-  const length = imgArr.length;
   const loading = useSelector((state) => state.notes.loading);
+
+  const handleSelect = (selectedIndex, e) => {
+    setCurrent(selectedIndex);
+  };
 
   if (loading) {
     return <Preloader />;
   }
-
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
-
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
   return (
-    // <div className={classes.slider}>
-    //     <FaArrowAltCircleLeft className={classes.arrowLeft} onClick={prevSlide}/>
-    //     <FaArrowAltCircleRight className={classes.arrowRight}  onClick={nextSlide}/>
-    //   {
-    //     imgArr.map((image, index) => {
-    //       return(
-    //         <div>
-    //           {
-    //             index === current && (
-    //               <img className={classes.slideImg} src={image.img} alt=''/>
-    //             )
-    //           }
-    //         </div>
-    //
-    //       )
-    //     })
-    //
-    //   }
-    // </div>
-
-      //   <div className={classes.slider}>
-      //   <FaArrowAltCircleLeft className={classes.arrowLeft} onClick={prevSlide}/>
-      //   <FaArrowAltCircleRight className={classes.arrowRight}  onClick={nextSlide}/>
-      // {
-      //   videos.map((item, index) => {
-      //   return(
-      //   <div>
-      // {
-      //   index === current && (
-      //   <ReactPlayer
-      //     className={classes.slideImg}
-      //   url={item.video}
-      //   playing={true}
-      //   muted={true}
-      //   playbackRate={1}
-      //   progressInterval={1000}
-      //   width="100%"
-      //   height="100%"
-      //   />
-      //   )
-      // }
-      //   </div>
-      //
-      //   )
-      // })
-      //
-      // }
-      //   </div>
-
-
-
-      <div className={classes.slider}>
-        <Carousel plugins={['arrows']}>
-          {
-            videos.map((item, index) => {
-              return(
-                <div>
-                  {
-                    index === current && (
-                      <ReactPlayer
-                        className={classes.slideImg}
-                        url={item.video}
-                        playing={true}
-                        muted={true}
-                        playbackRate={1}
-                        progressInterval={1000}
-                        width="100%"
-                        height="300px"
-                      />
-                    )
-                  }
-                </div>
-
-              )
-            })
-
-          }
-        </Carousel>
-      </div>
-
-);
+    <div className={classes.slider}>
+      <Carousel
+        prevLabel=""
+        nextLabel=""
+        activeIndex={current}
+        onSelect={handleSelect}
+      >
+        {videos.map((item, index) => {
+          return (
+            <Carousel.Item className={classes.slideImg}>
+              <video
+                src={item.video}
+                autoPlay={true}
+                className={classes.slideImg}
+                loop={true}
+                playsInline={true}
+                muted={true}
+                poster={item.img}
+              />
+            </Carousel.Item>
+          );
+        })}
+      </Carousel>
+    </div>
+  );
 }

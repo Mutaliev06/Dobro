@@ -12,7 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,10 +80,10 @@ function Notes() {
   }, [dispatch]);
 
   return (
-    <Container className={classes.cardGrid} maxWidth="md">
+    <Container className={classes.cardGrid} maxWidth="1440px">
       <Grid container spacing={4}>
         {notes.map((item) => (
-          <Grid item key={item} xs={12} sm={6} md={4}>
+          <Grid item key={item} xs={3}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}

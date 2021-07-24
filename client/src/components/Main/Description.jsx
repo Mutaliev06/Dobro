@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadNotes } from "../../redux/features/notes";
 import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
-import moment from "moment";
 import Button from "@material-ui/core/Button";
 import PlaceIcon from "@material-ui/icons/Place";
 import { loadComments, postComment } from "../../redux/features/comments";
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     width: 600,
     height: 300,
     borderRadius: 5,
-    objectFit: 'cover',
+    objectFit: "cover",
   },
   divNotesText: {
     width: '70%',
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     color: "grey",
   },
   divTape: {
-    boxShadow: "10px 12px 12px 0px rgb(122 122 123)"
+    boxShadow: "10px 12px 12px 0px rgb(122 122 123)",
   },
   text: {
     fontSize: 20,
@@ -126,7 +125,9 @@ function Description(props) {
           <h3> Автор поста: {notes?.user.name}</h3>
           <Button variant="outlined">
             {" "}
-            <NavLink className={classes.btnParticipate} to='/login'>Принять участие</NavLink>
+            <NavLink className={classes.btnParticipate} to="/login">
+              Принять участие
+            </NavLink>
           </Button>
         </div>
       </Paper>
