@@ -6,6 +6,9 @@ import Carousel from '@brainhubeu/react-carousel';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { CardMedia } from "material-ui";
 import ReactPlayer from "react-player";
+import video0 from "../../../src/pexels-mikhail-nilov-7469862.mp4";
+import video1 from "../../../src/pexels-kampus-production-7516757.mp4";
+import video2 from "../../../src/video.mp4";
 
 
 const useStyles = makeStyles({
@@ -60,15 +63,15 @@ const imgArr = [
 const videos = [
   {
     id: 0,
-    video: 'https://www.pexels.com/ru-ru/video/7469714/'
+    video: video0
   },
   {
     id: 1,
-    video: "https://www.pexels.com/ru-ru/video/7516757/"
+    video: video1
   },
   {
     id: 2,
-    video: "https://www.pexels.com/ru-ru/video/3209571/"
+    video: video2
   },
 
 ];
