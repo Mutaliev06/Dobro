@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: 600,
     height: 300,
     borderRadius: 5,
+    objectFit: 'cover',
   },
   divNotesText: {
     padding: 20,
