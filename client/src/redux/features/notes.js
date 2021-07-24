@@ -85,7 +85,7 @@ export const addNote = (data) => {
     const state = getState();
     const response = await fetch("http://localhost:5500/notes", {
       method: "POST",
-      headers: {
+      headers: {git
         Authorization: `Bearer ${state.application.token}`,
         "Content-type": "application/json",
       },
