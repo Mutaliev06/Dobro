@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
   },
   fixedHeight: {
-    height: 260,
+    height: 290,
   },
   fixedHeightPaperMargin: {
     marginBottom: 20,
@@ -330,7 +330,7 @@ export default function Admin() {
                       value={placeOfEvent}
                       onChange={handlePlaceChange}
                     />
-                    <NavLink exact to={"/admin"}>
+
                       <Button
                         onClick={handleAddNote}
                         variant="contained"
@@ -339,7 +339,7 @@ export default function Admin() {
                       >
                         Добавить
                       </Button>
-                    </NavLink>
+
                   </form>
                 </Grid>
               </Paper>
@@ -402,7 +402,6 @@ export default function Admin() {
                       </Button>
                     </div>
                   </Paper>
-
                   <TextField
                     id="datetime-local"
                     label="Выбрать дату*"
