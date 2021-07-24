@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from "../../redux/features/application";
-
+import { useHistory } from "react-router-dom";
 
 
 
@@ -55,8 +54,11 @@ export default function SignIn() {
     setPassword(e.target.value)
   };
 
-  const handleSubmit = () => {
-    dispatch(auth(login, password))
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(auth(login, password, history))
   };
 
   const classes = useStyles();
@@ -108,7 +110,6 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Запомнить меня"
           />
-          <Link className={classes.submit} href='/'>
           <Button
             type="submit"
             fullWidth
@@ -120,7 +121,6 @@ export default function SignIn() {
           >
             Войти
           </Button>
-          </Link>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

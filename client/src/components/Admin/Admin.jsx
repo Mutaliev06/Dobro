@@ -88,8 +88,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imgMargin: {
     margin: "auto",
-    width: 260,
-    height: 260,
+    width: 225,
+    height: 225,
   },
   uploadMargin: {
     marginTop: 20,
@@ -149,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btnAvatar: {
     position:'absolute',
-    top: 210,
+    top: 175,
     left: 290
   },
 }));
@@ -241,9 +241,7 @@ export default function Admin() {
                 <label htmlFor="icon-button-file">
                   <div style={{ position: 'relative'}}>
                     <Avatar
-
                       className={classes.imgMargin}
-
                       src={`http://localhost:5500/${user.pathToImage}`}
                     />
                     <IconButton

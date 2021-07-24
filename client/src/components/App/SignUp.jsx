@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../../redux/features/application';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -60,8 +61,11 @@ export default function SignUp() {
     setPassword(e.target.value)
   };
 
-  const handleSubmit = () => {
-    dispatch(createUser(login, password, name, email))
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(createUser(login, password, name, email, history))
   };
 
   const classes = useStyles();
@@ -147,7 +151,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <Link className={classes.submit} href='/login'>
+
           <Button
             type="submit"
             fullWidth
@@ -159,7 +163,7 @@ export default function SignUp() {
           >
             Зарегестрироваться
           </Button>
-          </Link>
+
           <Grid container justifyContent="flex-end">
             <Grid item>
               У вас уже есть аккаунт? {'  '}

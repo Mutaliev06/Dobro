@@ -53,7 +53,7 @@ export default function application(state = initialState, action) {
   }
 };
 
-export const createUser = (login, password, name, email) => {
+export const createUser = (login, password, name, email, history) => {
   return async dispatch => {
     dispatch({ type: "application/signup/pending" });
     const res = await fetch("http://localhost:5500/users/", {
@@ -68,11 +68,12 @@ export const createUser = (login, password, name, email) => {
       dispatch({ type: "application/signup/rejected", error: json.error })
     } else {
       dispatch({ type: "application/signup/fulfilled", payload: json })
+      history.push('/login')
     }
   };
 };
 
-export const auth = (login, password) => {
+export const auth = (login, password, history) => {
   return async (dispatch) => {
     dispatch({ type: "application/signin/pending" });
     const res = await fetch("http://localhost:5500/users/login", {
@@ -88,6 +89,7 @@ export const auth = (login, password) => {
     } else {
       dispatch({ type: "application/signin/fulfilled", payload: json })
       localStorage.setItem("token", json.token)
+      history.push('/')
     }
   };
 };
