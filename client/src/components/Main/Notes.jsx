@@ -39,10 +39,13 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  btnDetailed: {
+    textDecoration: "none",
+
+  }
 }));
 
 function Notes() {
-  const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
@@ -70,12 +73,13 @@ function Notes() {
 
                 <Typography gutterBottom variant="h7" component="h5">
 
-                  <div>{item.user.name}</div>
+              
+                  <div>Автор поста: {item.user.name}</div>
                   </Typography>
               </CardContent>
               <CardActions>
-                <NavLink to={`/notes/${item._id}`}>
-                  <Button size="small" color="primary">
+                <NavLink to={`/notes/${item._id}`} className={classes.btnDetailed}>
+                  <Button size="small" color="outlined">
                     Подробнее
                   </Button>
                 </NavLink>

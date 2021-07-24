@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   iconDiv: {
     width: 200,
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   gm: {
     fontSize: 40,
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
   icon: {
     color: "white",
+    textDecoration: 'none'
   },
   paper: {
     backgroundColor: "#000841",
@@ -74,12 +75,14 @@ const useStyles = makeStyles((theme) => ({
   },
   bottomA: {
     textDecoration: 'none',
-    color: '#D1E231',
+    color: '#657c87',
     fontSize: 18,
   },
   rowDiv: {
     width: 570,
     textAlign: "start",
+    color: '#657c87',
+    textDecoration: 'none'
   },
   img: {
     width: 60,
@@ -89,6 +92,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItem: 'center',
     justifyContent: 'center'
+  },
+  dobroru: {
+    textDecoration: 'none',
+    color: '#657c87',
   }
 
 }));
@@ -146,21 +153,21 @@ function Footer(props) {
           </div>
         </div>
         <div >
-          <div className={classes.divImg}>
-            <div className={classes.a}><h2>При поддержке</h2></div>{'  '}
-            <div>
-              <img src='http://pngimg.com/uploads/polar_bear/small/polar_bear_PNG23522.png' className={classes.img}/>{' '}
-              <img src='http://pngimg.com/uploads/blm/blm_PNG61.png' className={classes.img} />{' '}
-              <img src='http://pngimg.com/uploads/vegan/small/vegan_PNG24.png' className={classes.img} />{' '}
-            </div>
-          </div>
+          {/*<div className={classes.divImg}>*/}
+          {/*  <div className={classes.a}><h2>При поддержке</h2></div>{'  '}*/}
+          {/*  <div>*/}
+          {/*    <img src='http://pngimg.com/uploads/polar_bear/small/polar_bear_PNG23522.png' className={classes.img}/>{' '}*/}
+          {/*    <img src='http://pngimg.com/uploads/blm/blm_PNG61.png' className={classes.img} />{' '}*/}
+          {/*    <img src='http://pngimg.com/uploads/vegan/small/vegan_PNG24.png' className={classes.img} />{' '}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
         <div className={classes.bottomDiv}>
           <div className={classes.rowDiv}>
             <a href='https://dobro.ru/terms' className={classes.bottomA}>Правила пользования</a>{' '}
             <a href='https://dobro.ru/privacy' className={classes.bottomA}>Политика конфиденциальности</a>
           </div>
-          <div className={classes.rowDiv}>© DOBRO.RU</div>
+          <div className={classes.rowDiv}><NavLink to={'/'} className={classes.dobroru}> © DOBRO.RU </NavLink></div>
         </div>
       </div>
     </div>
