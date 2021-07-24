@@ -14,8 +14,7 @@ import { useDispatch } from "react-redux";
 import { loadCategoryNotes, loadNotes } from "../../redux/features/notes";
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useParams } from "react-router-dom";
-import { GoChevronRight, HiArrowNarrowRight } from "react-icons/all";
-import Box from "@material-ui/core/Box";
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -29,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
+  },
+  grid: {
+    display: 'flex',
+    justifyContent: 'center'
   },
   card: {
     padding: "5px",
@@ -85,10 +88,10 @@ function NotesId() {
   });
 
   return (
-    <Container className={classes.cardGrid} maxWidth="md">
-      <Grid container spacing={4}>
+    <Container className={classes.cardGrid} maxWidth="1440px">
+      <Grid container spacing={4} className={classes.grid}>
         {notes.map((item) => (
-          <Grid item key={item} xs={12} sm={6} md={4}>
+          <Grid item key={item} xs={3}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
