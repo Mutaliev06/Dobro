@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import "date-fns";
+
 import {
   Card,
   CardActions,
@@ -29,6 +30,7 @@ import { loadCategories } from "../../redux/features/categories";
 import { Avatar } from "@material-ui/core";
 import { addImage, addNote } from "../../redux/features/notes";
 import { PhotoCamera } from "@material-ui/icons";
+import EditNotes from "./EditNotes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -151,6 +153,28 @@ const useStyles = makeStyles((theme) => ({
     top: 175,
     left: 290,
   },
+  BtnNote: {
+    transition: 'all .3s',
+    color: '#fff',
+    '&:hover':{
+      color: '#000841'
+    }
+  },
+  BtnNoteId: {
+    textDecoration: 'none',
+    position: 'relative',
+    padding: '0',
+    background: '#000841',
+    color: '#fff',
+    borderRadius: '5px',
+    transition: 'all .3s',
+    '&:hover':{
+      background: 'transparent',
+      border: "2px solid #000841",
+      color: '#000841',
+      transform: 'scale(1.02)'
+    }
+  },
 }));
 
 export default function Admin() {
@@ -163,8 +187,6 @@ export default function Admin() {
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
-
-
 
   const user = useSelector((state) => {
     return state.users.currentUser;
@@ -187,7 +209,6 @@ export default function Admin() {
   const handlePlaceChange = (e) => {
     return setPlaceOfEvent(e.target.value);
   };
-
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
@@ -218,13 +239,11 @@ export default function Admin() {
     document.title = "Личный кабинет";
   });
 
-
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   if (token) {
     return (
       <div className={classes.root}>
-
         <Container maxWidth="lg" className={classes.c}>
           <Grid container spacing={3}>
             {/* Фото юзера */}
@@ -331,15 +350,14 @@ export default function Admin() {
                       onChange={handlePlaceChange}
                     />
 
-                      <Button
-                        onClick={handleAddNote}
-                        variant="contained"
-                        color="primary"
-                        className={classes.btnAdd}
-                      >
-                        Добавить
-                      </Button>
-
+                    <Button
+                      onClick={handleAddNote}
+                      variant="contained"
+                      color="primary"
+                      className={classes.btnAdd}
+                    >
+                      Добавить
+                    </Button>
                   </form>
                 </Grid>
               </Paper>
@@ -443,11 +461,18 @@ export default function Admin() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <NavLink to={`/notes/${item._id}`}>
-                        <Button size="small" color="primary">
+                      <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
+                        <Button className={classes.BtnNote}>
                           Подробнее
                         </Button>
                       </NavLink>
+
+
+
+                          <EditNotes notes={item} />
+
+
+
                     </CardActions>
                   </Card>
                 </Grid>
