@@ -93,7 +93,6 @@ const useStyles = makeStyles((theme) => ({
 function Description(props) {
   const token = useSelector((state) => state.application.token);
   const classes = useStyles();
-  const token = useSelector((state) => state.application.token);
 
   const { id } = useParams();
 
