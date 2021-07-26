@@ -177,23 +177,6 @@ function Description(props) {
           </Paper>
         </Paper>
         <h1>Лента записей</h1>
-        <div className={classes.divTape}>
-          <Paper>
-            {comments.map((item) => {
-              return (
-                <Paper>
-                  {/*<div className={classes.text}>{item.user.name}</div>*/}
-                  <div className={classes.text}>Гость</div>
-                  <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
-                  <div>
-                    {" "}
-                    <p className={classes.userComment}>{item.text}</p>
-                  </div>
-                </Paper>
-              );
-            })}
-          </Paper>
-        </div>
         <Paper className={classes.paperComment}>
           <TextField
             className={classes.inputComment}
@@ -214,6 +197,23 @@ function Description(props) {
             Добавить
           </Button>
         </Paper>
+        <div className={classes.divTape}>
+          <Paper>
+            {comments.map((item) => {
+              return (
+                <Paper>
+                  {/*<div className={classes.text}>{item.user.name}</div>*/}
+                  <div className={classes.text}>Гость</div>
+                  <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
+                  <div>
+                    {" "}
+                    <p className={classes.userComment}>{item.text}</p>
+                  </div>
+                </Paper>
+              );
+            })}
+          </Paper>
+        </div>
       </Container>
     );
   }
