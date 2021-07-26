@@ -76,16 +76,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Description(props) {
+  const token = useSelector((state) => state.application.token);
   const classes = useStyles();
 
   const { id } = useParams();
-  console.log(id);
 
   const dispatch = useDispatch();
   const notes = useSelector((state) => {
     return state.notes.items.find((item) => item._id === id);
   });
-  const comments = useSelector((state) => state.comments.items);
+  const comments = useSelector((state) => state.comments.items.sort(function(a,b){
+    return new Date(b.createdAt) - new Date(a.createdAt)}));
   const [text, setText] = useState(' ')
   const loading = useSelector((state) => state.notes.loading);
 
@@ -116,6 +117,87 @@ function Description(props) {
     return <Preloader />;
   }
 
+  if (!token) {
+    return (
+      <Container className={classes.container}>
+        <Paper className={classes.divFoto}>
+          <div>
+            <img
+              src={`http://localhost:5500/${notes?.pathToImage}`}
+              className={classes.img}
+            />
+          </div>
+          <div>
+            <h1>{notes?.title}</h1>
+
+            <h3> Автор поста: {notes?.user.name}</h3>
+            <Button variant="outlined">
+              {" "}
+              <NavLink className={classes.btnParticipate} to="/login">
+                Принять участие
+              </NavLink>
+            </Button>
+          </div>
+        </Paper>
+        <Paper className={classes.divDescription}>
+          <Paper className={classes.divNotesText}>
+            <h1>Описание</h1>
+            <p>{notes?.text}</p>
+          </Paper>
+          <Paper>
+            <div className={classes.divPlaceTime}>
+              <h3>Дата проведения:</h3>
+              {notes?.timeOfTheEvent}
+              <p>
+                <h3>Место проведения:</h3>
+                <PlaceIcon fontSize={"large"} color="secondary" />
+                {notes?.placeOfEvent}
+              </p>
+            </div>
+          </Paper>
+        </Paper>
+        <h1>Лента записей</h1>
+        <div className={classes.divTape}>
+          <Paper>
+            {comments.map((item) => {
+              return (
+                <Paper>
+                  {/*<div className={classes.text}>{item.user.name}</div>*/}
+                  <div className={classes.text}>Гость</div>
+                  <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
+                  <div>
+                    {" "}
+                    <p className={classes.userComment}>{item.text}</p>
+                  </div>
+                </Paper>
+              );
+            })}
+          </Paper>
+        </div>
+        <Paper className={classes.paperComment}>
+          <TextField
+            className={classes.inputComment}
+            id="outlined-basic"
+            value={text}
+            label="Введите комментарий"
+            variant="outlined"
+            inputMode={"text"}
+            onChange={handleComment}
+          />
+          <Button
+            onClick={() => handlePostComment(notes._id)}
+            className={classes.buttonAdd}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Добавить
+          </Button>
+        </Paper>
+      </Container>
+    );
+  }
+
   return (
     <Container className={classes.container}>
       <Paper className={classes.divFoto}>
@@ -127,13 +209,12 @@ function Description(props) {
         </div>
         <div>
           <h1>{notes?.title}</h1>
-
           <h3> Автор поста: {notes?.user.name}</h3>
           <Button variant="outlined">
             {" "}
-            <NavLink className={classes.btnParticipate} to="/login">
+            <p className={classes.btnParticipate}>
               Принять участие
-            </NavLink>
+            </p>
           </Button>
         </div>
       </Paper>
