@@ -133,32 +133,18 @@ function Header() {
               </IconButton>
             </NavLink>
             <Typography variant="h6" className={classes.title}>
-              <FormControl className={classes.formControl}>
-                <Select
-                  displayEmpty
-                  className={classes.selectEmpty}
-                  value={category}
-                  onChange={handleChangeCategory}
-                  inputProps={{ "aria-label": "Without label" }}
+              <Button color="inherit">
+                <NavLink
+                  className={classnames(
+                    classes.btnVolonters,
+                    pathname === "/notes/all" && classes.linkActive
+                  )}
+                  to={`/notes/all`}
                 >
-                  <MenuItem className={classes.menuItemLink} value="" disabled>
-                    {selectTitle}
-                  </MenuItem>
-                  {categories.map((item) => (
-                    <MenuItem key={item.value} value={item._id}>
-                      <NavLink
-                        onClick={() => activeDpop(item.title)}
-                        className={classes.selectTitle}
-                        to={`/notes/category/${item._id}`}
-                      >
-                        {item.title}
-                      </NavLink>
-                    </MenuItem>
-                  ))}
-                  }
-                </Select>
-
-              </FormControl>
+                  {" "}
+                  Мероприятия
+                </NavLink>
+              </Button>
               <Button color="inherit">
                 <NavLink
                   className={classnames(
