@@ -1,6 +1,7 @@
 const initialState = {
   items: [],
   loading: false,
+  editing: false,
 };
 
 export default function notesReducer(state = initialState, action) {
@@ -37,6 +38,26 @@ export default function notesReducer(state = initialState, action) {
         ...state,
         loading: false,
         image: action.payload.image,
+      };
+    case "note/edit/pending":
+      return {
+        ...state,
+        editing: true,
+      };
+
+    case "note/edit/fulfilled":
+      return {
+        ...state,
+        editing: false,
+        items: state.items.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              ...action.payload.data,
+            }
+          }
+          return item;
+        }),
       };
     default:
       return state;
@@ -126,5 +147,29 @@ export const addImage = (e) => {
       type: "note/upload/fulfilled",
       payload: json,
     });
+  };
+};
+
+export const editNote = (id, data) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "note/edit/pending" });
+    console.log(data)
+    const state = getState();
+    await fetch(`http://localhost:5500/notes/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        title: data.title,
+        text: data.text,
+        timeOfTheEvent: data.timeOfTheEvent,
+        placeOfEvent: data.placeOfEvent,
+      }),
+
+    });
+    dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
+    window.location.reload()
   };
 };

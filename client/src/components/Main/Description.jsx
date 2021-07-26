@@ -9,6 +9,7 @@ import PlaceIcon from "@material-ui/icons/Place";
 import { loadComments, postComment } from "../../redux/features/comments";
 import Container from "@material-ui/core/Container";
 import { Paper, TextField } from "@material-ui/core";
+import Preloader from '../Preloader';
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -86,6 +87,7 @@ function Description(props) {
   });
   const comments = useSelector((state) => state.comments.items);
   const [text, setText] = useState(' ')
+  const loading = useSelector((state) => state.notes.loading);
 
 
   useEffect(() => {
@@ -108,6 +110,10 @@ function Description(props) {
   function handlePostComment(id) {
 
     return dispatch(postComment(id,{text: text}));
+  }
+
+  if (loading) {
+    return <Preloader />;
   }
 
   return (

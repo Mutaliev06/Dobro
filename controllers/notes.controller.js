@@ -15,7 +15,8 @@ module.exports.notesController = {
         placeOfEvent,
       });
       return res.json(note);
-    } catch (e) {
+    }
+    catch (e) {
       return res.status(401).json("неверный токен: " + e.toString());
     }
   },
@@ -31,7 +32,8 @@ module.exports.notesController = {
         res.json("Удалено");
       }
       return res.status(401).json("ошибка нет доступа");
-    } catch (e) {
+    }
+    catch (e) {
       return res.status(401).json("ошибка:" + e.toString());
     }
   },
@@ -49,7 +51,8 @@ module.exports.notesController = {
         "title, name"
       );
       res.json(note);
-    } catch (e) {
+    }
+    catch (e) {
       res.json(e);
     }
   },
@@ -59,8 +62,26 @@ module.exports.notesController = {
     try {
       const note = await Note.find({ user: id });
       res.json(note);
-    } catch (e) {
+    }
+    catch (e) {
       res.json(e);
+    }
+  },
+
+  async editNote(req, res) {
+    try {
+      const { id } = req.params;
+      const { text, title, timeOfTheEvent, placeOfEvent  } = req.body;
+
+      const note = await Note.findByIdAndUpdate(
+        id,
+        { text, title,timeOfTheEvent, placeOfEvent },
+        { new: true }
+      );
+      res.json(note);
+    }
+    catch (e) {
+      res.json(e.message);
     }
   },
 };

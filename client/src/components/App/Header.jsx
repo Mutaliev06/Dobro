@@ -48,6 +48,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 10,
     backgroundColor: "#000841",
   },
+  btnVolonters: {
+    textDecoration: "none",
+    color: "white",
+    marginRight: 75,
+    backgroundColor: "#000841",
+    marginTop: 23
+  },
   btnLogUp: {
     textDecoration: "none",
     color: "white",
@@ -79,6 +86,7 @@ function Header() {
   const categories = useSelector((state) => state.categories.items);
   const [selectTitle, setSelectTitle] = useState("Мероприятия");
   const { pathname } = useLocation();
+
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -86,10 +94,6 @@ function Header() {
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(logout());
-  // }, [dispatch]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -153,7 +157,20 @@ function Header() {
                   ))}
                   }
                 </Select>
+
               </FormControl>
+              <Button color="inherit">
+                <NavLink
+                  className={classnames(
+                    classes.btnVolonters,
+                    pathname === "/users" && classes.linkActive
+                  )}
+                  to={`/users`}
+                >
+                  {" "}
+                  Волонтеры
+                </NavLink>
+              </Button>
             </Typography>
             <Button color="inherit">
               <NavLink
@@ -224,6 +241,18 @@ function Header() {
                 }
               </Select>
             </FormControl>
+            <Button color="inherit">
+              <NavLink
+                className={classnames(
+                  classes.btnVolonters,
+                  pathname === "/users" && classes.linkActive
+                )}
+                to={`/users`}
+              >
+                {" "}
+                Волонтеры
+              </NavLink>
+            </Button>
           </Typography>
 
           <Button color="inherit" disableElevation>
