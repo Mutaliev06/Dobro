@@ -35,43 +35,42 @@ export default function commentsReducer(state = initialState, action) {
   }
 }
 
-
 export const loadComments = (id) => {
   return async (dispatch, getState) => {
     const state = getState();
     dispatch({
       type: "comments/load/pending",
     });
-    const response = await fetch(`http://localhost:5500/comments/note/${id}`)
+    const response = await fetch(`http://localhost:5500/comments/note/${id}`);
     const json = await response.json();
     dispatch({
       type: "comments/load/fulfilled",
       payload: json,
     });
-  }
-}
+  };
+};
 
 export const postComment = (id, data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch({ type: "comment/post/pending" });
-    const response = await fetch(
-      `http://localhost:5500/comments/notice/${id}`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          text: data.text,
-        }),
-      }
-    );
+    const state = getState();
+
+    const response = await fetch(`http://localhost:5500/comments/note/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        text: data.text,
+      }),
+    });
+
     const json = await response.json();
     dispatch({
       type: "comment/post/fulfilled",
       payload: json,
     });
-    window.location.reload()
   };
 };
