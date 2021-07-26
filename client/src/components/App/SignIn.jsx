@@ -15,8 +15,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../redux/features/application";
 import { useHistory } from "react-router-dom";
+import video from "../../../src/signIn.mp4"
+import img from "../../../src/signInImg.png"
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -35,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     textDecoration: "none",
   },
+  slideImg: {
+    width: "735px",
+    height: "calc(100vh - 250px)"
+  }
 }));
 
 export default function SignIn() {
@@ -67,9 +77,20 @@ export default function SignIn() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <Container className={classes.container} component="main" maxWidth="1440px">
         {error}
         <CssBaseline />
+        <div>
+          <video
+            src={video}
+            autoPlay={true}
+            className={classes.slideImg}
+            loop={true}
+            playsInline={true}
+            muted={true}
+            poster={img}
+          />
+        </div>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
