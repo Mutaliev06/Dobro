@@ -342,6 +342,7 @@ export default function Admin() {
                 <Typography align="center" variant="h6" component="h6">
                   {" "}
                   Заполните все обязательные поля*{" "}
+
                 </Typography>
                 <TextField
                   id="outlined-multiline-static"
