@@ -14,6 +14,7 @@ import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
 import { NavLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
+import Preloader from '../Preloader';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -74,10 +75,15 @@ function Notes() {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
+  const loading = useSelector((state) => state.notes.loading);
 
   useEffect(() => {
     dispatch(loadNotes());
   }, [dispatch]);
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   return (
     <Container className={classes.cardGrid} maxWidth="1440px">

@@ -32,6 +32,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
+import Preloader from '../Preloader';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -65,6 +66,22 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
       transform: "scale(1.02)",
     },
+  },
+  BtnNoteIdEdit: {
+    textDecoration: "none",
+    position: "relative",
+    background: "#000841",
+    color: "#fff",
+    borderRadius: "5px",
+    transition: "all .3s",
+    "&:hover": {
+      background: "transparent",
+      border: "2px solid #000841",
+      color: "#000841",
+      transform: "scale(1.02)",
+    },
+    marginLeft: 155,
+    padding: 10,
   },
   appBar: {
     position: "relative",
@@ -166,7 +183,7 @@ export default function EditNotes({ notes }) {
   const [title, setTitle] = React.useState(notes.title);
   const [category, setCategory] = useState("");
   const categories = useSelector((state) => state.categories.items);
-
+  const loading = useSelector((state) => state.notes.loading);
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState(
     notes.timeOfTheEvent
   );
@@ -210,13 +227,16 @@ export default function EditNotes({ notes }) {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-
+  if (loading) {
+    return <Preloader />;
+  }
   return (
     <div>
+
       <Button
         variant="outlined"
         color="primary"
-        className={classes.BtnNoteId}
+        className={classes.BtnNoteIdEdit}
         onClick={handleClickOpen}
       >
         <MdEdit />

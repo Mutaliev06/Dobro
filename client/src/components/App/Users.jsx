@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -11,11 +11,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { loadCategoryNotes, loadNotes } from "../../redux/features/notes";
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useParams } from "react-router-dom";
 import Box from '@material-ui/core/Box';
 import Preloader from '../Preloader';
+import {  loadUserNotes, loadUsers } from '../../redux/features/users';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -74,27 +74,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NotesId() {
+function Users() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
   const loading = useSelector((state) => state.notes.loading);
-
-  useEffect(() => {
-    dispatch(loadCategoryNotes(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    document.title = "ВЦ 'Добро'";
+  const users = useSelector((state) => {
+    return state.users.items;
   });
+  const notes = useSelector((state) => {
+    return state.users.userNotes;
+  });
+  const user = useSelector((state) => {
+    return state.users.currentUser;
+  });
+
+  useEffect(() => {
+    dispatch(loadUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    document.title = "Волонтеры";
+  });
+  useEffect(() => {
+    dispatch(loadUserNotes());
+  }, [dispatch]);
+
   if (loading) {
     return <Preloader />;
   }
   return (
     <Container className={classes.cardGrid} maxWidth="1440px">
       <Grid container spacing={4} className={classes.grid}>
-        {notes.map((item) => (
+        {users.map((item) => (
           <Grid item key={item} xs={3}>
             <Card className={classes.card}>
               <CardMedia
@@ -105,17 +117,17 @@ function NotesId() {
               <CardContent className={classes.cardContent}>
                 <Box>
                   <Typography gutterBottom variant="h6" component="h5">
-                    <div>{item.title}</div>
+                    <div>{item.name}</div>
                   </Typography>
                   <Typography gutterBottom variant="h7" component="h5">
-                    <div>Автор поста: {item.user.name}</div>
+                    <div>Количество постов: {notes.length}</div>
                   </Typography>
                 </Box>
               </CardContent>
               <CardActions>
                 <NavLink
                   className={classes.BtnNoteId}
-                  to={`/notes/${item._id}`}
+                  to={`/users/${item._id}`}
                 >
                   <Button className={classes.BtnNote}>Подробнее</Button>
                 </NavLink>
@@ -128,4 +140,4 @@ function NotesId() {
   );
 }
 
-export default NotesId;
+export default Users;

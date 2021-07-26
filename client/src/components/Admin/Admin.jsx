@@ -12,6 +12,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  CssBaseline,
   FormControl,
   IconButton,
   MenuItem,
@@ -19,7 +20,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAvatar,
@@ -31,6 +32,7 @@ import { Avatar } from "@material-ui/core";
 import { addImage, addNote } from "../../redux/features/notes";
 import { PhotoCamera } from "@material-ui/icons";
 import EditNotes from "./EditNotes";
+import Preloader from "../Preloader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -154,26 +156,45 @@ const useStyles = makeStyles((theme) => ({
     left: 290,
   },
   BtnNote: {
-    transition: 'all .3s',
-    color: '#fff',
-    '&:hover':{
-      color: '#000841'
-    }
+    transition: "all .3s",
+    color: "#fff",
+    "&:hover": {
+      color: "#000841",
+    },
   },
   BtnNoteId: {
-    textDecoration: 'none',
-    position: 'relative',
-    padding: '0',
-    background: '#000841',
-    color: '#fff',
-    borderRadius: '5px',
-    transition: 'all .3s',
-    '&:hover':{
-      background: 'transparent',
+    textDecoration: "none",
+    position: "relative",
+    padding: "0",
+    background: "#000841",
+    color: "#fff",
+    borderRadius: "5px",
+    transition: "all .3s",
+    "&:hover": {
+      background: "transparent",
       border: "2px solid #000841",
-      color: '#000841',
-      transform: 'scale(1.02)'
-    }
+      color: "#000841",
+      transform: "scale(1.02)",
+    },
+  },
+  BtnEdit: {
+    textDecoration: "none",
+    position: "relative",
+    padding: "0",
+    background: "#000841",
+    color: "#fff",
+    width: 30,
+    borderRadius: "5px",
+    transition: "all .3s",
+    "&:hover": {
+      background: "transparent",
+      border: "2px solid #000841",
+      color: "#000841",
+      transform: "scale(1.02)",
+    },
+  },
+  authCont: {
+    height: 600,
   },
 }));
 
@@ -187,18 +208,19 @@ export default function Admin() {
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
-
-  const user = useSelector((state) => {
-    return state.users.currentUser;
-  });
+  const loading = useSelector((state) => state.notes.loading);
   const notes = useSelector((state) => {
     return state.users.userNotes;
   });
+  const user = useSelector((state) => {
+    return state.users.currentUser;
+  });
+
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
   };
-  const handleChangeNote = (e) => {
-    setText(e.target.value);
+  const handlePlaceChange = (e) => {
+    return setPlaceOfEvent(e.target.value);
   };
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -206,17 +228,15 @@ export default function Admin() {
   const handleDateChange = (e) => {
     return setTimeOfTheEvent(e.target.value);
   };
-  const handlePlaceChange = (e) => {
-    return setPlaceOfEvent(e.target.value);
+  const handleChangeNote = (e) => {
+    setText(e.target.value);
+  };
+  const handleAddAvatar = (e) => {
+    dispatch(addAvatar(e));
   };
   const handleAddImage = async (e) => {
     await dispatch(addImage(e));
   };
-
-  const handleAddAvatar = (e) => {
-    dispatch(addAvatar(e));
-  };
-
   const handleAddNote = async () => {
     await dispatch(
       addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
@@ -241,6 +261,9 @@ export default function Admin() {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  if (loading) {
+    return <Preloader />;
+  }
   if (token) {
     return (
       <div className={classes.root}>
@@ -284,7 +307,7 @@ export default function Admin() {
                 </Typography>
                 <Typography variant="h6">
                   {" "}
-                  Количество постов: {"  "}{" "}
+                  Количество постов: {"  "}{" "} {notes.length}
                 </Typography>
                 <Typography variant="h6">
                   {" "}
@@ -461,18 +484,14 @@ export default function Admin() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
-                        <Button className={classes.BtnNote}>
-                          Подробнее
-                        </Button>
+                      <NavLink
+                        className={classes.BtnNoteId}
+                        to={`/notes/${item._id}`}
+                      >
+                        <Button className={classes.BtnNote}>Подробнее</Button>
                       </NavLink>
 
-
-
-                          <EditNotes notes={item} />
-
-
-
+                      <EditNotes notes={item} />
                     </CardActions>
                   </Card>
                 </Grid>
@@ -483,6 +502,18 @@ export default function Admin() {
       </div>
     );
   } else {
-    alert("Авторизуйтесь please");
+    return (
+      <React.Fragment>
+        <Paper elevation={3} className={classes.authCont}>
+          <CssBaseline />
+          <Container maxWidth="sm">
+            <Typography align="center" variant="h4" component="h2">
+              Страница не доступна,
+              <NavLink to={"/login"}> авторизуйтесь </NavLink>
+            </Typography>
+          </Container>
+        </Paper>
+      </React.Fragment>
+    );
   }
 }
