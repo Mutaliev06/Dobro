@@ -16,6 +16,7 @@ import { NavLink, useParams } from "react-router-dom";
 import Box from '@material-ui/core/Box';
 import Preloader from '../Preloader';
 import {  loadUserNotes, loadUsers } from '../../redux/features/users';
+import Rating from '@material-ui/lab/Rating';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -72,6 +73,13 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
     },
   },
+  rootRating: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > * + *': {
+      marginTop: theme.spacing(1),
+    },
+  },
 }));
 
 function Users() {
@@ -125,12 +133,13 @@ function Users() {
                 </Box>
               </CardContent>
               <CardActions>
+
                 <NavLink
                   className={classes.BtnNoteId}
                   to={`/users/${item._id}`}
                 >
-                  <Button className={classes.BtnNote}>Подробнее</Button>
                 </NavLink>
+                <Rating name="size-small" defaultValue={1} size="small" />
               </CardActions>
             </Card>
           </Grid>
