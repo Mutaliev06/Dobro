@@ -9,6 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { NavLink } from "react-router-dom";
+import classnames from "classnames";
 
 const useStyles = makeStyles({
   list: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles({
   },
   drawer: {
     display: "flex",
-    marginTop: "10px",
+    marginTop: "20px",
+    marginBottom: "20px"
   },
   quote: {
     width: "100%",
@@ -48,6 +50,22 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
+  drawerText: {
+    textDecoration: "none",
+    fontWeight: "bold",
+    fontSize: "20px",
+    margin: 0
+  },
+  number: {
+    fontWeight: "bold",
+    fontSize: "20px",
+  },
+  drawerList: {
+    marginTop: "15px"
+  },
+  drawerP: {
+    margin: 0
+  }
 });
 
 export default function TemporaryDrawer() {
@@ -60,12 +78,6 @@ export default function TemporaryDrawer() {
     setState({ ...state, [anchor]: open });
   };
 
-  const btn = [
-    "Зарегистрируйся",
-    "Выбери мероприятие",
-    "Оставь заявку на участие",
-  ];
-
   const list = () => (
     <div>
       <List>
@@ -73,24 +85,43 @@ export default function TemporaryDrawer() {
       </List>
       <Divider />
       <List>
-        <ListItem>
+        <ListItem className={classes.drawerList}>
           <ListItemIcon>
             <circle>
-              <span>1</span>
+              <span className={classes.number}>1</span>
             </circle>
           </ListItemIcon>
           <ListItemText>
-            <NavLink to="/registration">Зарегистрируйся</NavLink>
+            <NavLink
+              className={classnames(classes.drawerText)}
+              to="/registration"
+            >
+              Зарегистрируйся
+            </NavLink>
           </ListItemText>
         </ListItem>
-        <ListItem>
+        <ListItem className={classes.drawerList}>
           <ListItemIcon>
             <circle>
-              <span>2</span>
+              <span className={classes.number}>2</span>
             </circle>
           </ListItemIcon>
           <ListItemText>
-            <NavLink to="/registration">Зарегистрируйся</NavLink>
+            <NavLink className={classnames(classes.drawerText)} to="/notes/all">
+              Выбери мероприятие
+            </NavLink>
+          </ListItemText>
+        </ListItem>
+        <ListItem className={classes.drawerList}>
+          <ListItemIcon>
+            <circle>
+              <span className={classes.number}>3</span>
+            </circle>
+          </ListItemIcon>
+          <ListItemText>
+            <p className={classnames(classes.drawerText)}>
+              Нажми <span>"Принять участие"</span>
+            </p>
           </ListItemText>
         </ListItem>
       </List>
@@ -106,7 +137,7 @@ export default function TemporaryDrawer() {
             солидарности и вера в то, что вместе мы можем сделать этот мир
             лучше.
           </p>
-          <p>Кофи Анан, генеральный секретарь ООН</p>
+          <p className={classes.drawerP}>Кофи Анан, генеральный секретарь ООН</p>
         </h3>
       </div>
       <div className={classes.btnDiv}>

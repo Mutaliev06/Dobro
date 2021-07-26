@@ -42,23 +42,28 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     marginTop: theme.spacing(2),
   },
-  btnLogIn: {
-    textDecoration: "none",
-    color: "white",
-    marginLeft: 10,
-    backgroundColor: "#000841",
-  },
   btnVolonters: {
     textDecoration: "none",
+    fontWeight: "bold",
     color: "white",
+    marginLeft: 75,
     marginRight: 75,
     backgroundColor: "#000841",
-    marginTop: 23
   },
   btnLogUp: {
+    padding: "0 5px",
     textDecoration: "none",
-    color: "white",
-    backgroundColor: "#000841",
+    color: "#000841",
+    backgroundColor: "#fff",
+    borderRadius: "3px"
+  },
+  btnLogOut: {
+    padding: "0 5px",
+    textDecoration: "none",
+    color: "#e5266e",
+    marginLeft: 10,
+    backgroundColor: "#fff",
+    borderRadius: "3px"
   },
   selectTitle: {
     textDecoration: "none",
@@ -79,17 +84,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const token = useSelector((state) => state.application.token);
-  const { id } = useParams();
-  const [category, setCategory] = useState("");
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories.items);
-  const [selectTitle, setSelectTitle] = useState("Мероприятия");
   const { pathname } = useLocation();
-
-  const handleChangeCategory = (e) => {
-    setCategory(e.target.value);
-  };
 
   useEffect(() => {
     dispatch(loadCategories());
@@ -102,16 +99,6 @@ function Header() {
   };
 
   const classes = useStyles();
-
-  const isActive = (pn) => {
-    if (pn === pathname) return "linkActive";
-  };
-
-  const activeDpop = (title) => {
-    setSelectTitle(title);
-  };
-
-  const cls = classes.btnLogUp + " " + classes.linkActive;
 
   if (!token) {
     return (
@@ -172,7 +159,7 @@ function Header() {
             <Button color="inherit">
               <NavLink
                 className={classnames(
-                  classes.btnLogIn,
+                  classes.btnLogUp,
                   pathname === "/login" && classes.linkActive
                 )}
                 to={`/login`}
@@ -189,7 +176,11 @@ function Header() {
 
   return (
     <div>
-      <AppBar color="transparent" position="sticky" className={classes.appbar}>
+      <AppBar
+        color="transparent"
+        position="sticky"
+        className={classes.appbar}
+      >
         <Toolbar>
           <NavLink color="inherit" to={`/`}>
             <IconButton
@@ -202,16 +193,18 @@ function Header() {
             </IconButton>
           </NavLink>
           <Typography variant="h6" className={classes.title}>
-            <NavLink
-              className={classnames(
-                classes.btnVolonters,
-                pathname === "/notes/all" && classes.linkActive
-              )}
-              to={`/notes/all`}
-            >
-              {" "}
-              Мероприятия
-            </NavLink>
+            <Button color="inherit">
+              <NavLink
+                className={classnames(
+                  classes.btnVolonters,
+                  pathname === "/notes/all" && classes.linkActive
+                )}
+                to={`/notes/all`}
+              >
+                {" "}
+                Мероприятия
+              </NavLink>
+            </Button>
             <Button color="inherit">
               <NavLink
                 className={classnames(
@@ -225,7 +218,6 @@ function Header() {
               </NavLink>
             </Button>
           </Typography>
-
           <Button color="inherit" disableElevation>
             <NavLink
               className={classnames(
@@ -241,7 +233,7 @@ function Header() {
           <Button color="inherit" value={isLoggedOut} onClick={handleLogout}>
             <NavLink
               className={classnames(
-                classes.btnLogIn,
+                classes.btnLogOut,
                 pathname === "/login" && classes.linkActive
               )}
               to={`/`}
