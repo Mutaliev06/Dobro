@@ -3,6 +3,8 @@ import SlideComponent from './SlideComponent';
 import Notes from './Notes';
 import Drawer from './Drawer'
 import { makeStyles } from '@material-ui/core/styles';
+import Preloader from '../Preloader';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   main: {
@@ -13,6 +15,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
+  hr: {
+    marginTop: "64px"
+  }
 });
 
 function Home(props) {
@@ -27,6 +32,7 @@ function Home(props) {
       <Drawer/>
       <div className={classes.mainDiv}>
         <SlideComponent/>
+        <hr className={classes.hr}/>
         <Notes/>
       </div>
     </div>

@@ -34,6 +34,9 @@ const useStyles = makeStyles({
     marginTop: "10px",
     fontSize: "30px"
   },
+  slide: {
+    width: "100%"
+  },
   arrowLeft: {
     position: "absolute",
     top: "50%",
@@ -86,6 +89,7 @@ export default function SlideComponent(props) {
         nextLabel=""
         activeIndex={current}
         onSelect={handleSelect}
+        className={classes.slide}
       >
         {videos.map((item, index) => {
           return (

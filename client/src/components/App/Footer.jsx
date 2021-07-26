@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
 import { NavLink } from "react-router-dom";
 import Main from './Main';
+import Link from '@material-ui/core/Link';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -13,20 +14,22 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: 10,
     marginTop: "auto",
-    minWidth: "96%",
+    padding: "30px 20px"
   },
   divGrid: {
-    width: 570,
-    marginTop: 10,
+    width: "100%",
+    marginTop: 20,
     textAlign: "start",
+    display: "flex",
+    justifyContent: "space-around",
   },
   a: {
     color: "white",
   },
   iconDiv: {
-    width: 200,
+    width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   gm: {
     fontSize: 40,
@@ -35,14 +38,23 @@ const useStyles = makeStyles((theme) => ({
 
   linkCss: {
     textDecoration: "none",
-    fontSize: 25,
+    fontSize: 16,
     color: 'white'
   },
-
-  divNavlink: {
-    width: 300,
+  divNavLink: {
+    width: 200,
   },
-
+  divContact: {
+    backgroundColor: "#e5266e",
+    padding: "20px 10px",
+    borderRadius: "5px"
+  },
+  category: {
+    width: "50%"
+  },
+  contact: {
+    width: "20%"
+  },
   icon: {
     color: "white",
     textDecoration: 'none'
@@ -55,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: 10,
     marginTop: "auto",
-    minWidth: "96%",
   },
   bottomDiv :{
     backgroundColor: '#21264f',
@@ -64,12 +75,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     textDecoration: 'none',
     borderRadius: 5,
+    padding: "5px 20px"
   },
-  divmain: {
+  divMain: {
     backgroundColor: "#000841",
     borderRadius: 5,
   },
-
   bottomGrid : {
     width: 50,
   },
@@ -77,9 +88,17 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: '#657c87',
     fontSize: 18,
+    marginRight: "20px",
+    marginLeft: "16px"
   },
-  rowDiv: {
-    width: 570,
+  rowDiv1: {
+    width: "50%",
+    textAlign: "start",
+    color: '#657c87',
+    textDecoration: 'none'
+  },
+  rowDiv2: {
+    width: "20%",
     textAlign: "start",
     color: '#657c87',
     textDecoration: 'none'
@@ -93,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
     alignItem: 'center',
     justifyContent: 'center'
   },
-  dobroru: {
+  dobroRu: {
     textDecoration: 'none',
     color: '#657c87',
   }
@@ -112,16 +131,15 @@ function Footer(props) {
 
   return (
     <div>
-      <div className={classes.divmain}>
+      <div className={classes.divMain}>
         <div className={classes.container}>
-          <div>
+          <div className={classes.category}>
             <div  className={classes.divGrid}>
               {category?.map((item) => {
                 return (
-
-                  <div className={classes.divNavlink}>
+                  <div className={classes.divNavLink}>
                     <NavLink
-                      to={`/category/${item._id}`}
+                      to={`/notes/category/${item._id}`}
                       className={classes.linkCss}
                     >
                       {" "}
@@ -132,9 +150,8 @@ function Footer(props) {
               })}
             </div>
           </div>
-          <div>
-            <div className={classes.divGrid}>
-              <h3 className={classes.a}>Контакты</h3>
+          <div className={classes.contact}>
+            <div className={classes.divContact}>
               <div className={classes.iconDiv}>
                 <a href="https://intocode.ru/" className={classes.icon}>
                   intocode.ru
@@ -152,26 +169,22 @@ function Footer(props) {
             </div>
           </div>
         </div>
-        <div >
-          {/*<div className={classes.divImg}>*/}
-          {/*  <div className={classes.a}><h2>При поддержке</h2></div>{'  '}*/}
-          {/*  <div>*/}
-          {/*    <img src='http://pngimg.com/uploads/polar_bear/small/polar_bear_PNG23522.png' className={classes.img}/>{' '}*/}
-          {/*    <img src='http://pngimg.com/uploads/blm/blm_PNG61.png' className={classes.img} />{' '}*/}
-          {/*    <img src='http://pngimg.com/uploads/vegan/small/vegan_PNG24.png' className={classes.img} />{' '}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-        </div>
         <div className={classes.bottomDiv}>
-          <div className={classes.rowDiv}>
+          <div className={classes.rowDiv1}>
             <a href='https://dobro.ru/terms' className={classes.bottomA}>Правила пользования</a>{' '}
             <a href='https://dobro.ru/privacy' className={classes.bottomA}>Политика конфиденциальности</a>
           </div>
-          <div className={classes.rowDiv}><NavLink to={'/'} className={classes.dobroru}> © DOBRO.RU </NavLink></div>
+          <div className={classes.rowDiv2}>
+            <Link
+              className={classes.dobroRu}
+              color="inherit"
+              href="/">
+              © DOBRO.RU
+            </Link>
+          </div>
         </div>
       </div>
     </div>
-
   );
 }
 

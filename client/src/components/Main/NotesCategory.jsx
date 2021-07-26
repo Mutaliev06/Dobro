@@ -15,6 +15,7 @@ import { loadCategoryNotes, loadNotes } from "../../redux/features/notes";
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useParams } from "react-router-dom";
 import Box from '@material-ui/core/Box';
+import Preloader from '../Preloader';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -71,13 +72,22 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
     },
   },
+  textTitle: {
+    fontSize: "16px",
+    fontWeight: "bold"
+  },
+  textName: {
+    fontSize: "14px",
+    fontStyle: "italic"
+  }
 }));
 
-function NotesId() {
+function NotesCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
   const classes = useStyles();
+  const loading = useSelector((state) => state.notes.loading);
 
   useEffect(() => {
     dispatch(loadCategoryNotes(id));
@@ -86,7 +96,9 @@ function NotesId() {
   useEffect(() => {
     document.title = "ВЦ 'Добро'";
   });
-
+  if (loading) {
+    return <Preloader />;
+  }
   return (
     <Container className={classes.cardGrid} maxWidth="1440px">
       <Grid container spacing={4} className={classes.grid}>
@@ -101,10 +113,10 @@ function NotesId() {
               <CardContent className={classes.cardContent}>
                 <Box>
                   <Typography gutterBottom variant="h6" component="h5">
-                    <div>{item.title}</div>
+                    <div className={classes.textTitle}>{item.title}</div>
                   </Typography>
                   <Typography gutterBottom variant="h7" component="h5">
-                    <div>Автор поста: {item.user.name}</div>
+                    <div className={classes.textName}>Автор поста: {item.user.name}</div>
                   </Typography>
                 </Box>
               </CardContent>
@@ -124,4 +136,4 @@ function NotesId() {
   );
 }
 
-export default NotesId;
+export default NotesCategory;

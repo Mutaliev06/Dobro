@@ -102,7 +102,7 @@ function Notes() {
         Актуальные мероприятия
       </h2>
       <Grid container spacing={2}>
-        {notes.slice(0, 6).map((item) => (
+        {notes.map((item) => (
           <Grid className={classes.notesGrid} item key={item} xs={4}>
             <Card className={classes.card}>
               <CardMedia
