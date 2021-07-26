@@ -71,9 +71,17 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
     },
   },
+  textTitle: {
+    fontSize: "16px",
+    fontWeight: "bold"
+  },
+  textName: {
+    fontSize: "14px",
+    fontStyle: "italic"
+  }
 }));
 
-function NotesId() {
+function NotesCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes.items);
@@ -101,10 +109,10 @@ function NotesId() {
               <CardContent className={classes.cardContent}>
                 <Box>
                   <Typography gutterBottom variant="h6" component="h5">
-                    <div>{item.title}</div>
+                    <div className={classes.textTitle}>{item.title}</div>
                   </Typography>
                   <Typography gutterBottom variant="h7" component="h5">
-                    <div>Автор поста: {item.user.name}</div>
+                    <div className={classes.textName}>Автор поста: {item.user.name}</div>
                   </Typography>
                 </Box>
               </CardContent>
@@ -124,4 +132,4 @@ function NotesId() {
   );
 }
 
-export default NotesId;
+export default NotesCategory;
