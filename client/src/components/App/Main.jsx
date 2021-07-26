@@ -7,6 +7,7 @@ import Description from '../Main/Description';
 import Home from '../Main/Home';
 import NotFound from '../NotFound';
 import { Container } from '@material-ui/core';
+import Users from './Users';
 import NotesCategory from '../Main/NotesCategory';
 
 function Main(props) {
@@ -31,6 +32,9 @@ function Main(props) {
           </Route>
           <Route path='/notes/category/:id' exact>
             <NotesCategory/>
+          </Route>
+          <Route path='/users/' exact>
+            <Users />
           </Route>
           <Route>
             <NotFound />
