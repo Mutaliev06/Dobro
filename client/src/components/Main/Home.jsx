@@ -15,6 +15,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
+  hr: {
+    marginTop: "64px"
+  }
 });
 
 function Home(props) {
@@ -29,6 +32,7 @@ function Home(props) {
       <Drawer/>
       <div className={classes.mainDiv}>
         <SlideComponent/>
+        <hr className={classes.hr}/>
         <Notes/>
       </div>
     </div>

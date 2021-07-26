@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(8),
   },
   card: {
@@ -45,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     padding: '5px'
+  },
+  notesGrid: {
+    display: 'flex',
+    justifyContent: 'space-evenly'
   },
   BtnNoteId: {
     textDecoration: 'none',
@@ -68,12 +72,25 @@ const useStyles = makeStyles((theme) => ({
       color: '#000841'
     }
   },
-
+  textTitle: {
+    fontSize: "16px",
+    fontWeight: "bold"
+  },
+  textName: {
+    fontSize: "14px",
+    fontStyle: "italic"
+  },
+  cardH2: {
+    fontWeight: 'bold',
+    marginBottom: "20px"
+  }
 }));
 
 function Notes() {
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state.notes.items);
+  const notes = useSelector((state) => state.notes.items.sort(function(a,b){
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  }));
   const classes = useStyles();
   const loading = useSelector((state) => state.notes.loading);
 
@@ -87,9 +104,12 @@ function Notes() {
 
   return (
     <Container className={classes.cardGrid} maxWidth="1440px">
-      <Grid container spacing={4}>
-        {notes.map((item) => (
-          <Grid item key={item} xs={3}>
+      <h2 className={classes.cardH2}>
+        Актуальные мероприятия
+      </h2>
+      <Grid container spacing={2}>
+        {notes.slice(0, 6).map((item) => (
+          <Grid className={classes.notesGrid} item key={item} xs={4}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
@@ -99,10 +119,10 @@ function Notes() {
               <CardContent className={classes.cardContent}>
                 <Box>
                   <Typography gutterBottom variant="h6" component="h5">
-                    <div>{item.title}</div>
+                    <div className={classes.textTitle}>{item.title}</div>
                   </Typography>
                   <Typography gutterBottom variant="h7" component="h5">
-                    <div>Автор поста: {item.user.name}</div>
+                    <div className={classes.textName}>Автор поста: {item.user.name}</div>
                   </Typography>
                 </Box>
               </CardContent>
