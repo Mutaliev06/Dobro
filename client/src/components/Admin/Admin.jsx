@@ -142,6 +142,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 10,
     width: "95%",
   },
+  cardComment: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    marginLeft: 10,
+    width: "95%",
+    border: "5px solid green"
+  },
   cardMedia: {
     paddingTop: "56.25%",
   },
@@ -471,35 +479,66 @@ export default function Admin() {
               </Paper>
             </Grid>
             <Grid container spacing={10}>
-              {notes.map((item) => (
-                <Grid item key={item} xs={12} sm={6} md={4}>
-                  <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      title="Image title"
-                      image={`http://localhost:5500/${item.pathToImage}`}
-                    />
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h6" component="h5">
-                        <div>{item.title}</div>
-                      </Typography>
-                      <Typography gutterBottom variant="h7" component="h5">
-                        <div>{item.user.name}</div>
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <NavLink
-                        className={classes.BtnNoteId}
-                        to={`/notes/${item._id}`}
-                      >
-                        <Button className={classes.BtnNote}>Подробнее</Button>
-                      </NavLink>
-                      <EditNotes notes={item} />
-                       <CompletedNote notes={item} />
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
+              {notes.map(item => {
+                return item.lastComment !== undefined ? (
+                  <Grid item key={item} xs={12} sm={6} md={4}>
+                    <Card className={classes.cardComment}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        title="Image title"
+                        image={`http://localhost:5500/${item.pathToImage}`}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h6" component="h5">
+                          <div>{item.title}</div>
+                        </Typography>
+                        <Typography gutterBottom variant="h7" component="h5">
+                          <div>{item.user.name}</div>
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <NavLink
+                          className={classes.BtnNoteId}
+                          to={`/notes/${item._id}`}
+                        >
+                          <Button className={classes.BtnNote}>Подробнее</Button>
+                        </NavLink>
+                        <EditNotes notes={item} />
+                        <CompletedNote notes={item} />
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ) : (
+                  <Grid item key={item} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        title="Image title"
+                        image={`http://localhost:5500/${item.pathToImage}`}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h6" component="h5">
+                          <div>{item.title}</div>
+                        </Typography>
+                        <Typography gutterBottom variant="h7" component="h5">
+                          <div>{item.user.name}</div>
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <NavLink
+                          className={classes.BtnNoteId}
+                          to={`/notes/${item._id}`}
+                        >
+                          <Button className={classes.BtnNote}>Подробнее</Button>
+                        </NavLink>
+                        <EditNotes notes={item} />
+                        <CompletedNote notes={item} />
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                )
+              }
+              )}
             </Grid>
           </Grid>
         </Container>
@@ -512,8 +551,8 @@ export default function Admin() {
           <CssBaseline />
           <Container maxWidth="sm">
             <Typography align="center" variant="h4" component="h2">
-              Страница не доступна,
-              <NavLink to={"/login"}> авторизуйтесь </NavLink>
+              Страница не доступна
+              <NavLink to={"/login"}> Авторизуйтесь </NavLink>
             </Typography>
           </Container>
         </Paper>

@@ -16,9 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use("/image", express.static(path.resolve(__dirname, "image")))
 app.use(express.static(path.resolve(__dirname, "client", "build")));
-app.get('*', (req, res) => {
-  res.send(path.resolve(__dirname, "client", "build", "index.html"))
-})
+// app.get('*', (req, res) => {
+//   res.send(path.resolve(__dirname, "client", "build", "index.html"))
+// })
 app.use(router);
 
 

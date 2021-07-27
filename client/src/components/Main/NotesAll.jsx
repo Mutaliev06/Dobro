@@ -41,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     borderRadius: '5px',
   },
+  cardComment: {
+    padding: '5px',
+    width: '300px',
+    height: '350px',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    borderRadius: '5px',
+    border: "5px solid green"
+  },
   cardMedia: {
     paddingTop: "56.25%",
     borderRadius: '3px',
@@ -164,34 +174,64 @@ function Notes() {
         Все мероприятия
       </h2>
       <Grid container spacing={2}>
-        {notes.map((item) => (
-          <Grid className={classes.notesGrid} item key={item} xs={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                title="Image title"
-                image={`http://localhost:5500/${item.pathToImage}`}
-              />
-              <CardContent className={classes.cardContent}>
-                <Box>
-                  <Typography gutterBottom variant="h6" component="h5">
-                    <div className={classes.textTitle}>{item.title}</div>
-                  </Typography>
-                  <Typography gutterBottom variant="h7" component="h5">
-                    <div className={classes.textName}>Автор поста: {item.user.name}</div>
-                  </Typography>
-                </Box>
-              </CardContent>
-              <CardActions>
-                <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
-                  <Button className={classes.BtnNote}>
-                    Подробнее
-                  </Button>
-                </NavLink>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
+        {notes.map(item => {
+          return item.lastComment !== undefined ? (
+            <Grid className={classes.notesGrid} item key={item} xs={4}>
+              <Card className={classes.cardComment}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  title="Image title"
+                  image={`http://localhost:5500/${item.pathToImage}`}
+                />
+                <CardContent className={classes.cardContent}>
+                  <Box>
+                    <Typography gutterBottom variant="h6" component="h5">
+                      <div className={classes.textTitle}>{item.title}</div>
+                    </Typography>
+                    <Typography gutterBottom variant="h7" component="h5">
+                      <div className={classes.textName}>Автор поста: {item.user.name}</div>
+                    </Typography>
+                  </Box>
+                </CardContent>
+                <CardActions>
+                  <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
+                    <Button className={classes.BtnNote}>
+                      Подробнее
+                    </Button>
+                  </NavLink>
+                </CardActions>
+              </Card>
+            </Grid>
+          ) : (
+            <Grid className={classes.notesGrid} item key={item} xs={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  title="Image title"
+                  image={`http://localhost:5500/${item.pathToImage}`}
+                />
+                <CardContent className={classes.cardContent}>
+                  <Box>
+                    <Typography gutterBottom variant="h6" component="h5">
+                      <div className={classes.textTitle}>{item.title}</div>
+                    </Typography>
+                    <Typography gutterBottom variant="h7" component="h5">
+                      <div className={classes.textName}>Автор поста: {item.user.name}</div>
+                    </Typography>
+                  </Box>
+                </CardContent>
+                <CardActions>
+                  <NavLink className={classes.BtnNoteId} to={`/notes/${item._id}`}>
+                    <Button className={classes.BtnNote}>
+                      Подробнее
+                    </Button>
+                  </NavLink>
+                </CardActions>
+              </Card>
+            </Grid>
+          )
+          }
+        )}
       </Grid>
     </Container>
   );
