@@ -160,7 +160,7 @@ function Description(props) {
       <Paper className={classes.divFoto}>
         <div>
           <img
-            src={`http://localhost:5500/${notes?.pathToImage}`}
+            src={`/${notes?.pathToImage}`}
             className={classes.img}
           />
         </div>
