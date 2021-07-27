@@ -24,7 +24,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { editNote } from "../../redux/features/notes";
+import { addImage, changeImage, editNote } from "../../redux/features/notes";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -33,6 +33,8 @@ import Slide from "@material-ui/core/Slide";
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Preloader from '../Preloader';
+import { PhotoCamera } from '@material-ui/icons';
+import { addAvatar } from '../../redux/features/users';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -91,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   cardMedia: {
-    width: 600,
+    width: 550,
     objectFit: 'cover',
   },
   cardContent: {
@@ -114,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   textFieldModal: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 900,
+    width: 810,
     height: 65,
     marginTop: 20,
   },
@@ -128,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
   inputStyle: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 900,
+    width: 810,
     marginTop: 10,
   },
   mediaContainer: {
@@ -138,7 +140,8 @@ const useStyles = makeStyles((theme) => ({
   },
   editText: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+
   },
   formControl: {
     margin: theme.spacing(1),
@@ -162,7 +165,7 @@ const useStyles = makeStyles((theme) => ({
   AddressInput: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 900,
+    width: 810,
     height: 15,
     marginTop: 50
   },
@@ -183,7 +186,6 @@ export default function EditNotes({ notes }) {
   const [title, setTitle] = React.useState(notes.title);
   const [category, setCategory] = useState("");
   const categories = useSelector((state) => state.categories.items);
-  const loading = useSelector((state) => state.notes.loading);
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState(
     notes.timeOfTheEvent
   );
@@ -195,6 +197,10 @@ export default function EditNotes({ notes }) {
     ).then(() => {
       handleClose();
     });
+  };
+
+  const handleChangeImage = async (e) => {
+    await dispatch(changeImage(e));
   };
 
   const handleChangeCategory = (e) => {
@@ -227,9 +233,6 @@ export default function EditNotes({ notes }) {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  if (loading) {
-    return <Preloader />;
-  }
   return (
     <div>
 
@@ -271,6 +274,7 @@ export default function EditNotes({ notes }) {
             title="Image title"
             image={`http://localhost:5500/${notes.pathToImage}`}
           />
+
           <Grid item xs={8} md={8} lg={7}>
             <Paper elevation={3}>
           <div className={classes.editText}>
@@ -334,6 +338,19 @@ export default function EditNotes({ notes }) {
                 }
               </Select>
             </FormControl>
+            <Button
+              variant="contained"
+              color="primary"
+            >
+              <input
+                accept="image/*"
+                className={classes.input}
+                id="contained-button-file1"
+                multiple
+                type="file"
+                onChange={handleChangeImage}
+              />
+            </Button>
           </div>
             </Paper>
           </Grid>

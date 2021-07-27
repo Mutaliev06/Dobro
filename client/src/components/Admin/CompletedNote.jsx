@@ -189,9 +189,6 @@ export default function CompletedNote({ notes }) {
     setOpen(false);
   };
 
-  if (loading) {
-    return <Preloader />;
-  }
   return (
     <div>
       <Button
