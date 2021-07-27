@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  useSelector } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -6,14 +6,17 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia, Container,
+  CardMedia, Container, TextField,
   Typography
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
+import { BsSearch } from 'react-icons/all';
+import { loadCategories } from '../../redux/features/categories';
+import classnames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -82,13 +85,48 @@ const useStyles = makeStyles((theme) => ({
   cardH2: {
     fontWeight: 'bold',
     marginBottom: "20px"
+  },
+  gridSearch: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: "20px"
+  },
+  search: {
+    width: "300px",
+    display: "flex",
+  },
+  searchIcon: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    marginRight: "10px"
+  },
+  gridCategory: {
+    width: "100%",
+    backgroundColor: "#000841",
+    marginTop: "20px",
+    marginBottom: "20px",
+    borderRadius: "5px"
+  },
+  category: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  divCategory: {
+    padding: "20px 30px"
+  },
+  linkCss: {
+    textDecoration: 'none',
+    color: "#fff",
+    fontWeight: "bold"
   }
 }));
 
 function Notes() {
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state.notes.items.sort(function(a,b){
-    return new Date(b.createdAt) - new Date(a.createdAt);
+  const category = useSelector((state) => state.categories.items);
+  const notes = useSelector((state) => state.notes.items
+  .sort(function(a,b){
+    return new Date(b.createdAt) - new Date(a.createdAt)
   }));
   const classes = useStyles();
 
@@ -96,10 +134,34 @@ function Notes() {
     dispatch(loadNotes());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(loadCategories());
+  }, [dispatch]);
+
   return (
     <Container className={classes.cardGrid} maxWidth="1440px">
       <h2 className={classes.cardH2}>
-        Актуальные мероприятия
+        Категории
+      </h2>
+      <Grid container spacing={4} className={classes.gridCategory}>
+        <div className={classes.category}>
+          {category?.map((item) => {
+            return (
+              <div className={classes.divCategory}>
+                <NavLink
+                  to={`/notes/category/${item._id}`}
+                  className={classes.linkCss}
+                >
+                  {" "}
+                  {item.title}{" "}
+                </NavLink>
+              </div>
+            );
+          })}
+        </div>
+      </Grid>
+      <h2 className={classes.cardH2}>
+        Все мероприятия
       </h2>
       <Grid container spacing={2}>
         {notes.map((item) => (
