@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const initialState = {
   items: [],
   loading: false,
@@ -70,6 +72,20 @@ export default function notesReducer(state = initialState, action) {
           return item;
         }),
       };
+
+    case "add/user/participate/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "add/user/participate/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        items: {...state.items, user: action.payload.u },
+      }
+
+
     default:
       return state;
   }
@@ -139,6 +155,30 @@ export const addNote = (data) => {
   };
 };
 
+export const addUserParticipate = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch({type: "add/user/participate/pending" })
+    try{
+    const response = await fetch(`http://localhost:5500/notes/${id}/participate`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      }})
+      const json = await response.json()
+      dispatch({type: 'add/user/participate/fulfilled', payload: json })
+    }
+    catch (e) {
+      console.log(e.message)
+    };
+  };
+}
+
+
+
+
+
 export const addImage = (e) => {
   return async (dispatch) => {
     dispatch({ type: "note/upload/pending" });
@@ -206,7 +246,6 @@ export const editNote = (id, data) => {
 
     });
     dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
-    window.location.reload()
   };
 };
 

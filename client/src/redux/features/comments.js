@@ -72,5 +72,6 @@ export const postComment = (id, data) => {
       type: "comment/post/fulfilled",
       payload: json,
     });
+    window.location.reload()
   };
 };

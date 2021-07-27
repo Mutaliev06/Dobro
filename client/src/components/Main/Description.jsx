@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadNotes } from "../../redux/features/notes";
+import { addUserParticipate, addUserParticirate, loadNotes } from "../../redux/features/notes";
 import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 import Button from "@material-ui/core/Button";
@@ -118,6 +118,7 @@ function Description(props) {
   const notes = useSelector((state) => {
     return state.notes.items.find((item) => item._id === id);
   });
+
   const comments = useSelector((state) =>
     state.comments.items.sort(function (a, b) {
       return new Date(b.createdAt) - new Date(a.createdAt);
@@ -138,6 +139,11 @@ function Description(props) {
     document.title = "ВЦ 'Добро'";
   });
 
+
+  function handleUserParticipate(id) {
+    dispatch(addUserParticipate(id))
+  }
+
   function handleComment(e) {
     setText(e.target.value);
   }
@@ -149,7 +155,6 @@ function Description(props) {
   if (loading) {
     return <Preloader />;
   }
-
   return (
     <Container className={classes.container}>
       <Paper className={classes.divFoto}>

@@ -1,4 +1,5 @@
 const Note = require("../models/Note.model");
+const jwt = require('jsonwebtoken');
 
 module.exports.notesController = {
   createNote: async (req, res) => {
@@ -18,6 +19,22 @@ module.exports.notesController = {
     }
     catch (e) {
       return res.status(401).json("неверный токен: " + e.toString());
+    }
+  },
+
+  postNote: async (req,res) => {
+    const { id } =  req.params;
+    console.log(id)
+    try {
+      const note = await Note.findById(id).populate('user')
+       note.volunteers = {
+        user: req.user.id
+       }
+       await note.save()
+      return res.json(note);
+    }
+    catch (e) {
+      return res.status(401).json(e.toString());
     }
   },
 
