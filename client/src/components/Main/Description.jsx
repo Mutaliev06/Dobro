@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadNotes } from "../../redux/features/notes";
+import { addUserParticipate, addUserParticirate, loadNotes } from "../../redux/features/notes";
 import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 import Button from "@material-ui/core/Button";
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   hr: {
     marginTop: 30,
-  }
+  },
 }));
 
 function Description(props) {
@@ -103,6 +103,7 @@ function Description(props) {
   const comments = useSelector((state) => state.comments.items.sort(function(a,b){
     return new Date(b.createdAt) - new Date(a.createdAt)}));
   const [text, setText] = useState(' ')
+  const [current, setCurrent] = useState(0)
   const loading = useSelector((state) => state.notes.loading);
 
 
@@ -118,6 +119,11 @@ function Description(props) {
     document.title = "ВЦ 'Добро'";
   });
 
+
+  function handleUserParticipate(id) {
+    dispatch(addUserParticipate(id))
+  }
+
   function handleComment(e) {
     setText(e.target.value);
   }
@@ -130,86 +136,6 @@ function Description(props) {
     return <Preloader />;
   }
 
-  if (!token) {
-    return (
-      <Container className={classes.container}>
-        <Paper className={classes.divFoto}>
-          <div>
-            <img
-              src={`http://localhost:5500/${notes?.pathToImage}`}
-              className={classes.img}
-            />
-          </div>
-          <div>
-            <h1>{notes?.title}</h1>
-
-            <h3> Автор поста: {notes?.user.name}</h3>
-            <Button variant="outlined">
-              {" "}
-              <NavLink className={classes.btnParticipate} to="/login">
-                Принять участие
-              </NavLink>
-            </Button>
-          </div>
-        </Paper>
-        <Paper className={classes.divDescription}>
-          <Paper className={classes.divNotesText}>
-            <h1>Описание</h1>
-            <p>{notes?.text}</p>
-          </Paper>
-          <Paper>
-            <div className={classes.divPlaceTime}>
-              <h3>Дата проведения:</h3>
-              {notes?.timeOfTheEvent}
-              <p>
-                <h3>Место проведения:</h3>
-                <PlaceIcon fontSize={"large"} color="secondary" />
-                {notes?.placeOfEvent}
-              </p>
-            </div>
-          </Paper>
-        </Paper>
-        <h1>Лента записей</h1>
-        <Paper className={classes.paperComment}>
-          <TextField
-            className={classes.inputComment}
-            id="outlined-basic"
-            value={text}
-            label="Введите комментарий"
-            variant="outlined"
-            inputMode={"text"}
-            onChange={handleComment}
-          />
-          <Button
-            onClick={() => handlePostComment(notes._id)}
-            className={classes.buttonAdd}
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Добавить
-          </Button>
-        </Paper>
-        <div className={classes.divTape}>
-          <Paper>
-            {comments.map((item) => {
-              return (
-                <Paper>
-                  {/*<div className={classes.text}>{item.user.name}</div>*/}
-                  <div className={classes.text}>Гость</div>
-                  <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
-                  <div>
-                    {" "}
-                    <p className={classes.userComment}>{item.text}</p>
-                  </div>
-                </Paper>
-              );
-            })}
-          </Paper>
-        </div>
-      </Container>
-    );
-  }
 
   return (
     <Container className={classes.container}>
@@ -223,11 +149,8 @@ function Description(props) {
         <div>
           <h1>{notes?.title}</h1>
           <h3> Автор поста: {notes?.user.name}</h3>
-          <Button variant="outlined">
-            {" "}
-            <p className={classes.btnParticipate}>
+          <Button variant="outlined" className={classes.btnParticipate} onClick={() => handleUserParticipate(notes?.id)}>
               Принять участие
-            </p>
           </Button>
         </div>
       </Paper>

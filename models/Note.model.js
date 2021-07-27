@@ -14,11 +14,12 @@ const noteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    volunteers: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
-      required: false
-    },
+    volunteers: mongoose.Schema({
+      user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User"
+      },
+    }),
     category: {
       type: String,
       required: true,
