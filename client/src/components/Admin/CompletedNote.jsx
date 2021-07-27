@@ -7,9 +7,7 @@ import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AppBar,
-
   Dialog,
-
   IconButton,
   Paper,
   TextField,
@@ -20,9 +18,9 @@ import { addImage, addLastComment } from "../../redux/features/notes";
 
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import clsx from 'clsx';
-import Grid from '@material-ui/core/Grid';
-import Preloader from '../Preloader';
+import clsx from "clsx";
+import Grid from "@material-ui/core/Grid";
+import Preloader from "../Preloader";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -82,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     width: 600,
-    objectFit: 'cover',
+    objectFit: "cover",
   },
   cardContent: {
     flexGrow: 1,
@@ -118,17 +116,17 @@ const useStyles = makeStyles((theme) => ({
   inputStyle: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 900,
+    width: "98%",
     marginTop: 10,
   },
   mediaContainer: {
-    display: 'flex',
+    display: "flex",
     marginTop: 30,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
   },
   editText: {
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -140,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     marginBottom: 5,
-    marginTop: 30
+    marginTop: 30,
   },
   selectEmptyCategory: {
     marginLeft: theme.spacing(1),
@@ -154,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 900,
     height: 15,
-    marginTop: 50
+    marginTop: 50,
   },
   fixedHeight: {
     height: 300,
@@ -171,23 +169,16 @@ export default function CompletedNote({ notes }) {
   const [open, setOpen] = React.useState(false);
   const [lastComment, setLastComment] = React.useState("");
 
- const loading = useSelector((state) => state.notes.loading);
-
+  const loading = useSelector((state) => state.notes.loading);
 
   const handleEdit = async () => {
-    await dispatch(
-      addLastComment(notes._id, { lastComment })
-    ).then(() => {
+    await dispatch(addLastComment(notes._id, { lastComment })).then(() => {
       handleClose();
     });
   };
 
   const handleChangeComment = (even) => {
     setLastComment(even.target.value);
-  };
-
-  const handleChangeLastImage = async (e) => {
-    await dispatch(addImage(e));
   };
 
   const handleClickOpen = () => {
@@ -198,12 +189,8 @@ export default function CompletedNote({ notes }) {
     setOpen(false);
   };
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-
   return (
     <div>
-
       <Button
         variant="outlined"
         color="primary"
@@ -229,7 +216,7 @@ export default function CompletedNote({ notes }) {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Редактировать пост
+              Добавить итоговый комментарий
             </Typography>
             <Button autoFocus color="inherit" onClick={handleEdit}>
               Сохранить
@@ -237,12 +224,7 @@ export default function CompletedNote({ notes }) {
           </Toolbar>
         </AppBar>
         <div className={classes.mediaContainer}>
-          {/*<CardMedia*/}
-          {/*  className={classes.cardMedia}*/}
-          {/*  title="Image title"*/}
-          {/*  image={`http://localhost:5500/${notes.lastImage}`}*/}
-          {/*/>*/}
-          <Grid item xs={8} md={8} lg={7}>
+          <Grid item xs={12} md={8} lg={7}>
             <Paper elevation={3}>
               <div className={classes.editText}>
                 <TextField
@@ -255,28 +237,6 @@ export default function CompletedNote({ notes }) {
                   value={lastComment}
                   onChange={handleChangeComment}
                 />
-                <Paper>
-                  <Typography align="center" component="h4">
-                    Загрузить изображение{" "}
-                  </Typography>
-                  <div className={classes.root}>
-
-                      <label htmlFor="contained-button-file1"><Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.btnUpload}
-                      >
-                        <input
-                          accept="image/*"
-                          className={classes.input}
-                          id="contained-button-file1"
-                          multiple
-                          type="file"
-                        /> Выбрать </Button>
-                      </label>
-                  </div>
-                </Paper>
-
               </div>
             </Paper>
           </Grid>

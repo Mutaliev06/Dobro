@@ -10,8 +10,9 @@ import { loadComments, postComment } from "../../redux/features/comments";
 import Container from "@material-ui/core/Container";
 import { Input, Paper, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import Preloader from '../Preloader';
-import Typography from '@material-ui/core/Typography';
+import Preloader from "../Preloader";
+import Typography from "@material-ui/core/Typography";
+import { Nav } from "react-bootstrap";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -84,15 +85,27 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 5,
   },
   parerPlaceAndTimeDecsription: {
-    width: '30%',
+    width: "30%",
   },
   hr: {
     marginTop: 30,
   },
   descripMargin: {
-    marginLeft: 50
-
-  }
+    marginLeft: 50,
+  },
+  paperLastComment: {
+    height: "80px",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    backgroundColor: "green",
+    fontSize: "20px",
+    fontWeight: "bold",
+  },
+  paperLastCommentP: {
+    margin: 0,
+  },
 }));
 
 function Description(props) {
@@ -105,11 +118,13 @@ function Description(props) {
   const notes = useSelector((state) => {
     return state.notes.items.find((item) => item._id === id);
   });
-  const comments = useSelector((state) => state.comments.items.sort(function(a,b){
-    return new Date(b.createdAt) - new Date(a.createdAt)}));
-  const [text, setText] = useState(' ')
+  const comments = useSelector((state) =>
+    state.comments.items.sort(function (a, b) {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    })
+  );
+  const [text, setText] = useState(" ");
   const loading = useSelector((state) => state.notes.loading);
-
 
   useEffect(() => {
     dispatch(loadNotes());
@@ -135,93 +150,6 @@ function Description(props) {
     return <Preloader />;
   }
 
-  if (!token) {
-    return (
-      <Container className={classes.container}>
-        <Paper className={classes.divFoto}>
-          <div>
-            <img
-              src={`http://localhost:5500/${notes?.pathToImage}`}
-              className={classes.img}
-            />
-          </div>
-          <div>
-            <h1>{notes?.title}</h1>
-
-            <h3> Автор поста: {notes?.user.name}</h3>
-            <Button variant="outlined">
-              {" "}
-              <NavLink className={classes.btnParticipate} to="/login">
-                Принять участие
-              </NavLink>
-            </Button>
-          </div>
-        </Paper>
-        <Paper className={classes.divDescription}>
-          <Paper className={classes.divNotesText}>
-            <h1>Описание</h1>
-            <Typography variant="h5" component="h4">
-              {notes?.text}
-            </Typography>
-          </Paper>
-          <Paper>
-            <div className={classes.divPlaceTime}>
-              <h3>Дата проведения:</h3>
-              <Typography variant="h6" component="h7">
-                {notes?.timeOfTheEvent}
-              </Typography>
-              <p>
-                <h3>Место проведения:</h3>
-                <PlaceIcon fontSize={"large"} color="secondary" />
-                <Typography variant="h6" component="h7">
-                  {notes?.placeOfEvent}
-                </Typography>
-              </p>
-            </div>
-          </Paper>
-        </Paper>
-        <h1>Лента записей</h1>
-        <Paper className={classes.paperComment}>
-          <TextField
-            className={classes.inputComment}
-            id="outlined-basic"
-            value={text}
-            label="Введите комментарий"
-            variant="outlined"
-            inputMode={"text"}
-            onChange={handleComment}
-          />
-          <Button
-            onClick={() => handlePostComment(notes._id)}
-            className={classes.buttonAdd}
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Добавить
-          </Button>
-        </Paper>
-        <div className={classes.divTape}>
-          <Paper>
-            {comments.map((item) => {
-              return (
-                <Paper>
-                  {/*<div className={classes.text}>{item.user.name}</div>*/}
-                  <div className={classes.text}>Гость</div>
-                  <div className={classes.data}>{dayjs(item.createdAt).format("DD MMMM YYYY HH:mm")}</div>
-                  <div>
-                    {" "}
-                    <p className={classes.userComment}>{item.text}</p>
-                  </div>
-                </Paper>
-              );
-            })}
-          </Paper>
-        </div>
-      </Container>
-    );
-  }
-
   return (
     <Container className={classes.container}>
       <Paper className={classes.divFoto}>
@@ -234,11 +162,9 @@ function Description(props) {
         <div className={classes.descripMargin}>
           <h1>{notes?.title}</h1>
           <h3> Автор поста: {notes?.user.name}</h3>
-          <Button variant="outlined">
-            {" "}
-              Принять участие
-
-          </Button>
+          <NavLink to="/login">
+            <Button variant="outlined"> Принять участие</Button>
+          </NavLink>
         </div>
       </Paper>
       <Paper className={classes.divDescription}>
@@ -247,13 +173,12 @@ function Description(props) {
           <Typography variant="h5" component="h7">
             {notes?.text}
           </Typography>
-
         </Paper>
         <Paper className={classes.parerPlaceAndTimeDecsription}>
           <div className={classes.divPlaceTime}>
             <h3>Дата проведения:</h3>
             <Typography variant="h8" component="h5">
-            {notes?.timeOfTheEvent}
+              {notes?.timeOfTheEvent}
             </Typography>
             <p>
               <h3>Место проведения:</h3>
@@ -261,11 +186,18 @@ function Description(props) {
             </p>
             <Typography variant="h9" component="h5">
               {notes?.placeOfEvent}
-                </Typography>
+            </Typography>
           </div>
         </Paper>
       </Paper>
-      <hr  className={classes.hr}/>
+      {notes?.lastComment !== undefined ? (
+        <Paper className={classes.paperLastComment}>
+          <div>
+            <p className={classes.paperLastCommentP}>{notes?.lastComment}</p>
+          </div>
+        </Paper>
+      ) : null}
+      <hr className={classes.hr} />
       <h1>Лента записей</h1>
       <Paper className={classes.paperComment}>
         <TextField
