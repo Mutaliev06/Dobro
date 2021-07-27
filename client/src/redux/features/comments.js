@@ -41,7 +41,7 @@ export const loadComments = (id) => {
     dispatch({
       type: "comments/load/pending",
     });
-    const response = await fetch(`http://localhost:5500/comments/note/${id}`);
+    const response = await fetch(`/comments/note/${id}`);
     const json = await response.json();
     dispatch({
       type: "comments/load/fulfilled",
@@ -55,7 +55,7 @@ export const postComment = (id, data) => {
     dispatch({ type: "comment/post/pending" });
     const state = getState();
 
-    const response = await fetch(`http://localhost:5500/comments/note/${id}`, {
+    const response = await fetch(`/comments/note/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.application.token}`,

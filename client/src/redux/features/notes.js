@@ -97,7 +97,7 @@ export const loadNotes = () => {
     dispatch({
       type: "notes/load/pending",
     });
-    const response = await fetch("http://localhost:5500/notes", {
+    const response = await fetch("/notes", {
       headers: {
         Authorization: `Bearer ${state.application.token}`,
       },
@@ -116,7 +116,7 @@ export const loadCategoryNotes = (id) => {
       type: "notes/load/pending",
     });
 
-    const response = await fetch(`http://localhost:5500/notes/category/${id}`);
+    const response = await fetch(`/notes/category/${id}`);
     const json = await response.json();
 
     dispatch({
@@ -131,7 +131,7 @@ export const addNote = (data) => {
     dispatch({ type: "note/post/pending" });
 
     const state = getState();
-    const response = await fetch("http://localhost:5500/notes", {
+    const response = await fetch("/notes", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
@@ -160,7 +160,7 @@ export const addUserParticipate = (id) => {
     const state = getState();
     dispatch({type: "add/user/participate/pending" })
     try{
-    const response = await fetch(`http://localhost:5500/notes/${id}/participate`, {
+    const response = await fetch(`/notes/${id}/participate`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
@@ -187,7 +187,7 @@ export const addImage = (e) => {
     const data = new FormData();
     data.append("image", files[0]);
 
-    const response = await fetch(`http://localhost:5500/upload/notes`, {
+    const response = await fetch(`/upload/notes`, {
       method: "POST",
       body: data,
     });
@@ -209,7 +209,7 @@ export const changeImage = (e) => {
     data.append("image", files[0]);
     const state = getState();
 
-    const response = await fetch(`http://localhost:5500/upload/notes/`, {
+    const response = await fetch(`/upload/notes/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
@@ -231,7 +231,7 @@ export const editNote = (id, data) => {
     dispatch({ type: "note/edit/pending" });
 
     const state = getState();
-    await fetch(`http://localhost:5500/notes/${id}`, {
+    await fetch(`/notes/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
@@ -254,7 +254,7 @@ export const addLastComment = (id, data) => {
     dispatch({ type: "note/edit/pending" });
 
     const state = getState();
-    await fetch(`http://localhost:5500/notes/${id}`, {
+    await fetch(`/notes/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
