@@ -160,7 +160,7 @@ export default function SignUp() {
               onClick={handleSubmit}
               disabled={signUp}
             >
-              Зарегестрироваться
+              Зарегистрироваться
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

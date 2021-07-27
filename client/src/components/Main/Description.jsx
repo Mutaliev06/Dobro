@@ -10,7 +10,9 @@ import { loadComments, postComment } from "../../redux/features/comments";
 import Container from "@material-ui/core/Container";
 import { Input, Paper, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import Preloader from '../Preloader';
+import Preloader from "../Preloader";
+import Typography from "@material-ui/core/Typography";
+import { Nav } from "react-bootstrap";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -83,10 +85,26 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 5,
   },
   parerPlaceAndTimeDecsription: {
-    width: '30%',
+    width: "30%",
   },
   hr: {
     marginTop: 30,
+  },
+  descripMargin: {
+    marginLeft: 50,
+  },
+  paperLastComment: {
+    height: "80px",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    backgroundColor: "green",
+    fontSize: "20px",
+    fontWeight: "bold",
+  },
+  paperLastCommentP: {
+    margin: 0,
   },
 }));
 
@@ -100,12 +118,14 @@ function Description(props) {
   const notes = useSelector((state) => {
     return state.notes.items.find((item) => item._id === id);
   });
-  const comments = useSelector((state) => state.comments.items.sort(function(a,b){
-    return new Date(b.createdAt) - new Date(a.createdAt)}));
-  const [text, setText] = useState(' ')
-  const [current, setCurrent] = useState(0)
-  const loading = useSelector((state) => state.notes.loading);
 
+  const comments = useSelector((state) =>
+    state.comments.items.sort(function (a, b) {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    })
+  );
+  const [text, setText] = useState(" ");
+  const loading = useSelector((state) => state.notes.loading);
 
   useEffect(() => {
     dispatch(loadNotes());
@@ -135,8 +155,6 @@ function Description(props) {
   if (loading) {
     return <Preloader />;
   }
-
-
   return (
     <Container className={classes.container}>
       <Paper className={classes.divFoto}>
@@ -146,32 +164,45 @@ function Description(props) {
             className={classes.img}
           />
         </div>
-        <div>
+        <div className={classes.descripMargin}>
           <h1>{notes?.title}</h1>
           <h3> Автор поста: {notes?.user.name}</h3>
-          <Button variant="outlined" className={classes.btnParticipate} onClick={() => handleUserParticipate(notes?.id)}>
-              Принять участие
-          </Button>
+          <NavLink to="/login">
+            <Button variant="outlined"> Принять участие</Button>
+          </NavLink>
         </div>
       </Paper>
       <Paper className={classes.divDescription}>
         <Paper className={classes.divNotesText}>
           <h1>Описание</h1>
-          <p>{notes?.text}</p>
+          <Typography variant="h5" component="h7">
+            {notes?.text}
+          </Typography>
         </Paper>
         <Paper className={classes.parerPlaceAndTimeDecsription}>
           <div className={classes.divPlaceTime}>
             <h3>Дата проведения:</h3>
-            {notes?.timeOfTheEvent}
+            <Typography variant="h8" component="h5">
+              {notes?.timeOfTheEvent}
+            </Typography>
             <p>
               <h3>Место проведения:</h3>
               <PlaceIcon fontSize={"large"} color="secondary" />
-              {notes?.placeOfEvent}
             </p>
+            <Typography variant="h9" component="h5">
+              {notes?.placeOfEvent}
+            </Typography>
           </div>
         </Paper>
       </Paper>
-      <hr  className={classes.hr}/>
+      {notes?.lastComment !== undefined ? (
+        <Paper className={classes.paperLastComment}>
+          <div>
+            <p className={classes.paperLastCommentP}>{notes?.lastComment}</p>
+          </div>
+        </Paper>
+      ) : null}
+      <hr className={classes.hr} />
       <h1>Лента записей</h1>
       <Paper className={classes.paperComment}>
         <TextField

@@ -9,6 +9,7 @@ router.get("/category/:id", notesController.getCategoryNotes);
 router.get("/admin/", authMiddleware, notesController.getUserNotes);
 router.post('/', authMiddleware, notesController.createNote);
 router.post('/:id/participate', authMiddleware, notesController.postNote)
+router.post('/:id', authMiddleware, notesController.createLastComment);
 router.patch('/:id', authMiddleware, notesController.editNote);
 router.delete('/:id', authMiddleware, notesController.deleteNote);
 

@@ -41,6 +41,17 @@ export default function notesReducer(state = initialState, action) {
         loading: false,
         image: action.payload.image,
       };
+    case "imageChange/upload/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "imageChange/upload/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        image: action.payload.image,
+      };
     case "note/edit/pending":
       return {
         ...state,
@@ -189,11 +200,36 @@ export const addImage = (e) => {
     });
   };
 };
+export const changeImage = (e) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "imageChange/upload/pending" });
+
+    const { files } = e.target;
+    const data = new FormData();
+    data.append("image", files[0]);
+    const state = getState();
+
+    const response = await fetch(`http://localhost:5500/upload/notes/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+      },
+      body: data,
+    });
+
+    const json = await response.json();
+    dispatch({
+      type: "imageChange/upload/fulfilled",
+      payload: json,
+    });
+  };
+};
+
 
 export const editNote = (id, data) => {
   return async (dispatch, getState) => {
     dispatch({ type: "note/edit/pending" });
-    console.log(data)
+
     const state = getState();
     await fetch(`http://localhost:5500/notes/${id}`, {
       method: "PATCH",
@@ -212,3 +248,24 @@ export const editNote = (id, data) => {
     dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
   };
 };
+
+export const addLastComment = (id, data) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "note/edit/pending" });
+
+    const state = getState();
+    await fetch(`http://localhost:5500/notes/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        lastComment: data.lastComment
+      }),
+
+    });
+    dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
+    window.location.reload()
+  };
+}

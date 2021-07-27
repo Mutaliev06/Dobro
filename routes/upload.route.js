@@ -9,13 +9,11 @@ const router = Router();
 router.post("/upload/avatar/", authMiddleware, (req, res) => {
   const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(img.name)}`;
-
   img.mv(fileName, async (err) => {
     if (err) {
       console.log(err)
     } else {
       const user = await User.findById(req.user.id);
-      console.log(req.files.image)
       user.pathToImage = fileName;
       await user.save();
       res.json({
@@ -35,6 +33,7 @@ router.post("/upload/notes", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+
         res.json({
           success: 'file uploaded',
           image: fileName

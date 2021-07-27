@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -7,9 +7,9 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Container,
-  Typography,
-} from "@material-ui/core";
+  Container, TextField,
+  Typography
+} from '@material-ui/core';
 import { useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useParams } from "react-router-dom";
@@ -17,6 +17,7 @@ import Box from '@material-ui/core/Box';
 import Preloader from '../Preloader';
 import {  loadUserNotes, loadUsers } from '../../redux/features/users';
 import Rating from '@material-ui/lab/Rating';
+import { BsSearch } from 'react-icons/all';
 
 const useStyles = makeStyles((theme) => ({
   control: {
@@ -34,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
   grid: {
     display: 'flex',
     justifyContent: 'center'
+  },
+  gridSearch: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: "20px",
+    width: "100%",
+    backgroundColor: "#000841",
+    marginTop: "20px",
+    borderRadius: "5px",
+    color: "#fff"
   },
   card: {
     padding: "5px",
@@ -80,18 +91,38 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1),
     },
   },
+  search: {
+    width: "500px",
+    display: "flex",
+    justifyContent: "center",
+    padding: "20px",
+    margin: "5px",
+    borderRadius: "5px",
+    backgroundColor: "white",
+    color: "black",
+  },
+  searchIcon: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    marginRight: "10px",
+  }
 }));
 
 function Users() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
   const classes = useStyles();
   const loading = useSelector((state) => state.notes.loading);
   const users = useSelector((state) => {
-    return state.users.items;
+    return state.users.items
+    .map((item) => item)
+    .filter((item) => {
+      return item.name?.toLowerCase().includes(search.toLowerCase());
+    })
   });
   const notes = useSelector((state) => {
-    return state.users.userNotes;
+    return state.users.userNotes
   });
   const user = useSelector((state) => {
     return state.users.currentUser;
@@ -113,6 +144,20 @@ function Users() {
   }
   return (
     <Container className={classes.cardGrid} maxWidth="1440px">
+      <Grid container spacing={4} className={classes.gridSearch}>
+        <div className={classes.search}>
+          <div>
+            <BsSearch className={classes.searchIcon} />
+          </div>
+          <TextField
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+            className={classes.textField}
+            placeholder="Поиск…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </div>
+      </Grid>
       <Grid container spacing={4} className={classes.grid}>
         {users.map((item) => (
           <Grid item key={item} xs={3}>

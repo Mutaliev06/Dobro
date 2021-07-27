@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"nodemon index\" \"cd client && npm start\""
+    "dev": "concurrently \"nodemon index\" \"cd client && npm start\"",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && nmp install && npm run build"
   },
   "eslintConfig": {
     "extends": [

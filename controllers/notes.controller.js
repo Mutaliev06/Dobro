@@ -101,4 +101,19 @@ module.exports.notesController = {
       res.json(e.message);
     }
   },
+
+  createLastComment: async (req, res) => {
+    const { lastComment } = req.body;
+
+    try {
+      const note = await Note.findByIdAndUpdate(req.params.id);
+      note.lastComment = lastComment;
+
+      note.save()
+      res.json(note)
+    }
+    catch (e) {
+      console.log(e.message)
+    }
+  },
 };

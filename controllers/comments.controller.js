@@ -36,7 +36,6 @@ module.exports.commentControllers = {
     }
   },
 
-
   deleteComment: async (req, res) => {
     const { id } = req.params;
     try {
