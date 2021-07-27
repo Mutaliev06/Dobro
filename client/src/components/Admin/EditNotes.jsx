@@ -231,7 +231,6 @@ export default function EditNotes({ notes }) {
     setOpen(false);
   };
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div>
@@ -272,7 +271,7 @@ export default function EditNotes({ notes }) {
           <CardMedia
             className={classes.cardMedia}
             title="Image title"
-            image={`http://localhost:5500/${notes.pathToImage}`}
+            image={`/${notes.pathToImage}`}
           />
 
           <Grid item xs={8} md={8} lg={7}>
