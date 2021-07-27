@@ -153,7 +153,7 @@ export const addImage = (e) => {
 export const editNote = (id, data) => {
   return async (dispatch, getState) => {
     dispatch({ type: "note/edit/pending" });
-    console.log(data)
+
     const state = getState();
     await fetch(`http://localhost:5500/notes/${id}`, {
       method: "PATCH",
@@ -173,3 +173,24 @@ export const editNote = (id, data) => {
     window.location.reload()
   };
 };
+
+export const addLastComment = (id, data) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "note/edit/pending" });
+
+    const state = getState();
+    await fetch(`http://localhost:5500/notes/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        lastComment: data.lastComment
+      }),
+
+    });
+    dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
+    window.location.reload()
+  };
+}

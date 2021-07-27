@@ -15,7 +15,7 @@ router.post("/upload/avatar/", authMiddleware, (req, res) => {
       console.log(err)
     } else {
       const user = await User.findById(req.user.id);
-      console.log(req.files.image)
+
       user.pathToImage = fileName;
       await user.save();
       res.json({

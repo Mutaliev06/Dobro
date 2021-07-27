@@ -26,15 +26,9 @@ const noteSchema = new mongoose.Schema(
     },
     completed: {
       type: Boolean,
-      required: false,
-    },
-    lastImage: {
-      type: String,
-      required: false
     },
     lastComment: {
       type: String,
-      required: false
     },
     title: {
       type: String,
@@ -46,7 +40,6 @@ const noteSchema = new mongoose.Schema(
     },
     placeOfEvent: {
       type: String,
-      required: false
     }
   },
   { timestamps: true }

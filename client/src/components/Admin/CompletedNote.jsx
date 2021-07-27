@@ -1,33 +1,23 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import { MdEdit } from "react-icons/all";
+
+import { MdDone } from "react-icons/all";
 import Button from "@material-ui/core/Button";
-import { NavLink, useParams } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   AppBar,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
+
   Dialog,
-  DialogActions,
-  DialogContent, FormControl,
+
   IconButton,
-  ListItem,
-  ListItemText, MenuItem, Paper, Select,
+  Paper,
   TextField,
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { editNote } from "../../redux/features/notes";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
+import { addImage, addLastComment } from "../../redux/features/notes";
+
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import clsx from 'clsx';
@@ -80,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
       transform: "scale(1.02)",
     },
-    marginLeft: 80,
+
     padding: 10,
   },
   appBar: {
@@ -175,46 +165,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EditNotes({ notes }) {
+export default function CompletedNote({ notes }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [text, setText] = React.useState(notes.text);
-  const [title, setTitle] = React.useState(notes.title);
-  const [category, setCategory] = useState("");
-  const categories = useSelector((state) => state.categories.items);
-  const loading = useSelector((state) => state.notes.loading);
-  const [timeOfTheEvent, setTimeOfTheEvent] = React.useState(
-    notes.timeOfTheEvent
-  );
-  const [placeOfEvent, setPlaceOfEvent] = React.useState(notes.placeOfEvent);
+  const [lastComment, setLastComment] = React.useState("");
+
+ const loading = useSelector((state) => state.notes.loading);
+
 
   const handleEdit = async () => {
     await dispatch(
-      editNote(notes._id, { text, title, timeOfTheEvent, placeOfEvent })
+      addLastComment(notes._id, { lastComment })
     ).then(() => {
       handleClose();
     });
   };
 
-  const handleChangeCategory = (e) => {
-    setCategory(e.target.value);
+  const handleChangeComment = (even) => {
+    setLastComment(even.target.value);
   };
 
-  const handleChangeText = (even) => {
-    setText(even.target.value);
-  };
-
-  const handleChangeTitle = (even) => {
-    setTitle(even.target.value);
-  };
-
-  const handleChangeTimeOfTheEvent = (even) => {
-    setTimeOfTheEvent(even.target.value);
-  };
-
-  const handleChangePlaceOfEvent = (even) => {
-    setPlaceOfEvent(even.target.value);
+  const handleChangeLastImage = async (e) => {
+    await dispatch(addImage(e));
   };
 
   const handleClickOpen = () => {
@@ -239,7 +212,7 @@ export default function EditNotes({ notes }) {
         className={classes.BtnNoteIdEdit}
         onClick={handleClickOpen}
       >
-        <MdEdit />
+        <MdDone />
       </Button>
       <Dialog
         fullScreen
@@ -266,75 +239,47 @@ export default function EditNotes({ notes }) {
           </Toolbar>
         </AppBar>
         <div className={classes.mediaContainer}>
-          <CardMedia
-            className={classes.cardMedia}
-            title="Image title"
-            image={`http://localhost:5500/${notes.pathToImage}`}
-          />
+          {/*<CardMedia*/}
+          {/*  className={classes.cardMedia}*/}
+          {/*  title="Image title"*/}
+          {/*  image={`http://localhost:5500/${notes.lastImage}`}*/}
+          {/*/>*/}
           <Grid item xs={8} md={8} lg={7}>
             <Paper elevation={3}>
-          <div className={classes.editText}>
-            <TextField
-              id="outlined-multiline-static"
-              className={classes.inputStyle}
-              label="Введите заголовок*"
-              multiline
-              rows={1}
-              variant="outlined"
-              value={title}
-              onChange={handleChangeTitle}
-            />
-            <TextField
-              className={classes.textFieldModal}
-              id="outlined-multiline-static"
-              label="Введите текст*"
-              multiline
-              rows={3}
-              value={text}
-              onChange={handleChangeText}
-              variant="outlined"
-            />
+              <div className={classes.editText}>
+                <TextField
+                  id="outlined-multiline-static"
+                  className={classes.inputStyle}
+                  label="Введите комментарий*"
+                  multiline
+                  rows={1}
+                  variant="outlined"
+                  value={lastComment}
+                  onChange={handleChangeComment}
+                />
+                <Paper>
+                  <Typography align="center" component="h4">
+                    Загрузить изображение{" "}
+                  </Typography>
+                  <div className={classes.root}>
 
-              <TextField
-                className={classes.AddressInput}
-                id="standard-basic"
-                variant="outlined"
-                label="Введите адрес*"
-                value={placeOfEvent}
-                onChange={handleChangePlaceOfEvent}
-              />
-              <TextField
-                id="datetime-local"
-                label="Выбрать дату*"
-                type="datetime-local"
-                className={classes.textFieldData}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                value={timeOfTheEvent}
-                onChange={handleChangeTimeOfTheEvent}
-              />
+                      <label htmlFor="contained-button-file1"><Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.btnUpload}
+                      >
+                        <input
+                          accept="image/*"
+                          className={classes.input}
+                          id="contained-button-file1"
+                          multiple
+                          type="file"
+                        /> Выбрать </Button>
+                      </label>
+                  </div>
+                </Paper>
 
-            <FormControl className={classes.formControl}>
-              <Select
-                displayEmpty
-                className={classes.selectEmptyCategory}
-                value={category}
-                onChange={handleChangeCategory}
-                inputProps={{ "aria-label": "Without label" }}
-              >
-                <MenuItem value="" disabled>
-                  Мероприятия
-                </MenuItem>
-                {categories.map((item) => (
-                  <MenuItem key={item.value} value={item._id}>
-                    {item.title}
-                  </MenuItem>
-                ))}
-                }
-              </Select>
-            </FormControl>
-          </div>
+              </div>
             </Paper>
           </Grid>
         </div>
