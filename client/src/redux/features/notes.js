@@ -39,6 +39,17 @@ export default function notesReducer(state = initialState, action) {
         loading: false,
         image: action.payload.image,
       };
+    case "imageChange/upload/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "imageChange/upload/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        image: action.payload.image,
+      };
     case "note/edit/pending":
       return {
         ...state,
@@ -149,6 +160,31 @@ export const addImage = (e) => {
     });
   };
 };
+export const changeImage = (e) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: "imageChange/upload/pending" });
+
+    const { files } = e.target;
+    const data = new FormData();
+    data.append("image", files[0]);
+    const state = getState();
+
+    const response = await fetch(`http://localhost:5500/upload/notes/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${state.application.token}`,
+      },
+      body: data,
+    });
+
+    const json = await response.json();
+    dispatch({
+      type: "imageChange/upload/fulfilled",
+      payload: json,
+    });
+  };
+};
+
 
 export const editNote = (id, data) => {
   return async (dispatch, getState) => {
