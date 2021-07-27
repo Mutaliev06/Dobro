@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import { Input, Paper, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Preloader from '../Preloader';
+import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -87,6 +88,10 @@ const useStyles = makeStyles((theme) => ({
   },
   hr: {
     marginTop: 30,
+  },
+  descripMargin: {
+    marginLeft: 50
+
   }
 }));
 
@@ -155,16 +160,22 @@ function Description(props) {
         <Paper className={classes.divDescription}>
           <Paper className={classes.divNotesText}>
             <h1>Описание</h1>
-            <p>{notes?.text}</p>
+            <Typography variant="h5" component="h4">
+              {notes?.text}
+            </Typography>
           </Paper>
           <Paper>
             <div className={classes.divPlaceTime}>
               <h3>Дата проведения:</h3>
-              {notes?.timeOfTheEvent}
+              <Typography variant="h6" component="h7">
+                {notes?.timeOfTheEvent}
+              </Typography>
               <p>
                 <h3>Место проведения:</h3>
                 <PlaceIcon fontSize={"large"} color="secondary" />
-                {notes?.placeOfEvent}
+                <Typography variant="h6" component="h7">
+                  {notes?.placeOfEvent}
+                </Typography>
               </p>
             </div>
           </Paper>
@@ -220,31 +231,37 @@ function Description(props) {
             className={classes.img}
           />
         </div>
-        <div>
+        <div className={classes.descripMargin}>
           <h1>{notes?.title}</h1>
           <h3> Автор поста: {notes?.user.name}</h3>
           <Button variant="outlined">
             {" "}
-            <p className={classes.btnParticipate}>
               Принять участие
-            </p>
+
           </Button>
         </div>
       </Paper>
       <Paper className={classes.divDescription}>
         <Paper className={classes.divNotesText}>
           <h1>Описание</h1>
-          <p>{notes?.text}</p>
+          <Typography variant="h5" component="h7">
+            {notes?.text}
+          </Typography>
+
         </Paper>
         <Paper className={classes.parerPlaceAndTimeDecsription}>
           <div className={classes.divPlaceTime}>
             <h3>Дата проведения:</h3>
+            <Typography variant="h8" component="h5">
             {notes?.timeOfTheEvent}
+            </Typography>
             <p>
               <h3>Место проведения:</h3>
               <PlaceIcon fontSize={"large"} color="secondary" />
-              {notes?.placeOfEvent}
             </p>
+            <Typography variant="h9" component="h5">
+              {notes?.placeOfEvent}
+                </Typography>
           </div>
         </Paper>
       </Paper>

@@ -34,6 +34,8 @@ import { PhotoCamera } from "@material-ui/icons";
 import EditNotes from "./EditNotes";
 import Preloader from "../Preloader";
 
+import CompletedNote from './CompletedNote';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -161,6 +163,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#000841",
     },
+  },
+  BtnDone: {
+    border: "5px solid green",
   },
   BtnNoteId: {
     textDecoration: "none",
@@ -413,7 +418,6 @@ export default function Admin() {
                     </FormControl>
                   </Paper>
                 </Grid>
-
                 <Grid
                   item
                   xs={8}
@@ -479,7 +483,6 @@ export default function Admin() {
                       <Typography gutterBottom variant="h6" component="h5">
                         <div>{item.title}</div>
                       </Typography>
-
                       <Typography gutterBottom variant="h7" component="h5">
                         <div>{item.user.name}</div>
                       </Typography>
@@ -491,8 +494,8 @@ export default function Admin() {
                       >
                         <Button className={classes.BtnNote}>Подробнее</Button>
                       </NavLink>
-
                       <EditNotes notes={item} />
+                       <CompletedNote notes={item} />
                     </CardActions>
                   </Card>
                 </Grid>
