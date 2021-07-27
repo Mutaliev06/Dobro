@@ -56,7 +56,7 @@ export default function application(state = initialState, action) {
 export const createUser = (login, password, name, email, history) => {
   return async (dispatch) => {
     dispatch({ type: "application/signup/pending" });
-    const res = await fetch("http://localhost:5500/users/", {
+    const res = await fetch("/users/", {
       method: "POST",
       body: JSON.stringify({ login, password, name, email }),
       headers: {
@@ -76,7 +76,7 @@ export const createUser = (login, password, name, email, history) => {
 export const auth = (login, password, history) => {
   return async (dispatch) => {
     dispatch({ type: "application/signin/pending" });
-    const res = await fetch("http://localhost:5500/users/login", {
+    const res = await fetch("/users/login", {
       method: "POST",
       body: JSON.stringify({ login, password }),
       headers: {

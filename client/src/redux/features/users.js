@@ -63,7 +63,7 @@ export const loadUsers = () => {
   return async (dispatch) => {
     dispatch({ type: "users/load/pending" });
 
-    const res = await fetch("http://localhost:5500/users");
+    const res = await fetch("/users");
     const json = await res.json();
 
     dispatch({ type: "users/load/fulfilled", payload: json });
@@ -74,7 +74,7 @@ export const loadUserById = () => {
   return async (dispatch, getState) => {
     dispatch({ type: "usersById/load/pending" });
     const state = getState();
-    const res = await fetch(`http://localhost:5500/users/current`, {
+    const res = await fetch(`/users/current`, {
       headers: {
         Authorization: `Bearer ${state.application.token}`,
       },
@@ -90,7 +90,7 @@ export const loadUserNotes = () => {
       type: "noteByUser/load/pending",
     });
     const state = getState();
-    const response = await fetch("http://localhost:5500/notes/admin/", {
+    const response = await fetch("/notes/admin/", {
       headers: {
         Authorization: `Bearer ${state.application.token}`,
       },
@@ -113,7 +113,7 @@ export const addAvatar = (e) => {
     data.append("image", files[0]);
     const state = getState();
 
-    const response = await fetch(`http://localhost:5500/upload/avatar/`, {
+    const response = await fetch(`/upload/avatar/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.application.token}`,
