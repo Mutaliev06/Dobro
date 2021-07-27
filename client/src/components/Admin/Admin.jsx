@@ -213,8 +213,7 @@ export default function Admin() {
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
-  const loading = useSelector((state) => state.notes.loading);
-  const notes = useSelector((state) => {
+   const notes = useSelector((state) => {
     return state.users.userNotes;
   });
   const user = useSelector((state) => {
@@ -266,9 +265,7 @@ export default function Admin() {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  if (loading) {
-    return <Preloader />;
-  }
+
   if (token) {
     return (
       <div className={classes.root}>

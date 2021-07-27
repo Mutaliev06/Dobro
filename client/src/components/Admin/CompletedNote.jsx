@@ -200,9 +200,7 @@ export default function CompletedNote({ notes }) {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  if (loading) {
-    return <Preloader />;
-  }
+
   return (
     <div>
 
