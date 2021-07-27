@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 import { AiFillYoutube, GrInstagram } from "react-icons/all";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
 import { NavLink } from "react-router-dom";
-import Main from './Main';
 import Link from '@material-ui/core/Link';
 const useStyles = makeStyles((theme) => ({
   container: {

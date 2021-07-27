@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { MdDone } from "react-icons/all";
@@ -14,13 +14,12 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { addImage, addLastComment } from "../../redux/features/notes";
+import {  addLastComment } from "../../redux/features/notes";
 
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
-import Preloader from "../Preloader";
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -169,7 +168,6 @@ export default function CompletedNote({ notes }) {
   const [open, setOpen] = React.useState(false);
   const [lastComment, setLastComment] = React.useState("");
 
-  const loading = useSelector((state) => state.notes.loading);
 
   const handleEdit = async () => {
     await dispatch(addLastComment(notes._id, { lastComment })).then(() => {

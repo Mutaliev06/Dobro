@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Button,
-  FormControl,
   IconButton,
-  MenuItem,
-  Select,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -13,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "./logo-white.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
-import { NavLink, useParams, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { logout } from "../../redux/features/application";
 import classnames from "classnames";
 
@@ -55,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#000841",
     backgroundColor: "#fff",
-    borderRadius: "3px"
+    borderRadius: "3px",
   },
   btnLogOut: {
     padding: "0 5px",
@@ -63,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#e5266e",
     marginLeft: 10,
     backgroundColor: "#fff",
-    borderRadius: "3px"
+    borderRadius: "3px",
   },
   selectTitle: {
     textDecoration: "none",
@@ -176,11 +173,7 @@ function Header() {
 
   return (
     <div>
-      <AppBar
-        color="transparent"
-        position="sticky"
-        className={classes.appbar}
-      >
+      <AppBar color="transparent" position="sticky" className={classes.appbar}>
         <Toolbar>
           <NavLink color="inherit" to={`/`}>
             <IconButton

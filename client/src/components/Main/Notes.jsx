@@ -119,7 +119,7 @@ function Notes() {
                 <CardMedia
                   className={classes.cardMedia}
                   title="Image title"
-                  image={`http://localhost:5500/${item.pathToImage}`}
+                  image={`/${item.pathToImage}`}
                 />
                 <CardContent className={classes.cardContent}>
                   <Box>
@@ -146,7 +146,7 @@ function Notes() {
                 <CardMedia
                   className={classes.cardMedia}
                   title="Image title"
-                  image={`http://localhost:5500/${item.pathToImage}`}
+                  image={`/${item.pathToImage}`}
                 />
                 <CardContent className={classes.cardContent}>
                   <Box>

@@ -293,7 +293,7 @@ export default function Admin() {
                   <div style={{ position: "relative" }}>
                     <Avatar
                       className={classes.imgMargin}
-                      src={`http://localhost:5500/${user.pathToImage}`}
+                      src={`/${user.pathToImage}`}
                     />
                     <IconButton
                       color="primary"
@@ -483,7 +483,7 @@ export default function Admin() {
                       <CardMedia
                         className={classes.cardMedia}
                         title="Image title"
-                        image={`http://localhost:5500/${item.pathToImage}`}
+                        image={`/${item.pathToImage}`}
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h6" component="h5">
@@ -511,7 +511,7 @@ export default function Admin() {
                       <CardMedia
                         className={classes.cardMedia}
                         title="Image title"
-                        image={`http://localhost:5500/${item.pathToImage}`}
+                        image={`/${item.pathToImage}`}
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h6" component="h5">
