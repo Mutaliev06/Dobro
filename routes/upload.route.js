@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 
 const router = Router();
 
-router.post("/upload/avatar/", authMiddleware, (req, res) => {
+router.post("/api/upload/avatar/", authMiddleware, (req, res) => {
   const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(img.name)}`;
   img.mv(fileName, async (err) => {
@@ -24,7 +24,7 @@ router.post("/upload/avatar/", authMiddleware, (req, res) => {
   });
 });
 
-router.post("/upload/notes", (req, res) => {
+router.post("/api/upload/notes", (req, res) => {
 
   const img = req.files.image;
   const fileName = `./image/${Math.random() * 10000}${path.extname(img.name)}`;
