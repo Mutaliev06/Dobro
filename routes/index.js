@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const router = Router();
 
-router.use('/api/users', require("./users.route"));
+router.use('/users', require("./users.route"));
 
-router.use('/api/comments', require("./comments.route"));
+router.use('/comments', require("./comments.route"));
 
-router.use('/api/categories',require("./categories.route"));
+router.use('/categories',require("./categories.route"));
 
-router.use('/api/notes', require("./notes.route"));
+router.use('/notes', require("./notes.route"));
 
 router.use(require('./upload.route'));
 
