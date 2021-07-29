@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {  useSelector } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -6,17 +6,15 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia, Container, TextField,
+  CardMedia, Container,
   Typography
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { loadNotes } from '../../redux/features/notes';
 import Grid from '@material-ui/core/Grid';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
-import { BsSearch } from 'react-icons/all';
 import { loadCategories } from '../../redux/features/categories';
-import classnames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   control: {

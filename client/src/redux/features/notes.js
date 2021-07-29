@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const initialState = {
   items: [],
   loading: false,

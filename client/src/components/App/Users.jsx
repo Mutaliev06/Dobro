@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -12,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Box from '@material-ui/core/Box';
 import Preloader from '../Preloader';
 import {  loadUserNotes, loadUsers } from '../../redux/features/users';
@@ -109,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Users() {
-  const { id } = useParams();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const classes = useStyles();
@@ -123,9 +121,6 @@ function Users() {
   });
   const notes = useSelector((state) => {
     return state.users.userNotes
-  });
-  const user = useSelector((state) => {
-    return state.users.currentUser;
   });
 
   useEffect(() => {

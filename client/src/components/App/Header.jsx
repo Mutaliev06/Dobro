@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Button,
-  FormControl,
   IconButton,
-  MenuItem,
-  Select,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -13,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "./logo-white.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
-import { NavLink, useParams, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { logout } from "../../redux/features/application";
 import classnames from "classnames";
 
@@ -116,7 +113,10 @@ function Header() {
                 color="inherit"
                 aria-label="menu"
               >
-                <img src={logo} />
+                <img
+                  src={logo}
+                  alt='logo'
+                />
               </IconButton>
             </NavLink>
             <Typography variant="h6" className={classes.title}>
@@ -189,7 +189,10 @@ function Header() {
               color="inherit"
               aria-label="menu"
             >
-              <img src={logo} />
+              <img
+                src={logo}
+                alt='logo'
+              />
             </IconButton>
           </NavLink>
           <Typography variant="h6" className={classes.title}>

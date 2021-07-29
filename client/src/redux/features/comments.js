@@ -36,8 +36,7 @@ export default function commentsReducer(state = initialState, action) {
 }
 
 export const loadComments = (id) => {
-  return async (dispatch, getState) => {
-    const state = getState();
+  return async dispatch => {
     dispatch({
       type: "comments/load/pending",
     });

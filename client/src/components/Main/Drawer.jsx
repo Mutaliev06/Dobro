@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
@@ -9,7 +8,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { NavLink } from "react-router-dom";
-import classnames from "classnames";
 
 const useStyles = makeStyles({
   list: {
@@ -93,7 +91,7 @@ export default function TemporaryDrawer() {
           </ListItemIcon>
           <ListItemText>
             <NavLink
-              className={classnames(classes.drawerText)}
+              className={classes.drawerText}
               to="/registration"
             >
               Зарегистрируйся
@@ -107,7 +105,7 @@ export default function TemporaryDrawer() {
             </circle>
           </ListItemIcon>
           <ListItemText>
-            <NavLink className={classnames(classes.drawerText)} to="/notes/all">
+            <NavLink className={classes.drawerText} to="/notes/all">
               Выбери мероприятие
             </NavLink>
           </ListItemText>
@@ -119,7 +117,7 @@ export default function TemporaryDrawer() {
             </circle>
           </ListItemIcon>
           <ListItemText>
-            <p className={classnames(classes.drawerText)}>
+            <p className={classes.drawerText}>
               Нажми <span>"Принять участие"</span>
             </p>
           </ListItemText>

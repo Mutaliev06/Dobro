@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -11,12 +11,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { loadCategoryNotes, loadNotes } from "../../redux/features/notes";
+import { loadCategoryNotes } from "../../redux/features/notes";
 import Grid from "@material-ui/core/Grid";
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Preloader from '../Preloader';
-import classnames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   control: {

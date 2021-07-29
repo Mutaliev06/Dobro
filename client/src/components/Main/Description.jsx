@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserParticipate, addUserParticirate, loadNotes } from "../../redux/features/notes";
+import { addUserParticipate, loadNotes } from "../../redux/features/notes";
 import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 import Button from "@material-ui/core/Button";
 import PlaceIcon from "@material-ui/icons/Place";
 import { loadComments, postComment } from "../../redux/features/comments";
 import Container from "@material-ui/core/Container";
-import { Input, Paper, TextField } from "@material-ui/core";
+import { Paper, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Preloader from "../Preloader";
 import Typography from "@material-ui/core/Typography";
-import { Nav } from "react-bootstrap";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: 15,
@@ -133,7 +132,7 @@ function Description(props) {
 
   useEffect(() => {
     dispatch(loadComments(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     document.title = "ВЦ 'Добро'";
@@ -161,6 +160,7 @@ function Description(props) {
         <div>
           <img
             src={`http://localhost:5500/${notes?.pathToImage}`}
+            alt='logo'
             className={classes.img}
           />
         </div>
