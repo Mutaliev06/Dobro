@@ -83,13 +83,11 @@ export default function notesReducer(state = initialState, action) {
         ...state,
         loading: false,
         items: {...state.items, user: action.payload.u },
-      }
-
-
+      };
     default:
       return state;
   }
-}
+};
 
 export const loadNotes = () => {
   return async (dispatch, getState) => {
