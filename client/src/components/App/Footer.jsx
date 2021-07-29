@@ -153,7 +153,7 @@ function Footer() {
             <div className={classes.divContact}>
               <div className={classes.iconDiv}>
                 <a href="https://intocode.ru/" className={classes.icon}>
-                  'intocode.ru
+                  intocode.ru
                 </a>
                 <a
                   href="https://www.instagram.com/intocode/?hl=ru"
