@@ -41,15 +41,17 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "source-map-explorer": "^2.5.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build": "react-scripts build",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5500/api",
+  "proxy": "http://localhost:5500",
   "eslintConfig": {
     "extends": [
       "react-app",

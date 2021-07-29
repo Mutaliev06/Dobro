@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadCategories } from "../../redux/features/categories";
 import { NavLink } from "react-router-dom";
 import Link from '@material-ui/core/Link';
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     justifyContent: "space-around",
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Footer(props) {
+function Footer() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -153,7 +153,7 @@ function Footer(props) {
             <div className={classes.divContact}>
               <div className={classes.iconDiv}>
                 <a href="https://intocode.ru/" className={classes.icon}>
-                  intocode.ru
+                  'intocode.ru
                 </a>
                 <a
                   href="https://www.instagram.com/intocode/?hl=ru"

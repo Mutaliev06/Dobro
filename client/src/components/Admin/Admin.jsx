@@ -102,7 +102,6 @@ const useStyles = makeStyles((theme) => ({
   btnUpload: {
     margin: "auto",
     marginLeft: 100,
-
     marginBottom: 5,
     backgroundColor: "#000841",
   },
@@ -173,7 +172,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   BtnDone: {
-    border: "5px solid green",
+
+
   },
   BtnNoteId: {
     textDecoration: "none",
@@ -221,9 +221,14 @@ export default function Admin() {
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
-   const notes = useSelector((state) => {
+  const loading = useSelector((state) => state.notes.loading);
+
+
+  const notes = useSelector((state) => {
     return state.users.userNotes;
   });
+  console.log(notes)
+
   const user = useSelector((state) => {
     return state.users.currentUser;
   });
@@ -273,6 +278,9 @@ export default function Admin() {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  if (loading) {
+    return <Preloader />;
+  }
 
   if (token) {
     return (
