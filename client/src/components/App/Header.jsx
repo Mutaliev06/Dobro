@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#000841",
     backgroundColor: "#fff",
-    borderRadius: "3px"
+    borderRadius: "3px",
   },
   btnLogOut: {
     padding: "0 5px",
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#e5266e",
     marginLeft: 10,
     backgroundColor: "#fff",
-    borderRadius: "3px"
+    borderRadius: "3px",
   },
   selectTitle: {
     textDecoration: "none",
@@ -176,11 +176,7 @@ function Header() {
 
   return (
     <div>
-      <AppBar
-        color="transparent"
-        position="sticky"
-        className={classes.appbar}
-      >
+      <AppBar color="transparent" position="sticky" className={classes.appbar}>
         <Toolbar>
           <NavLink color="inherit" to={`/`}>
             <IconButton

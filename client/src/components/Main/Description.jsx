@@ -159,7 +159,7 @@ function Description(props) {
       <Paper className={classes.divFoto}>
         <div>
           <img
-            src={`http://localhost:5500/${notes?.pathToImage}`}
+            src={`/${notes?.pathToImage}`}
             alt='logo'
             className={classes.img}
           />
@@ -231,7 +231,7 @@ function Description(props) {
               <Paper className={classes.PaperUserComment}>
                 <div>
                   <Avatar
-                    src={`http://localhost:5500/${item.user?.pathToImage}`}
+                    src={`/${item.user?.pathToImage}`}
                     className={classes.avatar}
                   />
                 </div>

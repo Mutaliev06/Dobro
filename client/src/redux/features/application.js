@@ -89,6 +89,7 @@ export const auth = (login, password, history) => {
     } else {
       dispatch({ type: "application/signin/fulfilled", payload: json });
       localStorage.setItem("token", json.token);
+      console.log(json.token)
       history.push("/");
     }
   };

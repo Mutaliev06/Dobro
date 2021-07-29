@@ -1,9 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import { MdDone } from "react-icons/all";
 import Button from "@material-ui/core/Button";
-
 import { useDispatch } from "react-redux";
 import {
   AppBar,
@@ -14,7 +12,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { addLastComment } from "../../redux/features/notes";
+import {  addLastComment } from "../../redux/features/notes";
 
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
@@ -166,7 +164,7 @@ export default function CompletedNote({ notes }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [lastComment, setLastComment] = React.useState("");
-
+  
   const handleEdit = async () => {
     await dispatch(addLastComment(notes._id, { lastComment })).then(() => {
       handleClose();

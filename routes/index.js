@@ -11,9 +11,6 @@ router.use('/notes', require("./notes.route"));
 
 router.use(require('./upload.route'));
 
-router.all(/\w/, (req, res) => {
-  res.status(404).send("Ошибка 404: Страница не существует");
-});
 
 
 module.exports = router;

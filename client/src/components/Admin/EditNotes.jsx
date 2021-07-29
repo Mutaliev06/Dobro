@@ -218,7 +218,6 @@ export default function EditNotes({ notes }) {
 
   return (
     <div>
-
       <Button
         variant="outlined"
         color="primary"
@@ -255,9 +254,8 @@ export default function EditNotes({ notes }) {
           <CardMedia
             className={classes.cardMedia}
             title="Image title"
-            image={`http://localhost:5500/${notes.pathToImage}`}
+            image={`/${notes.pathToImage}`}
           />
-
           <Grid item xs={8} md={8} lg={7}>
             <Paper elevation={3}>
           <div className={classes.editText}>

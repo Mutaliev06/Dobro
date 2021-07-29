@@ -101,7 +101,6 @@ const useStyles = makeStyles((theme) => ({
   btnUpload: {
     margin: "auto",
     marginLeft: 100,
-
     marginBottom: 5,
     backgroundColor: "#000841",
   },
@@ -172,7 +171,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   BtnDone: {
-    border: "5px solid green",
+
+
   },
   BtnNoteId: {
     textDecoration: "none",
@@ -220,9 +220,14 @@ export default function Admin() {
   const [timeOfTheEvent, setTimeOfTheEvent] = React.useState("");
   const [placeOfEvent, setPlaceOfEvent] = React.useState("");
   const categories = useSelector((state) => state.categories.items);
-   const notes = useSelector((state) => {
+  const loading = useSelector((state) => state.notes.loading);
+
+
+  const notes = useSelector((state) => {
     return state.users.userNotes;
   });
+  console.log(notes)
+
   const user = useSelector((state) => {
     return state.users.currentUser;
   });
@@ -272,6 +277,9 @@ export default function Admin() {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  if (loading) {
+    return <Preloader />;
+  }
 
   if (token) {
     return (
@@ -292,7 +300,7 @@ export default function Admin() {
                   <div style={{ position: "relative" }}>
                     <Avatar
                       className={classes.imgMargin}
-                      src={`http://localhost:5500/${user.pathToImage}`}
+                      src={`/${user.pathToImage}`}
                     />
                     <IconButton
                       color="primary"
@@ -482,7 +490,7 @@ export default function Admin() {
                       <CardMedia
                         className={classes.cardMedia}
                         title="Image title"
-                        image={`http://localhost:5500/${item.pathToImage}`}
+                        image={`/${item.pathToImage}`}
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h6" component="h5">
@@ -510,7 +518,7 @@ export default function Admin() {
                       <CardMedia
                         className={classes.cardMedia}
                         title="Image title"
-                        image={`http://localhost:5500/${item.pathToImage}`}
+                        image={`/${item.pathToImage}`}
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h6" component="h5">
