@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-between",
     borderRadius: '5px',
-    border: "5px solid green"
+    border: "5px solid green",
+    backgroundColor: "lightgreen"
   },
   cardMedia: {
     paddingTop: "56.25%",
