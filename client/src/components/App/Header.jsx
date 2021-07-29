@@ -113,7 +113,10 @@ function Header() {
                 color="inherit"
                 aria-label="menu"
               >
-                <img src={logo} />
+                <img
+                  src={logo}
+                  alt='logo'
+                />
               </IconButton>
             </NavLink>
             <Typography variant="h6" className={classes.title}>
@@ -182,7 +185,10 @@ function Header() {
               color="inherit"
               aria-label="menu"
             >
-              <img src={logo} />
+              <img
+                src={logo}
+                alt='logo'
+              />
             </IconButton>
           </NavLink>
           <Typography variant="h6" className={classes.title}>

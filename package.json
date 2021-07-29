@@ -45,6 +45,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.0",
     "morgan": "^1.10.0",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "source-map-explorer": "^2.5.2"
   }
 }

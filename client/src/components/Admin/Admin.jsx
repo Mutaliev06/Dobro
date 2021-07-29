@@ -32,7 +32,6 @@ import { Avatar } from "@material-ui/core";
 import { addImage, addNote } from "../../redux/features/notes";
 import { PhotoCamera } from "@material-ui/icons";
 import EditNotes from "./EditNotes";
-import Preloader from "../Preloader";
 
 import CompletedNote from './CompletedNote';
 

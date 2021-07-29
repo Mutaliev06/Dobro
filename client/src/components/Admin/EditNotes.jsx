@@ -1,40 +1,25 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { MdEdit } from "react-icons/all";
 import Button from "@material-ui/core/Button";
-import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AppBar,
-  Card,
-  CardActions,
-  CardContent,
   CardMedia,
   Dialog,
-  DialogActions,
-  DialogContent, FormControl,
+  FormControl,
   IconButton,
-  ListItem,
-  ListItemText, MenuItem, Paper, Select,
+  MenuItem,
+  Paper,
+  Select,
   TextField,
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { addImage, changeImage, editNote } from "../../redux/features/notes";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
+import { changeImage, editNote } from "../../redux/features/notes";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
-import Preloader from '../Preloader';
-import { PhotoCamera } from '@material-ui/icons';
-import { addAvatar } from '../../redux/features/users';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -231,10 +216,8 @@ export default function EditNotes({ notes }) {
     setOpen(false);
   };
 
-
   return (
     <div>
-
       <Button
         variant="outlined"
         color="primary"
@@ -273,7 +256,6 @@ export default function EditNotes({ notes }) {
             title="Image title"
             image={`/${notes.pathToImage}`}
           />
-
           <Grid item xs={8} md={8} lg={7}>
             <Paper elevation={3}>
           <div className={classes.editText}>
