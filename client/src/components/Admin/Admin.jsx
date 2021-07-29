@@ -34,6 +34,7 @@ import { PhotoCamera } from "@material-ui/icons";
 import EditNotes from "./EditNotes";
 
 import CompletedNote from './CompletedNote';
+import Preloader from '../Preloader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
