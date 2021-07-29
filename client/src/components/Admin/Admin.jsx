@@ -147,7 +147,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     marginLeft: 10,
     width: "95%",
-    border: "5px solid green"
+    border: "5px solid green",
+    backgroundColor: "lightgreen"
   },
   cardMedia: {
     paddingTop: "56.25%",
