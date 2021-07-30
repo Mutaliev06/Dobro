@@ -123,6 +123,8 @@ const useStyles = makeStyles((theme) => ({
   editText: {
     display: "flex",
     flexDirection: "column",
+    marginTop: 30,
+    height: 72,
   },
   formControl: {
     margin: theme.spacing(1),

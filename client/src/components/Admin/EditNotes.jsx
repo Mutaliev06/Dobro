@@ -85,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   card: {
-    height: "100%",
     display: "flex",
     flexDirection: "column",
     marginLeft: 10,
@@ -94,14 +93,14 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 900,
+    width: 693,
     height: 65,
     marginTop: 20,
   },
   textFieldModal: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 810,
+    width: 693,
     height: 65,
     marginTop: 20,
   },
@@ -115,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   inputStyle: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 810,
+    width: 693,
     marginTop: 10,
   },
   mediaContainer: {
@@ -126,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
   editText: {
     display: 'flex',
     flexDirection: 'column',
-
+    width: 420,
   },
   formControl: {
     margin: theme.spacing(1),
@@ -150,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
   AddressInput: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 810,
+    width: 693,
     height: 15,
     marginTop: 50
   },
@@ -256,7 +255,7 @@ export default function EditNotes({ notes }) {
             title="Image title"
             image={`/${notes.pathToImage}`}
           />
-          <Grid item xs={8} md={8} lg={7}>
+          <Grid item xs={8} md={8}lg={6}>
             <Paper elevation={3}>
           <div className={classes.editText}>
             <TextField
@@ -325,7 +324,6 @@ export default function EditNotes({ notes }) {
             >
               <input
                 accept="image/*"
-                className={classes.input}
                 id="contained-button-file1"
                 multiple
                 type="file"
