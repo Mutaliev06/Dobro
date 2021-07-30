@@ -93,14 +93,14 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 693,
+    width: 640,
     height: 65,
     marginTop: 20,
   },
   textFieldModal: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 693,
+    width: 640,
     height: 65,
     marginTop: 20,
   },
@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   inputStyle: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 693,
+    width: 640,
     marginTop: 10,
   },
   mediaContainer: {
@@ -149,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
   AddressInput: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 693,
+    width: 660,
     height: 15,
     marginTop: 50
   },
