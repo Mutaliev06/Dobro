@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
       transform: "scale(1.02)",
     },
-    marginLeft: 80,
+    marginLeft: 60,
     padding: 10,
   },
   appBar: {
