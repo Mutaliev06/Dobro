@@ -20,7 +20,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAvatar,
@@ -257,6 +257,8 @@ export default function Admin() {
       addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
     );
   };
+
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(loadUserById());
