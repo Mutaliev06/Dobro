@@ -78,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   cardMedia: {
-    width: 550,
+    width: 520,
+    height: 410,
     objectFit: 'cover',
   },
   cardContent: {
@@ -93,14 +94,14 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 640,
+    width: 610,
     height: 65,
     marginTop: 20,
   },
   textFieldModal: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 640,
+    width: 610,
     height: 65,
     marginTop: 20,
   },
@@ -114,10 +115,11 @@ const useStyles = makeStyles((theme) => ({
   inputStyle: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 640,
+    width: 610,
     marginTop: 10,
   },
   mediaContainer: {
+    height: 400,
     display: 'flex',
     marginTop: 30,
     justifyContent: 'space-evenly',
@@ -126,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: 420,
+    height: 400
   },
   formControl: {
     margin: theme.spacing(1),
@@ -140,16 +143,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 30
   },
   selectEmptyCategory: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 400,
+    width: 250,
     height: 45,
-    marginTop: 60,
+   display: 'flex'
   },
   AddressInput: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 660,
+    width: 610,
     height: 15,
     marginTop: 50
   },
