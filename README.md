@@ -56,6 +56,10 @@ npm run dev
   <img alt="JavaScript" src="https://img.shields.io/badge/-JavaScript-yellow?style=for-the-badge&logo=JavaScript&logoColor=white" />
   <img alt="Express" src="https://img.shields.io/badge/-express-black?style=for-the-badge&logo=express&logoColor=white" />
     <img alt="MongoDB" src="https://img.shields.io/badge/-MongoDB-green?style=for-the-badge&logo=MongoDB&logoColor=white" />
+    <img alt="EsLint" src="https://img.shields.io/badge/-EsLint-blue?style=for-the-badge&logo=EsLint&logoColor=white" />
+    <img alt="JsonWebToken" src="https://img.shields.io/badge/-JsonWebToken-black?style=for-the-badge&logo=JsonWebToken&logoColor=white" />
+    <img alt="Material-UI" src="https://img.shields.io/badge/-Material-UI-blue?style=for-the-badge&logo=Material-UI&logoColor=white" />
+  
   </p>
 
 
