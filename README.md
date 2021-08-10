@@ -8,6 +8,8 @@
 
 > [Домонстрация](https://mern-dobro.herokuapp.com)
 
+![gif](http://g.recordit.co/2mXUI7ymtl.gif)
+
 В мои задачи входило:
 - Регистрация;
 - Авторизация;
@@ -24,12 +26,6 @@
 - classnames / Material-ui/ react-loading-skeleton;
 - а также prop-types, react-hotkeys-hook.
 - nodeJS, express, mongoDB,
-
-### - Сайт для строительного подрядчика, помогающий легко вести отчетность о продвижении строительства объекта. В нем можно добавлять и удалять строительные объекты, писать и редактировать отчеты, добавлять статусы. ###
->  [Код](https://github.com/abuingush/contractor-app)
-
-> [Домонстрация](https://contractor-site.herokuapp.com)
-
 
 
 ## Запуск проекта
@@ -62,15 +58,5 @@ npm run dev
   <img alt="JavaScript" src="https://img.shields.io/badge/-JavaScript-yellow?style=for-the-badge&logo=JavaScript&logoColor=white" />
   </p>
 
-
----
-
-### Для выполнения поставленных задач я использовал следующие библиотеки:
-
-- redux, redux-thunk - чтобы создавать асинхронные экшены
-- react-router-dom - для роутинга
-- и еще material-ui, react-icons
-
----
 
 
