@@ -94,6 +94,7 @@ export const auth = (login, password, history) => {
     }
   };
 };
+
 export const logout = () => {
   localStorage.removeItem("token");
   return {
