@@ -8,9 +8,6 @@
 
 > [Демонстрация](https://mern-dobro.herokuapp.com)
 
-### - Функционал сайта
-
-![gif](http://g.recordit.co/yDPpN7n53W.gif)
 
 В мои задачи входило:
 - Регистрация;
