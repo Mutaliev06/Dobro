@@ -2,6 +2,7 @@
 
 <p> Это приложение полезно тем, кто хочет помочь и тем, кому требуется помощь</p>
 
+![](https://github.com/adam-azhigov/Dobro/blob/main/%D0%B3%D0%B8%D1%84%D0%A1%D0%B0%D0%B9%D1%82%D0%B0.gif)
 ### - Командный 2х недельный проект.
 
 > [Код](https://github.com/abuingush/Dobro)
