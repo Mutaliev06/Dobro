@@ -4,10 +4,12 @@
 
 ### - Командный 2х недельный проект.
 
+
 > [Код](https://github.com/abuingush/Dobro)
 
 > [Демонстрация](https://mern-dobro.herokuapp.com)
 
+![gif](http://g.recordit.co/XrVONG5cpD.gif)
 
 В мои задачи входило:
 - Регистрация;
