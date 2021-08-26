@@ -9,6 +9,7 @@
 
 > [Демонстрация](https://mern-dobro.herokuapp.com)
 
+![gif](http://g.recordit.co/PSErdEdkyb.gif)
 ![gif](http://g.recordit.co/vnWefLC9GP.gif)
 
 В мои задачи входило:
