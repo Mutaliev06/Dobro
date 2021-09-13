@@ -10,5 +10,5 @@
 В проекте использован стек Node.js – MongoDB – Express – React – Redux. Для оформления пользовались Material UI.
 Для управления состоянием использовали Redux Thunk, Context API. Работа в команде строилась с использованием Trello, git (с пулл-реквестами), спринтов.
 
-Демо: https://mern-dobro.herokuapp.com/
+Демо: https://mern-dobro.herokuapp.com/ <br/>
 Код: https://github.com/Mutaliev06/Dobro
