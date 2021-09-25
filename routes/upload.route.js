@@ -34,7 +34,6 @@ router.post("/upload/notes", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-
         res.json({
           success: 'file uploaded',
           image: fileName

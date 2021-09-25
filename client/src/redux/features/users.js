@@ -126,6 +126,6 @@ export const addAvatar = (e) => {
       type: "avatar/upload/fulfilled",
       payload: json,
     });
-    window.location.reload()
+    window.location.reload();
   };
 };

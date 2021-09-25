@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 
 import { AiFillYoutube, GrInstagram } from "react-icons/all";
@@ -187,4 +187,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

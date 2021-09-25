@@ -65,7 +65,7 @@ export default function notesReducer(state = initialState, action) {
             return {
               ...item,
               ...action.payload.data,
-            }
+            };
           }
           return item;
         }),
@@ -80,12 +80,12 @@ export default function notesReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        items: {...state.items, user: action.payload.u },
+        items: { ...state.items, user: action.payload.u },
       };
     default:
       return state;
   }
-};
+}
 
 export const loadNotes = () => {
   return async (dispatch, getState) => {
@@ -154,26 +154,22 @@ export const addNote = (data) => {
 export const addUserParticipate = (id) => {
   return async (dispatch, getState) => {
     const state = getState();
-    dispatch({type: "add/user/participate/pending" })
-    try{
-    const response = await fetch(`/notes/${id}/participate`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${state.application.token}`,
-        "Content-type": "application/json",
-      }})
-      const json = await response.json()
-      dispatch({type: 'add/user/participate/fulfilled', payload: json })
+    dispatch({ type: "add/user/participate/pending" });
+    try {
+      const response = await fetch(`/notes/${id}/participate`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${state.application.token}`,
+          "Content-type": "application/json",
+        },
+      });
+      const json = await response.json();
+      dispatch({ type: "add/user/participate/fulfilled", payload: json });
+    } catch (e) {
+      console.log(e.message);
     }
-    catch (e) {
-      console.log(e.message)
-    };
   };
-}
-
-
-
-
+};
 
 export const addImage = (e) => {
   return async (dispatch) => {
@@ -196,6 +192,7 @@ export const addImage = (e) => {
     });
   };
 };
+
 export const changeImage = (e) => {
   return async (dispatch, getState) => {
     dispatch({ type: "imageChange/upload/pending" });
@@ -221,7 +218,6 @@ export const changeImage = (e) => {
   };
 };
 
-
 export const editNote = (id, data) => {
   return async (dispatch, getState) => {
     dispatch({ type: "note/edit/pending" });
@@ -239,7 +235,6 @@ export const editNote = (id, data) => {
         timeOfTheEvent: data.timeOfTheEvent,
         placeOfEvent: data.placeOfEvent,
       }),
-
     });
     dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
   };
@@ -257,11 +252,10 @@ export const addLastComment = (id, data) => {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        lastComment: data.lastComment
+        lastComment: data.lastComment,
       }),
-
     });
     dispatch({ type: "note/edit/fulfilled", payload: { id, data } });
-    window.location.reload()
+    window.location.reload();
   };
-}
+};

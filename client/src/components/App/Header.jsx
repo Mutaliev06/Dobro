@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   AppBar,
   Button,
@@ -247,4 +247,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);
