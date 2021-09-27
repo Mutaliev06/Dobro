@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   BtnNoteIdEdit: {
     textDecoration: "none",
     position: "relative",
+    marginRight: 40,
     background: "#000841",
     color: "#fff",
     borderRadius: "5px",
@@ -64,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
       color: "#000841",
       transform: "scale(1.02)",
     },
-
     padding: 10,
   },
   appBar: {
@@ -123,6 +123,8 @@ const useStyles = makeStyles((theme) => ({
   editText: {
     display: "flex",
     flexDirection: "column",
+    marginTop: 30,
+    height: 72,
   },
   formControl: {
     margin: theme.spacing(1),

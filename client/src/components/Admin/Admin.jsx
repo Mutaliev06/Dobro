@@ -194,6 +194,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#000841",
     color: "#fff",
     width: 30,
+    marginRight: 10,
     borderRadius: "5px",
     transition: "all .3s",
     "&:hover": {
@@ -224,7 +225,7 @@ export default function Admin() {
   const notes = useSelector((state) => {
     return state.users.userNotes;
   });
-  console.log(notes)
+
 
   const user = useSelector((state) => {
     return state.users.currentUser;

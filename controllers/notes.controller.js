@@ -21,7 +21,6 @@ module.exports.notesController = {
       return res.status(401).json("неверный токен: " + e.toString());
     }
   },
-
   postNote: async (req,res) => {
     const { id } =  req.params;
     console.log(id)
