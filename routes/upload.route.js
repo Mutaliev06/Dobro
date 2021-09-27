@@ -8,6 +8,7 @@ const router = Router();
 
 router.post("/upload/avatar/", authMiddleware, (req, res) => {
   const img = req.files.image;
+  
   const fileName = `./image/${Math.random() * 10000}${path.extname(img.name)}`;
   img.mv(fileName, async (err) => {
     if (err) {
