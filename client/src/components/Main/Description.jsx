@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserParticipate, loadNotes } from "../../redux/features/notes";
@@ -108,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Description(props) {
-  const token = useSelector((state) => state.application.token);
   const classes = useStyles();
 
   const { id } = useParams();
@@ -139,17 +138,14 @@ function Description(props) {
   });
 
 
-  function handleUserParticipate(id) {
-    dispatch(addUserParticipate(id))
-  }
 
-  function handleComment(e) {
+  const handleComment = useCallback((e) => {
     setText(e.target.value);
-  }
+  }, [])
 
-  function handlePostComment(id) {
+  const handlePostComment = useCallback((id) => {
     return dispatch(postComment(id, { text: text }));
-  }
+  }, [id, text])
 
   if (loading) {
     return <Preloader />;

@@ -120,10 +120,12 @@ const useStyles = makeStyles((theme) => ({
 function NotesCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const notes = useSelector((state) => state.notes.items
     .sort(function(a,b){
       return new Date(b.createdAt) - new Date(a.createdAt)
     }));
+
   const category = useSelector((state) => state.categories.items);
   const classes = useStyles();
   const loading = useSelector((state) => state.notes.loading);

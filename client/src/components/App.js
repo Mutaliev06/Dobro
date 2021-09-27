@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) =>({
       display: "flex",
       flexDirection: "column"
     }
-
 }))
 
 function App() {

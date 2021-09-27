@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -33,8 +33,8 @@ import { addImage, addNote } from "../../redux/features/notes";
 import { PhotoCamera } from "@material-ui/icons";
 import EditNotes from "./EditNotes";
 
-import CompletedNote from './CompletedNote';
-import Preloader from '../Preloader';
+import CompletedNote from "./CompletedNote";
+import Preloader from "../Preloader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -148,7 +148,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 10,
     width: "95%",
     border: "5px solid green",
-    backgroundColor: "lightgreen"
+    backgroundColor: "lightgreen",
   },
   cardMedia: {
     paddingTop: "56.25%",
@@ -221,42 +221,47 @@ export default function Admin() {
   const categories = useSelector((state) => state.categories.items);
   const loading = useSelector((state) => state.notes.loading);
 
-
   const notes = useSelector((state) => {
     return state.users.userNotes;
   });
-
 
   const user = useSelector((state) => {
     return state.users.currentUser;
   });
 
-  const handleChangeCategory = (e) => {
+  const handleChangeCategory = useCallback((e) => {
     setCategory(e.target.value);
-  };
-  const handlePlaceChange = (e) => {
+  }, []);
+
+  const handlePlaceChange = useCallback((e) => {
     return setPlaceOfEvent(e.target.value);
-  };
-  const handleChangeTitle = (e) => {
+  }, []);
+
+  const handleChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
-  };
-  const handleDateChange = (e) => {
+  }, []);
+
+  const handleDateChange = useCallback((e) => {
     return setTimeOfTheEvent(e.target.value);
-  };
-  const handleChangeNote = (e) => {
+  }, []);
+
+  const handleChangeNote = useCallback((e) => {
     setText(e.target.value);
-  };
-  const handleAddAvatar = (e) => {
+  }, []);
+
+  const handleAddAvatar = useCallback((e) => {
     dispatch(addAvatar(e));
-  };
-  const handleAddImage = async (e) => {
-    await dispatch(addImage(e));
-  };
-  const handleAddNote = async () => {
-    await dispatch(
+  }, []);
+
+  const handleAddImage = useCallback((e) => {
+    dispatch(addImage(e));
+  }, []);
+
+  const handleAddNote = useCallback(() => {
+    dispatch(
       addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
     );
-  };
+  }, [text, category, title, timeOfTheEvent, placeOfEvent]);
 
   const history = useHistory();
 
@@ -325,7 +330,7 @@ export default function Admin() {
                 </Typography>
                 <Typography variant="h6">
                   {" "}
-                  Количество постов: {"  "}{" "} {notes.length}
+                  Количество постов: {"  "} {notes.length}
                 </Typography>
                 <Typography variant="h6">
                   {" "}
@@ -360,7 +365,6 @@ export default function Admin() {
                 <Typography align="center" variant="h6" component="h6">
                   {" "}
                   Заполните все обязательные поля*{" "}
-
                 </Typography>
                 <TextField
                   id="outlined-multiline-static"
@@ -484,7 +488,7 @@ export default function Admin() {
               </Paper>
             </Grid>
             <Grid container spacing={10}>
-              {notes.map(item => {
+              {notes.map((item) => {
                 return item.lastComment !== undefined ? (
                   <Grid item key={item} xs={12} sm={6} md={4}>
                     <Card className={classes.cardComment}>
@@ -541,9 +545,8 @@ export default function Admin() {
                       </CardActions>
                     </Card>
                   </Grid>
-                )
-              }
-              )}
+                );
+              })}
             </Grid>
           </Grid>
         </Container>

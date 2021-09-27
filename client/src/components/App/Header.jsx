@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   AppBar,
   Button,
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   btnVolonters: {
+    padding: 19,
     textDecoration: "none",
     fontWeight: "bold",
     color: "white",
@@ -48,14 +49,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#000841",
   },
   btnLogUp: {
-    padding: "0 5px",
+    padding: "10 15px",
     textDecoration: "none",
     color: "#000841",
     backgroundColor: "#fff",
     borderRadius: "3px",
   },
   btnLogOut: {
-    padding: "0 5px",
+    padding: "10 15px",
     textDecoration: "none",
     color: "#e5266e",
     marginLeft: 10,
@@ -132,7 +133,7 @@ function Header() {
                   Мероприятия
                 </NavLink>
               </Button>
-              <Button color="inherit">
+              <Button color="inherit"  className={classes.btnVolonters}>
                 <NavLink
                   className={classnames(
                     classes.btnVolonters,
@@ -247,4 +248,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);
