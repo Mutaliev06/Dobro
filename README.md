@@ -2,6 +2,7 @@
 
 <p> Этот сайт полезен тем, кто хочет помочь и тем, кому требуется волонтерская помощь.</p>
 
+![](https://github.com/adam-azhigov/Dobro/blob/main/%D0%B3%D0%B8%D1%84%D0%A1%D0%B0%D0%B9%D1%82%D0%B0.gif)
 ### - Командный 2х недельный проект.
 
 
@@ -32,10 +33,6 @@
 - classnames / Material-ui/ react-loading-skeleton;
 - nodeJS, express, mongoDB,
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f7132dbc07aa83e8f884e37cc167efcf4cc1616f
 ## Запуск проекта
 
 Для запуска проекта вам необходимо набрать команду в терминале:
@@ -68,14 +65,5 @@ npm run dev
     <img alt="EsLint" src="https://img.shields.io/badge/-EsLint-blue?style=for-the-badge&logo=EsLint&logoColor=white" />
     <img alt="JsonWebToken" src="https://img.shields.io/badge/-JsonWebToken-black?style=for-the-badge&logo=JsonWebToken&logoColor=white" />
     <img alt="MaterialUI" src="https://img.shields.io/badge/-MaterialUI-blue?style=for-the-badge&logo=MaterialUI&logoColor=white" />
-<<<<<<< HEAD
-=======
-  
-  </p>
-
-
-
-
->>>>>>> f7132dbc07aa83e8f884e37cc167efcf4cc1616f
 
   </p>
