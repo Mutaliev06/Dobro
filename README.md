@@ -59,8 +59,3 @@ npm run dev
     <img alt="MaterialUI" src="https://img.shields.io/badge/-MaterialUI-blue?style=for-the-badge&logo=MaterialUI&logoColor=white" />
   
   </p>
-
-
-
-
-
