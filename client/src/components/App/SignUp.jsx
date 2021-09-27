@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -46,18 +46,21 @@ export default function SignUp() {
   const signUp = useSelector((state) => state.application.signingUp);
   const error = useSelector((state) => state.application.error);
 
-  const handleChangeLogin = (e) => {
+  const handleChangeLogin = useCallback((e) => {
     setLoginUp(e.target.value);
-  };
-  const handleChangeEmail = (e) => {
+  }, []);
+
+  const handleChangeEmail = useCallback((e) => {
     setEmailUp(e.target.value);
-  };
-  const handleChangeName = (e) => {
+  }, []);
+
+  const handleChangeName = useCallback((e) => {
     setNameUp(e.target.value);
-  };
-  const handleChangePassword = (e) => {
+  },[]);
+
+  const handleChangePassword = useCallback((e) => {
     setPassword(e.target.value);
-  };
+  }, []);
 
   const history = useHistory();
 

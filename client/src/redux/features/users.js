@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export default function usersReducer(state = initialState, action) {
-  switch (action.type) {
+  switch (action.type) {4
     case "users/load/pending":
       return {
         ...state,

@@ -1,12 +1,16 @@
 # Сайт для волонтеров
 
-<p> Это приложение полезно тем, кто хочет помочь и тем, кому требуется помощь</p>
+<p> Этот сайт полезен тем, кто хочет помочь и тем, кому требуется волонтерская помощь.</p>
 
 ### - Командный 2х недельный проект.
 
+
 > [Код](https://github.com/abuingush/Dobro)
 
-> [Домонстрация](https://mern-dobro.herokuapp.com)
+> [Демонстрация](https://mern-dobro.herokuapp.com)
+
+![gif](http://g.recordit.co/PSErdEdkyb.gif)
+![gif](http://g.recordit.co/vnWefLC9GP.gif)
 
 ![gif](http://g.recordit.co/2mXUI7ymtl.gif)
 
@@ -17,6 +21,8 @@
 - Выгрузка изображений/Аватара;
 - Добавление новых постов;
 - Изменение добавленных постов;
+- Выгрузка на heroku
+- Шапка сайта
 
 При разработке проекта использовал:
 - JavaScript / React (Hooks);
@@ -26,7 +32,10 @@
 - classnames / Material-ui/ react-loading-skeleton;
 - nodeJS, express, mongoDB,
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f7132dbc07aa83e8f884e37cc167efcf4cc1616f
 ## Запуск проекта
 
 Для запуска проекта вам необходимо набрать команду в терминале:
@@ -59,5 +68,14 @@ npm run dev
     <img alt="EsLint" src="https://img.shields.io/badge/-EsLint-blue?style=for-the-badge&logo=EsLint&logoColor=white" />
     <img alt="JsonWebToken" src="https://img.shields.io/badge/-JsonWebToken-black?style=for-the-badge&logo=JsonWebToken&logoColor=white" />
     <img alt="MaterialUI" src="https://img.shields.io/badge/-MaterialUI-blue?style=for-the-badge&logo=MaterialUI&logoColor=white" />
+<<<<<<< HEAD
+=======
+  
+  </p>
+
+
+
+
+>>>>>>> f7132dbc07aa83e8f884e37cc167efcf4cc1616f
 
   </p>

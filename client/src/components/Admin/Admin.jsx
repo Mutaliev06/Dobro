@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -229,32 +229,39 @@ export default function Admin() {
     return state.users.currentUser;
   });
 
-  const handleChangeCategory = (e) => {
+  const handleChangeCategory = useCallback((e) => {
     setCategory(e.target.value);
-  };
-  const handlePlaceChange = (e) => {
+  }, []);
+
+  const handlePlaceChange = useCallback((e) => {
     return setPlaceOfEvent(e.target.value);
-  };
-  const handleChangeTitle = (e) => {
+  }, []);
+
+  const handleChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
-  };
-  const handleDateChange = (e) => {
+  }, []);
+
+  const handleDateChange = useCallback((e) => {
     return setTimeOfTheEvent(e.target.value);
-  };
-  const handleChangeNote = (e) => {
+  }, []);
+
+  const handleChangeNote = useCallback((e) => {
     setText(e.target.value);
-  };
-  const handleAddAvatar = (e) => {
+  }, []);
+
+  const handleAddAvatar = useCallback((e) => {
     dispatch(addAvatar(e));
-  };
-  const handleAddImage = (e) => {
-     dispatch(addImage(e));
-  };
-  const handleAddNote = () => {
-     dispatch(
+  }, []);
+
+  const handleAddImage = useCallback((e) => {
+    dispatch(addImage(e));
+  }, []);
+
+  const handleAddNote = useCallback(() => {
+    dispatch(
       addNote({ text, category, title, timeOfTheEvent, placeOfEvent })
     );
-  };
+  }, [text, category, title, timeOfTheEvent, placeOfEvent]);
 
   const history = useHistory();
 
