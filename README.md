@@ -12,7 +12,6 @@
 
 ![gif](http://g.recordit.co/PSErdEdkyb.gif)
 ![gif](http://g.recordit.co/vnWefLC9GP.gif)
-![gif](http://g.recordit.co/2mXUI7ymtl.gif)
 
 В мои задачи входило:
 - Регистрация;
